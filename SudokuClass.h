@@ -15,7 +15,7 @@ public:
 	CSudoku();
 	~CSudoku(){};
 	bool Test();
-	void Initialization();//Initialization 初始化
+	void Initialization();//Initialization
 	void SetByFile();//从dat文件输入数独
 	void ShowSudoku(const char *pstr);//按照一定的格式将三维数组最底层显示出来,即显示数独
 	void FirstRemove();
