@@ -1,0 +1,14 @@
+.DS_Store
+build
+buildXcode
+buildVS
+.vscode
+
+project.xcworkspace
+xcuserdata
+xcshareddata
+UserInterfaceState.xcuserstate
+UserInterface.xcuserstate
+
+sudoku/Android/libs/
+sudoku/Android/obj/
