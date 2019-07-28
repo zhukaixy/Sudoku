@@ -5,6 +5,7 @@
 
 struct sudoku {
   int sudoData[9][9][10];
+  sudokuRealloc realloc;
   sudokuReadData readData;
   sudokuWriteData writeData;
 };
