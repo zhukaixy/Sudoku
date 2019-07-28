@@ -64,5 +64,6 @@ source_group(src FILES ${TEST_SRC})
 source_group(CuTest FILES ${CUTEST_SRC} ${CUTEST_HEADER})
 
 add_executable(${PROJECT_NAME}_Test ${TEST_SRC} ${CUTEST_SRC} ${CUTEST_HEADER})
+target_link_libraries(${PROJECT_NAME}_Test ${PROJECT_NAME})
 set_target_properties(${PROJECT_NAME}_Test PROPERTIES
 	FOLDER "sudoku")
