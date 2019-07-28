@@ -5,10 +5,13 @@ project(demo
 	# HOMEPAGE_URL "www.zhyingkun.com"
 	LANGUAGES C CXX)
 
-add_subdirectory(for-c)
-add_subdirectory(for-cs)
-add_subdirectory(for-lua)
-add_subdirectory(for-nodejs)
+message(STATUS "CMakeLists.txt for ${PROJECT_NAME}")
 
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set_property(TARGET for-c PROPERTY FOLDER "demo")
+add_subdirectory(for-c)
+# add_subdirectory(for-go)
+# add_subdirectory(for-java)
+# add_subdirectory(for-lua)
+# add_subdirectory(for-monocs)
+# add_subdirectory(for-nodejs)
+# add_subdirectory(for-php)
+# add_subdirectory(for-python)

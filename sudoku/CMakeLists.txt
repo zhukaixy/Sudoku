@@ -12,15 +12,15 @@ message(STATUS "CMakeLists.txt for ${PROJECT_NAME}")
 message(STATUS "CMAKE_BUILD_TYPE is ${CMAKE_BUILD_TYPE}")
 
 if(APPLE)
-	set(CMAKE_C_FLAGS         "-std=gnu99 -Wall -Wextra")
+	set(CMAKE_C_FLAGS         "-std=c11 -Wall -Wextra")
 	set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
-	set(CMAKE_C_FLAGS         "-std=gnu99 -Wall -Wextra")
+	set(CMAKE_C_FLAGS         "-std=c11 -Wall -Wextra")
 	set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 elseif(WIN32)
-	set(CMAKE_C_FLAGS         "-std=gnu99 -Wall -DSUDOKU_BUILD_AS_DLL")
+	set(CMAKE_C_FLAGS         "-std=c11 -Wall -DSUDOKU_BUILD_AS_DLL")
 	set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 endif()
@@ -41,7 +41,28 @@ add_library(${PROJECT_NAME} SHARED
 	${SUDOKU_HEADERS}
 	${SUDOKU_PRIVATE_HEADERS})
 set_target_properties(${PROJECT_NAME} PROPERTIES
+	FOLDER "sudoku"
 	OUTPUT_NAME ${PROJECT_NAME}
 	VERSION ${PROJECT_VERSION}
 	SOVERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
 	POSITION_INDEPENDENT_CODE ON)
+
+install(TARGETS ${PROJECT_NAME}
+	RUNTIME DESTINATION bin
+	LIBRARY DESTINATION lib
+	ARCHIVE DESTINATION lib)
+install(FILES ${SUDOKU_HEADERS} DESTINATION include)
+
+
+include_directories(./CuTest)
+
+aux_source_directory(./CuTest CUTEST_SRC)
+file(GLOB CUTEST_HEADER "./CuTest/*.h")
+aux_source_directory(./test TEST_SRC)
+
+source_group(src FILES ${TEST_SRC})
+source_group(CuTest FILES ${CUTEST_SRC} ${CUTEST_HEADER})
+
+add_executable(${PROJECT_NAME}_Test ${TEST_SRC} ${CUTEST_SRC} ${CUTEST_HEADER})
+set_target_properties(${PROJECT_NAME}_Test PROPERTIES
+	FOLDER "sudoku")
