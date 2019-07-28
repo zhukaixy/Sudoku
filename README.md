@@ -19,7 +19,7 @@
 ```bash
 cd Sudoku/
 mkdir buildXcode && cd buildXcode
-cmake -G "Xcode" ..
+cmake -DCMAKE_INSTALL_PREFIX=./install -G "Xcode" ..
 ```
 此时已经在buildXcode文件夹下生成了Xcode工程，直接打开并编译即可
 
@@ -27,11 +27,12 @@ cmake -G "Xcode" ..
 ```bash
 cd Sudoku/
 mkdir build && cd build
-cmake .. # default is Debug
+cmake -DCMAKE_INSTALL_PREFIX=./install .. # default is Debug
 # for Debug: cmake -DCMAKE_BUILD_TYPE=Debug ..
 # for Release: cmake -DCMAKE_BUILD_TYPE=Release ..
 make
-# for more details: make VERBOSE=1 
+# for more details: make VERBOSE=1
+make install
 ```
 make命令会自动编译好各个模块
 
@@ -39,7 +40,7 @@ make命令会自动编译好各个模块
 ```bash
 cd Sudoku/
 mkdir buildVS && cd buildVS
-cmake -G "Visual Studio 15 2017 Win64" ..
+cmake -DCMAKE_INSTALL_PREFIX=./install -G "Visual Studio 15 2017 Win64" ..
 ```
 此时已经在buildVS文件夹下生成了Visual Studio工程，双击打开并编译即可
 
@@ -73,6 +74,6 @@ ndk-build
 	+ for-cs：C#语言用例
 	+ for-lua：Lua语言用例
 	+ for-nodejs：NodeJS语言用例
-4. TestData：存放用于测试的数独案例
+4. data：存放用于测试的数独案例
 5. tools：工具脚本
 6. 所有CMakeLists.txt：用于构建整个工程
