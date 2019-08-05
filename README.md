@@ -55,6 +55,8 @@ open sudoku.xcodeproj
 ```bash
 cd Sudoku/sudoku/Android/
 ndk-build
+ndk-build clean # clean project
+ndk-build -B # rebuild project
 ```
 编译之后便会有Sudoku/sudoku/Android/libs/${APP_ABI}/sudoku.so共享库
 使用ndk-build命令需要先安装AndroidStudio+AndroidSDK+NDK，然后将ndk-bundle路径加到系统PATH环境变量中
