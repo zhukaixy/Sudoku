@@ -26,7 +26,7 @@ elseif(WIN32)
 endif()
 
 include_directories(../include)
-include_directories(./include)
+include_directories(./src)
 
 aux_source_directory(./src SUDOKU_SRC)
 file(GLOB SUDOKU_HEADERS "../include/*.h")
@@ -53,17 +53,4 @@ install(TARGETS ${PROJECT_NAME}
 	ARCHIVE DESTINATION lib)
 install(FILES ${SUDOKU_HEADERS} DESTINATION include)
 
-
-include_directories(./CuTest)
-
-aux_source_directory(./CuTest CUTEST_SRC)
-file(GLOB CUTEST_HEADER "./CuTest/*.h")
-aux_source_directory(./test TEST_SRC)
-
-source_group(src FILES ${TEST_SRC})
-source_group(CuTest FILES ${CUTEST_SRC} ${CUTEST_HEADER})
-
-add_executable(${PROJECT_NAME}_Test ${TEST_SRC} ${CUTEST_SRC} ${CUTEST_HEADER})
-target_link_libraries(${PROJECT_NAME}_Test ${PROJECT_NAME})
-set_target_properties(${PROJECT_NAME}_Test PROPERTIES
-	FOLDER "sudoku")
+add_subdirectory(test)

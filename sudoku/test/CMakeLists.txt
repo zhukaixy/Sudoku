@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
-project(for-c
-	VERSION 0.1.0
-	# DESCRIPTION "C call sudoku"
+project(sudoku_Test
+	VERSION 1.0
+	# DESCRIPTION "Sudoku library test"
 	# HOMEPAGE_URL "www.zhyingkun.com"
 	LANGUAGES C CXX)
 
@@ -20,23 +20,23 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
 	set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 elseif(WIN32)
-	set(CMAKE_C_FLAGS         "-std=c11 -Wall")
+	set(CMAKE_C_FLAGS         "-std=c11 -Wall -DSUDOKU_BUILD_AS_DLL")
 	set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 endif()
 
 include_directories(../../include)
+include_directories(../src)
+include_directories(./CuTest)
 
-aux_source_directory(./src FOR_C_SRC)
-source_group(src FILES ${FOR_C_SRC})
+aux_source_directory(./src TEST_SRC)
+aux_source_directory(./CuTest CUTEST_SRC)
+file(GLOB CUTEST_HEADER "./CuTest/*.h")
 
-add_executable(${PROJECT_NAME} ${FOR_C_SRC})
-set_target_properties(${PROJECT_NAME} PROPERTIES
-	FOLDER "demo"
-	INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
+source_group(src FILES ${TEST_SRC})
+source_group(CuTest FILES ${CUTEST_SRC} ${CUTEST_HEADER})
+
+add_executable(${PROJECT_NAME} ${TEST_SRC} ${CUTEST_SRC} ${CUTEST_HEADER})
 target_link_libraries(${PROJECT_NAME} sudoku)
-
-install(TARGETS ${PROJECT_NAME}
-	RUNTIME DESTINATION bin
-	LIBRARY DESTINATION lib
-	ARCHIVE DESTINATION lib)
+set_target_properties(${PROJECT_NAME} PROPERTIES
+	FOLDER "sudoku")
