@@ -29,12 +29,11 @@ include_directories(../include)
 include_directories(./src)
 
 aux_source_directory(./src SUDOKU_SRC)
+file(GLOB SUDOKU_PRIVATE_HEADERS "./src/*.h")
 file(GLOB SUDOKU_HEADERS "../include/*.h")
-file(GLOB SUDOKU_PRIVATE_HEADERS "./include/*.h")
 
-source_group(src FILES ${SUDOKU_SRC})
+source_group(src FILES ${SUDOKU_SRC} ${SUDOKU_PRIVATE_HEADERS})
 source_group(include FILES ${SUDOKU_HEADERS})
-source_group(private FILES ${SUDOKU_PRIVATE_HEADERS})
 
 add_library(${PROJECT_NAME} SHARED 
 	${SUDOKU_SRC}
