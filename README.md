@@ -74,8 +74,13 @@ ndk-build -B # rebuild project
 3. demo：用于测试的Demo，包含多种编程语言
 	+ for-c：C语言用例
 	+ for-cs：C#语言用例
+	+ for-go：
+	+ for-java：
 	+ for-lua：Lua语言用例
 	+ for-nodejs：NodeJS语言用例
+	+ for-php：
+	+ for-python：
 4. data：存放用于测试的数独案例
 5. tools：工具脚本
+	+ SudokuTable.xlsx：辅助填充表，来自[林健随笔](https://linjian.org/blog/tech/programming/others/sudoku-table)
 6. 所有CMakeLists.txt：用于构建整个工程
