@@ -1,62 +1,93 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+
 #define SUDOKU_CORE // for windows dllimport
 #include <sudoku.h>
 #include <sudodef.h>
 
-#define OneIsNullOf(PtrOne, PtrTwo, PtrThree) (PtrOne == NULL || PtrTwo == NULL || PtrThree == NULL)
-SUDOKU_API sudoku* SudokuCreate(sudokuRealloc reAlloc, sudokuReadData readData, sudokuWriteData writeData) {
-  if (OneIsNullOf(reAlloc, readData, writeData)) {
+SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readData, SudokuWriteData writeData) {
+  if (readData == NULL || writeData == NULL) {
     return NULL;
   }
-  sudoku* sudo = (sudoku*)reAlloc(NULL, sizeof(struct sudoku));
+  Sudoku* sudo = (Sudoku*)malloc(sizeof(Sudoku));
   if (sudo == NULL) {
     return NULL;
   }
-  sudo->realloc = reAlloc;
+  memset(sudo, 0, sizeof(Sudoku));
   sudo->readData = readData;
   sudo->writeData = writeData;
-  readAllInitialData(sudo);
+  sudo->hasWriteData = false;
+  sudo->unknownCount = 0;
+  sudo->dancing = false;
+  sudo->ansCallback = NULL;
+  sudo->ansCount = 0;
+  initial_all(sudo);
   return sudo;
 }
-void readAllInitialData(sudoku* sudo) {
-  for (int i = 0; i < 9; i++) {
-    for (int j = 0; j < 9; j++) {
-      sudo->sudoData[i][j][0] = sudo->readData(i + 1, j + 1);
-    }
+
+SUDOKU_API void DestroySudoku(Sudoku* sudo) {
+  if (sudo == NULL) {
+    return;
   }
+  free(sudo);
+}
+
+SUDOKU_API bool VerifySudoku(Sudoku* sudo) {
+  if (grids_has_zero(sudo)) {
+    return false;
+  }
+  if (row_has_repeat_element(sudo)) {
+    return false;
+  }
+  if (col_has_repeat_element(sudo)) {
+    return false;
+  }
+  if (block_has_repeat_element(sudo)) {
+    return false;
+  }
+  return true;
+}
+
+SUDOKU_API int GetKnownCount(Sudoku* sudo) {
+  return 81 - sudo->unknownCount;
+}
+
+SUDOKU_API void MakeResultString(Sudoku* sudo, char* buffer, int size) {
+  memset(buffer, 0, size);
+  if (size < RESULT_BUFFER_SIZE) {
+    return;
+  }
+  int writeCount = 0;
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
-      for (int k = 1; k < 10; k++) {
-        sudo->sudoData[i][j][k] = k;
+      sprintf(buffer + writeCount, "%d ", sudo->sudoData[i][j][0]);
+      writeCount += 2;
+      if (j == 2 || j == 5) {
+        sprintf(buffer + writeCount, " ");
+        writeCount += 1;
       }
     }
+    sprintf(buffer + writeCount, "\n");
+    writeCount += 1;
+    if (i == 2 || i == 5) {
+      sprintf(buffer + writeCount, "\n");
+      writeCount += 1;
+    }
   }
-}
-SUDOKU_API void SudokuDestroy(sudoku* sudo) {
-  if (sudo == NULL) {
-    return;
-  }
-  sudokuRealloc reAlloc = sudo->realloc;
-  reAlloc(sudo, 0);
-}
-
-SUDOKU_API void SudokuReload(sudoku* sudo, sudokuReadData readData, sudokuWriteData writeData) {
-  if (sudo == NULL) {
-    return;
-  }
-  if (readData != NULL) {
-    sudo->readData = readData;
-    readAllInitialData(sudo);
-  }
-  if (writeData != NULL) {
-    sudo->writeData = writeData;
-  }
+  assert(writeCount == RESULT_BUFFER_SIZE - 1);
 }
 
-SUDOKU_API bool SudokuVerify(sudoku* sudo) {
-}
-
-SUDOKU_API void SudokuCalculateOne(sudoku* sudo) {
-}
-
-SUDOKU_API void SudokuCalculateAll(sudoku* sudo) {
+SUDOKU_API int CalculateSudokuAll(Sudoku* sudo, bool dancing, SudokuAnswerCallback cb, void* data) {
+  sudo->dancing = dancing;
+  sudo->ansCallback = cb;
+  sudo->data = data;
+  sudo->ansCount = 0;
+  if (sudo->dancing) {
+    calculate_with_dancing(sudo);
+  } else {
+    calculate_step_by_step(sudo);
+  }
+  return sudo->ansCount;
 }
