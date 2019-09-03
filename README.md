@@ -20,6 +20,7 @@
 cd Sudoku/
 mkdir buildXcode && cd buildXcode
 cmake -DCMAKE_INSTALL_PREFIX=./install -G "Xcode" ..
+# cmake -DCMAKE_INSTALL_PREFIX=/usr/local/zyk -G "Xcode" ..
 ```
 此时已经在buildXcode文件夹下生成了Xcode工程，直接打开并编译即可
 
