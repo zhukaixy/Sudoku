@@ -84,4 +84,28 @@ ndk-build -B # rebuild project
 4. data：存放用于测试的数独案例
 5. tools：工具脚本
 	+ SudokuTable.xlsx：辅助填充表，来自[林健随笔](https://linjian.org/blog/tech/programming/others/sudoku-table)
+	+ diff-sudoku：用于比较两个数独的区别
+	+ format-sudoku：数独格式化工具
 6. 所有CMakeLists.txt：用于构建整个工程
+
+----
+
+## 数独库API说明
+
+### Sudoku
+
+1. CreateSudoku：创建数独对象，获取句柄用于后续操作，传入读函数和写函数，读函数用于读取数独题目，写函数用于写出答案
+2. DestroySudoku：创建的反操作，销毁该对象
+3. VerifySudokuBoard：验证传入的81整数组成的数组是否是数独的有效解
+4. VerifySudoku：验证数独对象内部保存的内容是否为数独的有效解
+5. GetKnownCount：获取当前数独对象内部的内容中有多少个已知数
+6. MakeResultString：将数独对象内部记录的内容格式化成一个字符串
+7. CalculateSudokuAll：计算数独答案，dancing用于指定是否采用舞蹈链算法来处理，cb为找到一个可用解时的回调函数，data为传递给回调函数的透传字段（舞蹈链算法其实是算布尔矩阵的精确覆盖问题，只是数独可以转化成一个布尔矩阵，因此可用此算法来遍历得到所有解）
+8. 当采用舞蹈链来算数独答案时，SudokuWriteData回调函数的type字段固定为None，因为此时并没有相关模式（该回调函数被调用顺序也就是解题过程的顺序）
+
+### BoolMatrix
+
+1. CreateBoolMatrix：创建一个布尔矩阵对象，传入参数分别为矩阵行数、矩阵列数、矩阵中值为1的节点个数
+2. DestroyBoolMatrix：释放布尔矩阵占用的内存空间
+3. SetMatrixRowData：设置布尔矩阵的每一行，注意这里需要按照布尔矩阵的行顺序进行设置，data为一个整数数组，数组中的数字n表示这一行中第n列的节点值为1，n取值范围为[0, 列数-1]，size表示data数组的长度
+4. DancingLinks：触发舞蹈链算法，justOne表示是否找到一个解就退出，data为回调函数cb的透传字段
