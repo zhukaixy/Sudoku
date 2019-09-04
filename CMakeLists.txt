@@ -17,4 +17,4 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FLASE)
 
 add_subdirectory(sudoku)
 add_subdirectory(demo)
-# add_subdirectory(tools)
+add_subdirectory(tools)
