@@ -34,20 +34,32 @@ SUDOKU_API void DestroySudoku(Sudoku* sudo) {
   free(sudo);
 }
 
-SUDOKU_API bool VerifySudoku(Sudoku* sudo) {
-  if (grids_has_zero(sudo)) {
+SUDOKU_API bool VerifySudokuBoard(int* board) {
+  if (grids_has_zero(board)) {
     return false;
   }
-  if (row_has_repeat_element(sudo)) {
+  if (row_has_repeat_element(board)) {
     return false;
   }
-  if (col_has_repeat_element(sudo)) {
+  if (col_has_repeat_element(board)) {
     return false;
   }
-  if (block_has_repeat_element(sudo)) {
+  if (block_has_repeat_element(board)) {
     return false;
   }
   return true;
+}
+
+SUDOKU_API bool VerifySudoku(Sudoku* sudo) {
+  int board[81];
+  memset(board, 0, 81);
+  for (int i = 0; i < 9; i++) {
+    for (int j = 0; j < 9; j++) {
+      int index = i * 9 + j;
+      board[index] = sudo->sudoData[i][j][0];
+    }
+  }
+  return VerifySudokuBoard(board);
 }
 
 SUDOKU_API int GetKnownCount(Sudoku* sudo) {

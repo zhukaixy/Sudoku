@@ -29,6 +29,7 @@ typedef void (*SudokuAnswerCallback)(void* data, const char* ans);
 
 SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readFunc, SudokuWriteData writeFunc);
 SUDOKU_API void DestroySudoku(Sudoku* sudo);
+SUDOKU_API bool VerifySudokuBoard(int* board);
 SUDOKU_API bool VerifySudoku(Sudoku* sudo);
 SUDOKU_API int GetKnownCount(Sudoku* sudo);
 // buffer must has size of RESULT_BUFFER_SIZE

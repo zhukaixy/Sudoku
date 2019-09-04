@@ -35,12 +35,13 @@ struct Sudoku {
 };
 
 void initial_all(Sudoku* sudo);
-bool grids_has_zero(Sudoku* sudo);
-bool row_has_repeat_element(Sudoku* sudo);
-bool col_has_repeat_element(Sudoku* sudo);
+// board has 81 element, in [0, 80]
+bool grids_has_zero(int* board);
+bool row_has_repeat_element(int* board);
+bool col_has_repeat_element(int* board);
 // x and y are in the range of [0, 2]
-bool one_block_has_repeat(Sudoku* sudo, int x, int y);
-bool block_has_repeat_element(Sudoku* sudo);
+bool one_block_has_repeat(int* board, int x, int y);
+bool block_has_repeat_element(int* board);
 
 void first_remove_posibility(Sudoku* sudo);
 void remove_grid_posibility(Sudoku* sudo, int gridRow, int gridCol);

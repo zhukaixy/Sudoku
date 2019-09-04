@@ -93,6 +93,8 @@ void TestVerifySudoku(CuTest* tc) {
   count = GetKnownCount(sudo);
   CuAssertIntEquals(tc, 81, count);
   DestroySudoku(sudo);
+  CuAssertTrue(tc, !VerifySudokuBoard(data));
+  CuAssertTrue(tc, VerifySudokuBoard(data2));
 }
 
 // clang-format off
