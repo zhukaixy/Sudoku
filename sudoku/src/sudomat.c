@@ -126,5 +126,6 @@ void calculate_with_dancing(Sudoku* sudo) {
   }
   int num = DancingLinks(mat, false, sudoku_cb, (void*)sToMat);
   DestroyBoolMatrix(mat);
+  free(sToMat);
   sudo->ansCount = num;
 }
