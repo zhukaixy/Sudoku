@@ -96,35 +96,33 @@ bool block_has_repeat_element(int* board) {
   return false;
 }
 
-
 // gridRow and gridCol are in the range of [0, 8]
 // sudo->sudoData[gridRow][gridCol][0] should be non zero
 void remove_grid_posibility(Sudoku* sudo, int gridRow, int gridCol) {
-    int value = sudo->sudoData[gridRow][gridCol][0];
-    for(int k=0;k<9;k++)
-    {
-        sudo->sudoData[gridRow][k][value]=0; // that row
-        sudo->sudoData[k][gridCol][value]=0; // that col
-        sudo->sudoData[gridRow][gridCol][k+1]=0; // that vertical cylinder
+  int value = sudo->sudoData[gridRow][gridCol][0];
+  for (int k = 0; k < 9; k++) {
+    sudo->sudoData[gridRow][k][value] = 0; // that row
+    sudo->sudoData[k][gridCol][value] = 0; // that col
+    sudo->sudoData[gridRow][gridCol][k + 1] = 0; // that vertical cylinder
+  }
+  int panelRow, panelCol;
+  IndexGridToPanel(gridRow, gridCol, panelRow, panelCol);
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      int gridX = 0;
+      int gridY = 0;
+      IndexPIPToGrid(panelRow, panelCol, i, j, gridX, gridY);
+      sudo->sudoData[gridX][gridY][value] = 0;
     }
-    int panelRow, panelCol;
-    IndexGridToPanel(gridRow, gridCol, panelRow, panelCol);
-    for (int i=0; i<3; i++) {
-        for (int j=0; j<3; j++) {
-            int gridX = 0;
-            int gridY = 0;
-            IndexPIPToGrid(panelRow, panelCol, i, j, gridX, gridY);
-            sudo->sudoData[gridX][gridY][value] = 0;
-        }
-    }
+  }
 }
 
 void first_remove_posibility(Sudoku* sudo) {
-    for (int i=0; i<9; i++) {
-        for (int j=0; j<9; j++) {
-            if (sudo->sudoData[i][j][0] != 0) {
-                remove_grid_posibility(sudo, i, j);
-            }
-        }
+  for (int i = 0; i < 9; i++) {
+    for (int j = 0; j < 9; j++) {
+      if (sudo->sudoData[i][j][0] != 0) {
+        remove_grid_posibility(sudo, i, j);
+      }
     }
+  }
 }

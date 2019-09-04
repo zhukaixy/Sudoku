@@ -53,18 +53,18 @@ int board[81] = {
 // clang-format on
 
 void display_sudoku(int* sudo) {
-    for (int i = 0; i < 9; i++) {
-        for (int j = 0; j < 9; j++) {
-            int index = i * 9 + j;
-            printf("%d ", sudo[index]);
-            if (j == 2 || j == 5)
-                printf(" ");
-        }
-        printf("\n");
-        if (i == 2 || i == 5) {
-            printf("\n");
-        }
+  for (int i = 0; i < 9; i++) {
+    for (int j = 0; j < 9; j++) {
+      int index = i * 9 + j;
+      printf("%d ", sudo[index]);
+      if (j == 2 || j == 5)
+        printf(" ");
     }
+    printf("\n");
+    if (i == 2 || i == 5) {
+      printf("\n");
+    }
+  }
 }
 
 // row and col are in [1, 9]
@@ -80,23 +80,23 @@ int main(int argc, char* argv[]) {
   (void)argc;
   (void)argv;
   Sudoku* sudo = CreateSudoku(read_board, write_board);
-    
-//  char buffer[RESULT_BUFFER_SIZE];
-//  MakeResultString(sudo, buffer, RESULT_BUFFER_SIZE);
-//  printf("Sudoku Puzzle:\n%s", buffer);
-    printf("Sudoku Puzzle:\n");
-    display_sudoku(board);
-    
+
+  //  char buffer[RESULT_BUFFER_SIZE];
+  //  MakeResultString(sudo, buffer, RESULT_BUFFER_SIZE);
+  //  printf("Sudoku Puzzle:\n%s", buffer);
+  printf("Sudoku Puzzle:\n");
+  display_sudoku(board);
+
   int cnt = GetKnownCount(sudo);
   printf("Sudoku Known Count: %d\n", cnt);
   int num = CalculateSudokuAll(sudo, true, NULL, NULL);
   printf("All Answer Count: %d\n", num);
-    
-//  MakeResultString(sudo, buffer, RESULT_BUFFER_SIZE);
-//  printf("One of it:\n%s", buffer);
-    printf("One of it:\n");
-    display_sudoku(board);
-    
+
+  //  MakeResultString(sudo, buffer, RESULT_BUFFER_SIZE);
+  //  printf("One of it:\n%s", buffer);
+  printf("One of it:\n");
+  display_sudoku(board);
+
   int status = VerifySudokuBoard(board);
   printf("Verify: %s\n", status ? "True" : "False");
   DestroySudoku(sudo);
