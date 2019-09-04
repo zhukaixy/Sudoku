@@ -34,7 +34,7 @@ bool get_sudoku_from_file(int* sudo, int size, FILE* file) {
   return true;
 }
 
-void display_sudoku_with_mask(int* sudo) {
+void display_sudoku(int* sudo) {
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
       int index = i * 9 + j;
@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
   }
   fclose(file);
 
-  display_sudoku_with_mask(sudo);
+  display_sudoku(sudo);
 
   return 0;
 }
