@@ -1,5 +1,4 @@
 #include <string.h>
-#include <stdlib.h>
 
 #include <sudoku.h>
 #include <sudodef.h>
@@ -26,7 +25,7 @@ static void sudoku_cb(void* data, const int* ans, int size) {
     int value = rowLine % 9 + 1;
     sudo->sudoData[row][col][0] = value;
     if (!sudo->hasWriteData) {
-      sudo->writeData(row + 1, col + 1, value, None);
+      sudo->writeData(sudo->dataIO, row + 1, col + 1, value, None);
     }
   }
   sudo->hasWriteData = true;
@@ -47,21 +46,18 @@ static int get_box_col(int box, int val) {
   return kBox + box * 9 + val - 1;
 }
 void calculate_with_dancing(Sudoku* sudo) {
-  SudokuToMatrix* sToMat = (SudokuToMatrix*)malloc(sizeof(SudokuToMatrix));
-  if (sToMat == NULL) {
-    return;
-  }
-  memset(sToMat, 0, sizeof(SudokuToMatrix));
-  sToMat->sudo = sudo;
+  SudokuToMatrix sToMat;
+  memset(&sToMat, 0, sizeof(SudokuToMatrix));
+  sToMat.sudo = sudo;
 
-  sToMat->sizeIndex = 0;
+  sToMat.sizeIndex = 0;
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
       if (sudo->sudoData[i][j][0] == 0) {
         int index = i * 9 + j;
-        sToMat->indexToFull[sToMat->sizeIndex] = index;
-        sToMat->fullToIndex[index] = sToMat->sizeIndex;
-        sToMat->sizeIndex++;
+        sToMat.indexToFull[sToMat.sizeIndex] = index;
+        sToMat.fullToIndex[index] = sToMat.sizeIndex;
+        sToMat.sizeIndex++;
       }
     }
   }
@@ -83,21 +79,21 @@ void calculate_with_dancing(Sudoku* sudo) {
     for (int v = 1; v < 10; v++) {
       if (rows[i][v] == false) {
         int full = get_row_col(i, v);
-        sToMat->indexToFull[sToMat->sizeIndex] = full;
-        sToMat->fullToIndex[full] = sToMat->sizeIndex;
-        sToMat->sizeIndex++;
+        sToMat.indexToFull[sToMat.sizeIndex] = full;
+        sToMat.fullToIndex[full] = sToMat.sizeIndex;
+        sToMat.sizeIndex++;
       }
       if (cols[i][v] == false) {
         int full = get_col_col(i, v);
-        sToMat->indexToFull[sToMat->sizeIndex] = full;
-        sToMat->fullToIndex[full] = sToMat->sizeIndex;
-        sToMat->sizeIndex++;
+        sToMat.indexToFull[sToMat.sizeIndex] = full;
+        sToMat.fullToIndex[full] = sToMat.sizeIndex;
+        sToMat.sizeIndex++;
       }
       if (boxes[i][v] == false) {
         int full = get_box_col(i, v);
-        sToMat->indexToFull[sToMat->sizeIndex] = full;
-        sToMat->fullToIndex[full] = sToMat->sizeIndex;
-        sToMat->sizeIndex++;
+        sToMat.indexToFull[sToMat.sizeIndex] = full;
+        sToMat.fullToIndex[full] = sToMat.sizeIndex;
+        sToMat.sizeIndex++;
       }
     }
   }
@@ -109,23 +105,23 @@ void calculate_with_dancing(Sudoku* sudo) {
         int box = row / 3 * 3 + col / 3;
         for (int v = 1; v < 10; v++) {
           if (rows[row][v] == false && cols[col][v] == false && boxes[box][v] == false) {
-            sToMat->allRows[sToMat->sizeAllRow][0] = sToMat->fullToIndex[index];
-            sToMat->allRows[sToMat->sizeAllRow][1] = sToMat->fullToIndex[get_row_col(row, v)];
-            sToMat->allRows[sToMat->sizeAllRow][2] = sToMat->fullToIndex[get_col_col(col, v)];
-            sToMat->allRows[sToMat->sizeAllRow][3] = sToMat->fullToIndex[get_box_col(box, v)];
-            sToMat->sizeAllRow++;
+            sToMat.allRows[sToMat.sizeAllRow][0] = sToMat.fullToIndex[index];
+            sToMat.allRows[sToMat.sizeAllRow][1] = sToMat.fullToIndex[get_row_col(row, v)];
+            sToMat.allRows[sToMat.sizeAllRow][2] = sToMat.fullToIndex[get_col_col(col, v)];
+            sToMat.allRows[sToMat.sizeAllRow][3] = sToMat.fullToIndex[get_box_col(box, v)];
+            sToMat.sizeAllRow++;
           }
         }
       }
     }
   }
 
-  BoolMatrix* mat = CreateBoolMatrix(sToMat->sizeAllRow, sToMat->sizeIndex, sToMat->sizeAllRow * 4);
-  for (int i = 0; i < sToMat->sizeAllRow; i++) {
-    SetMatrixRowData(mat, sToMat->allRows[i], 4);
+  BoolMatrix* mat = CreateBoolMatrix(sToMat.sizeAllRow, sToMat.sizeIndex, sToMat.sizeAllRow * 4);
+  for (int i = 0; i < sToMat.sizeAllRow; i++) {
+    SetMatrixRowData(mat, sToMat.allRows[i], 4);
   }
-  int num = DancingLinks(mat, false, sudoku_cb, (void*)sToMat);
+  int num = DancingLinks(mat, false, sudoku_cb, (void*)&sToMat);
   DestroyBoolMatrix(mat);
-  free(sToMat);
+
   sudo->ansCount = num;
 }

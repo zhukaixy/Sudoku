@@ -16,20 +16,21 @@
 
 // 9*9*2:num+' ', 9*2:every line has ' '*2, 9:every line has '\n', 2*'\n'+'\0'
 #define RESULT_BUFFER_SIZE (9 * 9 * 2 + 9 * 2 + 9 + 2 + 1)
+#define BOARD_SIZE (9 * 9)
 
 typedef struct Sudoku Sudoku;
 typedef enum SolveType { None = 0 } SolveType;
 
 // row and col are in the range of 1-9
-typedef int (*SudokuReadData)(int row, int col);
+typedef int (*SudokuReadData)(void* data, int row, int col);
 // row and col are in the range of 1-9
-typedef void (*SudokuWriteData)(int row, int col, int value, SolveType type);
+typedef void (*SudokuWriteData)(void* data, int row, int col, int value, SolveType type);
 // ans is a null terminate char array
 typedef void (*SudokuAnswerCallback)(void* data, const char* ans);
 
-SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readFunc, SudokuWriteData writeFunc);
+SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readFunc, SudokuWriteData writeFunc, void* data);
 SUDOKU_API void DestroySudoku(Sudoku* sudo);
-SUDOKU_API bool VerifySudokuBoard(int* board);
+SUDOKU_API bool VerifySudokuBoard(const int* board);
 SUDOKU_API bool VerifySudoku(Sudoku* sudo);
 SUDOKU_API int GetKnownCount(Sudoku* sudo);
 // buffer must has size of RESULT_BUFFER_SIZE

@@ -7,7 +7,7 @@
 #include <sudoku.h>
 #include <sudodef.h>
 
-SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readData, SudokuWriteData writeData) {
+SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readData, SudokuWriteData writeData, void* data) {
   if (readData == NULL || writeData == NULL) {
     return NULL;
   }
@@ -18,6 +18,7 @@ SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readData, SudokuWriteData writeDa
   memset(sudo, 0, sizeof(Sudoku));
   sudo->readData = readData;
   sudo->writeData = writeData;
+  sudo->dataIO = data;
   sudo->hasWriteData = false;
   sudo->unknownCount = 0;
   sudo->dancing = false;
@@ -34,7 +35,7 @@ SUDOKU_API void DestroySudoku(Sudoku* sudo) {
   free(sudo);
 }
 
-SUDOKU_API bool VerifySudokuBoard(int* board) {
+SUDOKU_API bool VerifySudokuBoard(const int* board) {
   if (grids_has_zero(board)) {
     return false;
   }

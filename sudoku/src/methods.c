@@ -5,7 +5,7 @@ void initial_all(Sudoku* sudo) {
   sudo->unknownCount = 0;
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
-      int tmp = sudo->readData(i + 1, j + 1);
+      int tmp = sudo->readData(sudo->dataIO, i + 1, j + 1);
       if (tmp == 0) {
         sudo->unknownCount++;
       }
@@ -22,7 +22,7 @@ void initial_all(Sudoku* sudo) {
 }
 
 // board has 81 element, in [0, 80]
-bool grids_has_zero(int* board) {
+bool grids_has_zero(const int* board) {
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
       int index = i * 9 + j;
@@ -33,7 +33,7 @@ bool grids_has_zero(int* board) {
   }
   return false;
 }
-bool row_has_repeat_element(int* board) {
+bool row_has_repeat_element(const int* board) {
   int tmp[10];
   for (int i = 0; i < 9; i++) {
     memset(tmp, 0, sizeof(int) * 9);
@@ -49,7 +49,7 @@ bool row_has_repeat_element(int* board) {
   }
   return false;
 }
-bool col_has_repeat_element(int* board) {
+bool col_has_repeat_element(const int* board) {
   int tmp[10];
   for (int i = 0; i < 9; i++) {
     memset(tmp, 0, sizeof(int) * 9);
@@ -66,7 +66,7 @@ bool col_has_repeat_element(int* board) {
   return false;
 }
 // x and y are in the range of [0, 2]
-bool one_block_has_repeat(int* board, int x, int y) {
+bool one_block_has_repeat(const int* board, int x, int y) {
   int tmp[9];
   memset(tmp, 0, sizeof(int) * 9);
   for (int i = 0; i < 3; i++) {
@@ -85,7 +85,7 @@ bool one_block_has_repeat(int* board, int x, int y) {
   }
   return false;
 }
-bool block_has_repeat_element(int* board) {
+bool block_has_repeat_element(const int* board) {
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       if (one_block_has_repeat(board, i, j)) {
