@@ -3,11 +3,14 @@
 #include <string.h>
 #include <assert.h>
 
-#define SUDOKU_CORE // for windows dllimport
 #include <sudoku.h>
 #include <sudodef.h>
+#include <methods.h>
+#include <sudomat.h>
+#include <sudostep.h>
 
-SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readData, SudokuWriteData writeData, void* data) {
+SUDOKU_API Sudoku*
+CreateSudoku(SudokuReadData readData, SudokuWriteData writeData, SolveProcessCallback procCallback, void* data) {
   if (readData == NULL || writeData == NULL) {
     return NULL;
   }
@@ -18,6 +21,7 @@ SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readData, SudokuWriteData writeDa
   memset(sudo, 0, sizeof(Sudoku));
   sudo->readData = readData;
   sudo->writeData = writeData;
+  sudo->procCallback = procCallback;
   sudo->dataIO = data;
   sudo->hasWriteData = false;
   sudo->unknownCount = 0;
