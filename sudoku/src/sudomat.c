@@ -1,7 +1,9 @@
 #include <string.h>
 
 #include <sudoku.h>
+#include <bool-matrix.h>
 #include <sudodef.h>
+#include <sudomat.h>
 
 typedef struct SudokuToMatrix {
   Sudoku* sudo;
