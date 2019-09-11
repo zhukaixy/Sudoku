@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h> // for memset
 
-#include <sudoku.h>
+#include <bool-matrix.h>
 
 typedef struct Node Node;
 typedef Node Column;
@@ -194,7 +194,7 @@ bool dancing(BoolMatrix* matrix) {
 // rows is the number of matrix row
 // cols is the number of matrix column
 // maxNodes is the number of 1 in the matrix
-BoolMatrix* CreateBoolMatrix(int rows, int cols, int maxNodes) {
+BOOL_MATRIX_API BoolMatrix* CreateBoolMatrix(int rows, int cols, int maxNodes) {
   assert(rows != 0 && cols != 0 && maxNodes != 0);
 
   BoolMatrix* matrix = (BoolMatrix*)malloc(sizeof(BoolMatrix));
@@ -228,7 +228,7 @@ BoolMatrix* CreateBoolMatrix(int rows, int cols, int maxNodes) {
   return matrix;
 }
 
-SUDOKU_API void DestroyBoolMatrix(BoolMatrix* matrix) {
+BOOL_MATRIX_API void DestroyBoolMatrix(BoolMatrix* matrix) {
   assert(matrix != NULL);
 
   free(matrix->stack_);
@@ -238,7 +238,7 @@ SUDOKU_API void DestroyBoolMatrix(BoolMatrix* matrix) {
 }
 
 // num is the size of data array
-SUDOKU_API void SetMatrixRowData(BoolMatrix* matrix, const int* data, int num) {
+BOOL_MATRIX_API void SetMatrixRowData(BoolMatrix* matrix, const int* data, int num) {
   assert(matrix != NULL && data != NULL && num > 0);
   for (int i = 0; i < num; i++) {
     assert(data[i] < matrix->cols_);
@@ -254,7 +254,7 @@ SUDOKU_API void SetMatrixRowData(BoolMatrix* matrix, const int* data, int num) {
   matrix->data_rows_++;
 }
 
-SUDOKU_API int DancingLinks(BoolMatrix* matrix, bool justOne, AnswerCallback cb, void* data) {
+BOOL_MATRIX_API int DancingLinks(BoolMatrix* matrix, bool justOne, AnswerCallback cb, void* data) {
   assert(matrix != NULL && matrix->data_rows_ == matrix->rows_);
   matrix->just_one_ = justOne;
   matrix->cb_ = cb;
