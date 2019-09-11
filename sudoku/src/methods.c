@@ -243,9 +243,9 @@ void find_block_only_one_answer(Sudoku* sudo, int row, int col, int value) {
   }
 }
 // ============================================================================
-// this two grid must has no value
+// this 2 grid must has no value
 // row1 col1 row2 col2: [0, 8]
-bool is_two_grid_the_same_posibility(Sudoku* sudo, int row1, int col1, int row2, int col2) {
+bool is_2_grid_the_same_posibility(Sudoku* sudo, int row1, int col1, int row2, int col2) {
   for (int value = 1; value < 10; value++) {
     if (sudo->sudoData[row1][col1][value] != sudo->sudoData[row2][col2][value]) {
       return false;
@@ -254,7 +254,7 @@ bool is_two_grid_the_same_posibility(Sudoku* sudo, int row1, int col1, int row2,
   return true;
 }
 // row col: [0, 8], return with value1 and value2: [1, 9]
-void grid_get_two_posibility(Sudoku* sudo, int row, int col, int* value1, int* value2) {
+void grid_get_2_posibility(Sudoku* sudo, int row, int col, int* value1, int* value2) {
   *value1 = 0;
   for (int value = 1; value < 10; value++) {
     if (sudo->sudoData[row][col][value] != 0) {
@@ -267,11 +267,27 @@ void grid_get_two_posibility(Sudoku* sudo, int row, int col, int* value1, int* v
     }
   }
 }
+void grid_get_3_posibility(Sudoku* sudo, int row, int col, int* value1, int* value2, int* value3) {
+  *value1 = 0;
+  *value2 = 0;
+  for (int value = 1; value < 10; value++) {
+    if (sudo->sudoData[row][col][value] != 0) {
+      if (*value1 == 0) {
+        *value1 = value;
+      } else if (*value2 == 0) {
+        *value2 = value;
+      } else {
+        *value3 = value;
+        return;
+      }
+    }
+  }
+}
 // ============================================================================
 // row col1 col2:[0, 8]
 void find_row_2_grid_has_2_posibility(Sudoku* sudo, int row, int col1, int col2) {
   int value1, value2;
-  grid_get_two_posibility(sudo, row, col1, &value1, &value2);
+  grid_get_2_posibility(sudo, row, col1, &value1, &value2);
   remove_row_posibility(sudo, row, value1);
   remove_row_posibility(sudo, row, value2);
   sudo->sudoData[row][col1][value1] = value1;
@@ -287,7 +303,7 @@ void find_row_2_grid_has_2_posibility(Sudoku* sudo, int row, int col1, int col2)
 // col row1 row2:[0, 8]
 void find_col_2_grid_has_2_posibility(Sudoku* sudo, int col, int row1, int row2) {
   int value1, value2;
-  grid_get_two_posibility(sudo, row1, col, &value1, &value2);
+  grid_get_2_posibility(sudo, row1, col, &value1, &value2);
   remove_col_posibility(sudo, col, value1);
   remove_col_posibility(sudo, col, value2);
   sudo->sudoData[row1][col][value1] = value1;
@@ -303,7 +319,7 @@ void find_col_2_grid_has_2_posibility(Sudoku* sudo, int col, int row1, int row2)
 //
 void find_block_2_grid_has_2_posibility(Sudoku* sudo, int row1, int col1, int row2, int col2) {
   int value1, value2;
-  grid_get_two_posibility(sudo, row1, col1, &value1, &value2);
+  grid_get_2_posibility(sudo, row1, col1, &value1, &value2);
   remove_block_posibility(sudo, row1, col1, value1);
   remove_block_posibility(sudo, row1, col1, value2);
   sudo->sudoData[row1][col1][value1] = value1;
@@ -317,6 +333,9 @@ void find_block_2_grid_has_2_posibility(Sudoku* sudo, int row1, int col1, int ro
   }
 }
 // ============================================================================
+void find_row_3_grid_has_3_posibility(Sudoku* sudo, int row, int col1, int col2, int col3) {
+}
+// ============================================================================
 // row col: [0, 8], int mask[10];
 void make_mask_for_vertical(Sudoku* sudo, int row, int col, int* mask) {
   for (int value = 1; value < 10; value++) {
@@ -327,17 +346,32 @@ void make_mask_for_vertical(Sudoku* sudo, int row, int col, int* mask) {
     }
   }
 }
+// if mask[i] is zero, exam[i] should be zero when match
+bool is_exam_match_mask_with_zero(const int* exam, const int* mask) {
+  for (int i = 1; i < 10; i++) {
+    if (mask[i] == 0 && exam[i] != 0) {
+      return false;
+    }
+  }
+  return true;
+}
 // ============================================================================
-// row col: [0, 8]
+// row col: [0, 8]  sudo->sudoData[row][col][0] should be zero
 void check_2_grid_with_2_Posibility(Sudoku* sudo, int row, int col) {
   for (int j = col + 1; j < 9; j++) { // that row
-    if (is_two_grid_the_same_posibility(sudo, row, col, row, j)) {
+    if (sudo->sudoData[row][j][0] != 0) {
+      continue;
+    }
+    if (is_2_grid_the_same_posibility(sudo, row, col, row, j)) {
       find_row_2_grid_has_2_posibility(sudo, row, col, j);
       break;
     }
   }
   for (int i = row + 1; i < 9; i++) { // that column, so loop in row
-    if (is_two_grid_the_same_posibility(sudo, row, col, i, col)) {
+    if (sudo->sudoData[i][col][0] != 0) {
+      continue;
+    }
+    if (is_2_grid_the_same_posibility(sudo, row, col, i, col)) {
       find_col_2_grid_has_2_posibility(sudo, col, row, i);
       break;
     }
@@ -351,14 +385,48 @@ void check_2_grid_with_2_Posibility(Sudoku* sudo, int row, int col) {
     int y = k % 3;
     int gridRow, gridCol;
     INDEX_P_INP_TO_GRID(pRow, pCol, x, y, gridRow, gridCol);
-    if (is_two_grid_the_same_posibility(sudo, row, col, gridRow, gridCol)) {
+    if (sudo->sudoData[gridRow][gridCol][0] != 0) {
+      continue;
+    }
+    if (is_2_grid_the_same_posibility(sudo, row, col, gridRow, gridCol)) {
       find_block_2_grid_has_2_posibility(sudo, row, col, gridRow, gridCol);
       break;
     }
   }
 }
+// row col: [0, 8], int mask[10]
+bool check_row_2_grid_match_mask(Sudoku* sudo, int row, int col, int* col1, int* col2, const int* mask) {
+  *col1 = 0;
+  for (int j = col + 1; j < 9; j++) {
+    if (sudo->sudoData[row][j][0] != 0) {
+      continue;
+    }
+    int exam[10];
+    make_mask_for_vertical(sudo, row, j, exam);
+    if (is_exam_match_mask_with_zero(exam, mask)) {
+      if (*col1 == 0) {
+        *col1 = j;
+      } else {
+        *col2 = j;
+        return true;
+      }
+    }
+  }
+  return false;
+}
 // row col: [0, 8]
 void check_3_grid_with_3_Posibility(Sudoku* sudo, int row, int col) {
+  int mask[10];
+  make_mask_for_vertical(sudo, row, col, mask);
+  for (int j = col + 1; j < 9; j++) {
+    if (sudo->sudoData[row][j][0] != 0) {
+      continue;
+    }
+    int col1, col2;
+    if (check_row_2_grid_match_mask(sudo, row, j, &col1, &col2, mask)) {
+      find_row_3_grid_has_3_posibility(sudo, row, j, col1, col2);
+    }
+  }
 }
 // ============================================================================
 //
@@ -389,7 +457,7 @@ void check_2_row_2_posibility_in_value(Sudoku* sudo, int row, int value) {
 void check_2_col_2_posibility_in_value(Sudoku* sudo, int col, int value) {
 }
 // ============================================================================
-// row col: [0, 8]
+// row col: [0, 8] sudo->sudoData[row][col][0] should be zero
 void check_vertical_posibility_in_grid(Sudoku* sudo, int row, int col) {
   int count = vertical_posibility_in_grid(sudo, row, col);
   if (count == 1) {
