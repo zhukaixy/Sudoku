@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
     board[i] = puzzleFour[i];
   }
 
-  Sudoku* sudo = CreateSudoku(read_board, write_board, (void*)board);
+  Sudoku* sudo = CreateSudoku(read_board, write_board, NULL, (void*)board);
 
   //  char buffer[RESULT_BUFFER_SIZE];
   //  MakeResultString(sudo, buffer, RESULT_BUFFER_SIZE);

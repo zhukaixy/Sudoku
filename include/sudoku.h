@@ -26,23 +26,31 @@ typedef enum SolveType {
   ColNumberOnlyOneGrid,
   BlockNumberOnlyOneGrid
 } SolveType;
-typedef enum ImporveType {
-  RowTwoGridWithTwoPosibility = 0,
-  RowThreeGridWithThreePosibility,
-  RowTwoNumberInTwoGrid,
-  RowThreeNumberInThreeGrid,
-  ColTwoGridWithTwoPosibility,
-  ColThreeGridWithThreePosibility,
-  ColTwoNumberInTwoGrid,
-  ColThreeNumberInThreeGrid,
-  BlockTwoGridWithTwoPosibility,
-  BlockThreeGridWithThreePosibility,
-  BlockTwoNumberInTwoGrid,
-  BlockThreeNumberInThreeGrid,
+typedef enum ImproveType {
+  DoNotImprove = 0,
+
+  Row2GridWith2Posibility,
+  Col2GridWith2Posibility,
+  Block2GridWith2Posibility,
+
+  Row3GridWith3Posibility,
+  Col3GridWith3Posibility,
+  Block3GridWith3Posibility,
+
+  Row2NumberIn2Grid,
+  Col2NumberIn2Grid,
+  Block2NumberIn2Grid,
+
+  Row3NumberIn3Grid,
+  Col3NumberIn3Grid,
+  Block3NumberIn3Grid,
+
   InBlockNumberInOneRow,
   InBlockNumberInOneCol,
+
   InRowNumberInBlock,
   InColNumberInBlock,
+
   TwoRowOneNumberInTwoCol,
   TwoColOneNumberInTwoRow
 } ImproveType;
@@ -52,15 +60,15 @@ typedef struct SolveProcedure {
   int gridOneY;
   int gridTwoX;
   int gridTwoY;
-  int numberOne; // [1, 9]
-  int numberTwo;
   int gridThreeX;
   int gridThreeY;
+  int numberOne; // [1, 9]
+  int numberTwo;
   int numberThree;
   int panelRow; // [0, 2]
   int panelCol;
   int number; // [1, 9]
-  int rowOrCol; // [0, 8]
+  int line; // [0, 8]
   int rowOne;
   int rowTwo;
   int colOne;

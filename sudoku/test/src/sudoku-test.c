@@ -5,6 +5,7 @@
 
 #include <CuTest.h>
 #include <sudoku.h>
+#include <bool-matrix.h>
 #include <sudodef.h>
 
 // clang-format off
@@ -71,12 +72,12 @@ static void TestCreateSudoku(CuTest* tc) {
     testSudo.board[i] = puzzleOne[i];
   }
   Sudoku* sudo = NULL;
-  sudo = CreateSudoku(NULL, write_data_func, NULL);
+  sudo = CreateSudoku(NULL, write_data_func, NULL, NULL);
   CuAssertPtrEquals(tc, NULL, sudo);
-  sudo = CreateSudoku(read_data_func, NULL, NULL);
+  sudo = CreateSudoku(read_data_func, NULL, NULL, NULL);
   CuAssertPtrEquals(tc, NULL, sudo);
 
-  sudo = CreateSudoku(read_data_func, write_data_func, (void*)&testSudo);
+  sudo = CreateSudoku(read_data_func, write_data_func, NULL, (void*)&testSudo);
   CuAssertPtrNotNull(tc, sudo);
   CuAssertPtrEquals(tc, read_data_func, sudo->readData);
   CuAssertPtrEquals(tc, write_data_func, sudo->writeData);
@@ -105,7 +106,7 @@ void TestVerifySudoku(CuTest* tc) {
     testSudo.board[i] = puzzleOne[i];
   }
 
-  Sudoku* sudo = CreateSudoku(read_data_func, write_data_func, &testSudo);
+  Sudoku* sudo = CreateSudoku(read_data_func, write_data_func, NULL, &testSudo);
   bool result = VerifySudoku(sudo);
   CuAssertTrue(tc, !result);
   int count = GetKnownCount(sudo);
@@ -115,7 +116,7 @@ void TestVerifySudoku(CuTest* tc) {
   for (int i = 0; i < 81; i++) {
     testSudo.board[i] = puzzleOneAnswer[i];
   }
-  sudo = CreateSudoku(read_data_func, write_data_func, &testSudo);
+  sudo = CreateSudoku(read_data_func, write_data_func, NULL, &testSudo);
   result = VerifySudoku(sudo);
   CuAssertTrue(tc, result);
   count = GetKnownCount(sudo);
@@ -142,7 +143,7 @@ void TestCalculateSudokuAll(CuTest* tc) {
   memset(ansSudo, 0, sizeof(char) * RESULT_BUFFER_SIZE);
 
   // dancing links
-  Sudoku* sudo = CreateSudoku(read_data_func, write_data_func, (void*)&testSudo);
+  Sudoku* sudo = CreateSudoku(read_data_func, write_data_func, NULL, (void*)&testSudo);
   int num = CalculateSudokuAll(sudo, true, sudoku_answer_cb, (void*)ansSudo);
   CuAssertTrue(tc, VerifySudoku(sudo));
   CuAssertIntEquals(tc, 1, num);
@@ -152,7 +153,7 @@ void TestCalculateSudokuAll(CuTest* tc) {
     CuAssertTrue(tc, testSudo.types[i] == None);
   }
   CuAssertTrue(tc, VerifySudokuBoard(testSudo.board));
-  sudo = CreateSudoku(read_data_func, write_data_func, (void*)&testSudo);
+  sudo = CreateSudoku(read_data_func, write_data_func, NULL, (void*)&testSudo);
   bool result = VerifySudoku(sudo);
   CuAssertTrue(tc, result);
   int count = GetKnownCount(sudo);
@@ -166,13 +167,16 @@ void TestCalculateSudokuAll(CuTest* tc) {
   memset(ansSudo, 0, sizeof(char) * RESULT_BUFFER_SIZE);
 
   // step by step
-  sudo = CreateSudoku(read_data_func, write_data_func, (void*)&testSudo);
+  sudo = CreateSudoku(read_data_func, write_data_func, NULL, (void*)&testSudo);
   num = CalculateSudokuAll(sudo, false, sudoku_answer_cb, (void*)ansSudo);
+  char buffer[RESULT_BUFFER_SIZE];
+  MakeResultString(sudo, buffer, RESULT_BUFFER_SIZE);
+  printf("Test Step by Step Result:\n%s", buffer);
   CuAssertTrue(tc, VerifySudoku(sudo));
   CuAssertIntEquals(tc, 1, num);
   CuAssertStrEquals(tc, puzzleOneAnswerStr, ansSudo);
   DestroySudoku(sudo);
-  sudo = CreateSudoku(read_data_func, write_data_func, (void*)&testSudo);
+  sudo = CreateSudoku(read_data_func, write_data_func, NULL, (void*)&testSudo);
   result = VerifySudoku(sudo);
   CuAssertTrue(tc, result);
   count = GetKnownCount(sudo);
