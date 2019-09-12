@@ -28,6 +28,7 @@ CreateSudoku(SudokuReadData readData, SudokuWriteData writeData, SolveProcessCal
   sudo->dancing = false;
   sudo->ansCallback = NULL;
   sudo->ansCount = 0;
+  sudo->improveCount = 0;
   initial_all(sudo);
   return sudo;
 }

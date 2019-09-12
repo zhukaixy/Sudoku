@@ -195,9 +195,7 @@ int block_posibility_in_value(Sudoku* sudo, int row, int col, int value) {
 void find_row_only_one_answer(Sudoku* sudo, int row, int value) {
   for (int col = 0; col < 9; col++) {
     if (sudo->sudoData[row][col][value] != 0) {
-      sudo->sudoData[row][col][0] = value;
-      sudo->writeData(sudo->dataIO, row + 1, col + 1, value, RowNumberOnlyOneGrid);
-      remove_grid_posibility(sudo, row, col);
+      FIND_ONE_GRID_ANSWER(sudo, row, col, value, RowNumberOnlyOneGrid);
       return;
     }
   }
@@ -206,9 +204,7 @@ void find_row_only_one_answer(Sudoku* sudo, int row, int value) {
 void find_col_only_one_answer(Sudoku* sudo, int col, int value) {
   for (int row = 0; row < 9; row++) {
     if (sudo->sudoData[row][col][value] != 0) {
-      sudo->sudoData[row][col][0] = value;
-      sudo->writeData(sudo->dataIO, row + 1, col + 1, value, ColNumberOnlyOneGrid);
-      remove_grid_posibility(sudo, row, col);
+      FIND_ONE_GRID_ANSWER(sudo, row, col, value, ColNumberOnlyOneGrid);
       return;
     }
   }
@@ -217,9 +213,7 @@ void find_col_only_one_answer(Sudoku* sudo, int col, int value) {
 void find_vertical_only_one_answer(Sudoku* sudo, int row, int col) {
   for (int value = 1; value < 10; value++) {
     if (sudo->sudoData[row][col][value] != 0) {
-      sudo->sudoData[row][col][0] = value;
-      sudo->writeData(sudo->dataIO, row + 1, col + 1, value, GridOnlyOnePosibility);
-      remove_grid_posibility(sudo, row, col);
+      FIND_ONE_GRID_ANSWER(sudo, row, col, value, GridOnlyOnePosibility);
       return;
     }
   }
@@ -234,9 +228,7 @@ void find_block_only_one_answer(Sudoku* sudo, int row, int col, int value) {
       int col = 0;
       INDEX_P_INP_TO_GRID(pRow, pCol, i, j, row, col);
       if (sudo->sudoData[row][col][value] != 0) {
-        sudo->sudoData[row][col][0] = value;
-        sudo->writeData(sudo->dataIO, row + 1, col + 1, value, BlockNumberOnlyOneGrid);
-        remove_grid_posibility(sudo, row, col);
+        FIND_ONE_GRID_ANSWER(sudo, row, col, value, BlockNumberOnlyOneGrid);
         return;
       }
     }
@@ -294,9 +286,10 @@ void find_row_2_grid_has_2_posibility(Sudoku* sudo, int row, int col1, int col2)
   sudo->sudoData[row][col1][value2] = value2;
   sudo->sudoData[row][col2][value1] = value1;
   sudo->sudoData[row][col2][value2] = value2;
+  sudo->improveCount++;
   if (sudo->procCallback != NULL) {
     SolveProcedure proc;
-    ROW_TWO_GRID_WITH_TWO_POSIBILITY(proc, row, col1, row, col2, value1, value2);
+    ROW_2_GRID_WITH_2_POSIBILITY(proc, row, col1, row, col2, value1, value2);
     sudo->procCallback(sudo->dataIO, &proc);
   }
 }
@@ -310,9 +303,10 @@ void find_col_2_grid_has_2_posibility(Sudoku* sudo, int col, int row1, int row2)
   sudo->sudoData[row1][col][value2] = value2;
   sudo->sudoData[row2][col][value1] = value1;
   sudo->sudoData[row2][col][value2] = value2;
+  sudo->improveCount++;
   if (sudo->procCallback != NULL) {
     SolveProcedure proc;
-    COL_TWO_GRID_WITH_TWO_POSIBILITY(proc, row1, col, row2, col, value1, value2);
+    COL_2_GRID_WITH_2_POSIBILITY(proc, row1, col, row2, col, value1, value2);
     sudo->procCallback(sudo->dataIO, &proc);
   }
 }
@@ -326,14 +320,55 @@ void find_block_2_grid_has_2_posibility(Sudoku* sudo, int row1, int col1, int ro
   sudo->sudoData[row1][col1][value2] = value2;
   sudo->sudoData[row2][col2][value1] = value1;
   sudo->sudoData[row2][col2][value2] = value2;
+  sudo->improveCount++;
   if (sudo->procCallback != NULL) {
     SolveProcedure proc;
-    BLOCK_TWO_GRID_WITH_TWO_POSIBILITY(proc, row1, col1, row2, col2, value1, value2);
+    BLOCK_2_GRID_WITH_2_POSIBILITY(proc, row1, col1, row2, col2, value1, value2);
     sudo->procCallback(sudo->dataIO, &proc);
   }
 }
 // ============================================================================
-void find_row_3_grid_has_3_posibility(Sudoku* sudo, int row, int col1, int col2, int col3) {
+void find_row_3_grid_has_3_posibility(Sudoku* sudo, int row, int col1, int col2, int col3, const int* mask) {
+  int value1 = 0;
+  int value2 = 0;
+  int value3 = 0;
+  for (int value = 1; value < 10; value++) {
+    if (mask[value] == 0) {
+      continue;
+    }
+    if (value1 == 0) {
+      value1 = value;
+    } else if (value2 == 0) {
+      value2 = value;
+    } else {
+      value3 = value;
+      break;
+    }
+  }
+  for (int col = 0; col < 9; col++) {
+    if (col != col1 && col != col2 && col != col3) {
+      sudo->sudoData[row][col][value1] = 0;
+      sudo->sudoData[row][col][value2] = 0;
+      sudo->sudoData[row][col][value3] = 0;
+    }
+  }
+  sudo->improveCount++;
+  if (sudo->procCallback != NULL) {
+    SolveProcedure proc;
+    ROW_3_GRID_WITH_3_POSIBILITY(proc, row, col1, row, col2, row, col3, value1, value2, value3);
+    sudo->procCallback(sudo->dataIO, &proc);
+  }
+}
+void find_col_3_grid_has_3_posibility(Sudoku* sudo, int col, int row1, int row2, int row3, const int* mask) {
+}
+void find_block_3_grid_has_3_posibility(Sudoku* sudo,
+                                        int row1,
+                                        int col1,
+                                        int row2,
+                                        int col2,
+                                        int row3,
+                                        int col3,
+                                        const int* mask) {
 }
 // ============================================================================
 // row col: [0, 8], int mask[10];
@@ -354,6 +389,55 @@ bool is_exam_match_mask_with_zero(const int* exam, const int* mask) {
     }
   }
   return true;
+}
+// ============================================================================
+// row col: [0, 8], int mask[10]
+bool check_row_3_grid_match_mask(Sudoku* sudo, int row, int col, int* col1, int* col2, const int* mask) {
+  *col1 = 0;
+  for (int j = col + 1; j < 9; j++) {
+    if (sudo->sudoData[row][j][0] != 0) {
+      continue;
+    }
+    int exam[10];
+    make_mask_for_vertical(sudo, row, j, exam);
+    if (is_exam_match_mask_with_zero(exam, mask)) {
+      if (*col1 == 0) {
+        *col1 = j;
+      } else {
+        *col2 = j;
+        return true;
+      }
+    }
+  }
+  return false;
+}
+bool check_col_3_grid_match_mask(Sudoku* sudo, int col, int row, int* row1, int* row2, const int* mask) {
+  *row1 = 0;
+  for (int i = row + 1; i < 9; i++) {
+    if (sudo->sudoData[i][col][0] != 0) {
+      continue;
+    }
+    int exam[10];
+    make_mask_for_vertical(sudo, i, col, exam);
+    if (is_exam_match_mask_with_zero(exam, mask)) {
+      if (*row1 == 0) {
+        *row1 = i;
+      } else {
+        *row2 = i;
+        return true;
+      }
+    }
+  }
+  return false;
+}
+bool check_block_3_grid_match_mask(Sudoku* sudo,
+                                   int row,
+                                   int col,
+                                   int* row1,
+                                   int* col1,
+                                   int* row2,
+                                   int* col2,
+                                   const int* mask) {
 }
 // ============================================================================
 // row col: [0, 8]  sudo->sudoData[row][col][0] should be zero
@@ -394,26 +478,6 @@ void check_2_grid_with_2_Posibility(Sudoku* sudo, int row, int col) {
     }
   }
 }
-// row col: [0, 8], int mask[10]
-bool check_row_2_grid_match_mask(Sudoku* sudo, int row, int col, int* col1, int* col2, const int* mask) {
-  *col1 = 0;
-  for (int j = col + 1; j < 9; j++) {
-    if (sudo->sudoData[row][j][0] != 0) {
-      continue;
-    }
-    int exam[10];
-    make_mask_for_vertical(sudo, row, j, exam);
-    if (is_exam_match_mask_with_zero(exam, mask)) {
-      if (*col1 == 0) {
-        *col1 = j;
-      } else {
-        *col2 = j;
-        return true;
-      }
-    }
-  }
-  return false;
-}
 // row col: [0, 8]
 void check_3_grid_with_3_Posibility(Sudoku* sudo, int row, int col) {
   int mask[10];
@@ -423,8 +487,35 @@ void check_3_grid_with_3_Posibility(Sudoku* sudo, int row, int col) {
       continue;
     }
     int col1, col2;
-    if (check_row_2_grid_match_mask(sudo, row, j, &col1, &col2, mask)) {
-      find_row_3_grid_has_3_posibility(sudo, row, j, col1, col2);
+    if (check_row_3_grid_match_mask(sudo, row, j, &col1, &col2, mask)) {
+      find_row_3_grid_has_3_posibility(sudo, row, j, col1, col2, mask);
+    }
+  }
+  for (int i = row + 1; i < 9; i++) {
+    if (sudo->sudoData[i][col][0] != 0) {
+      continue;
+    }
+    int row1, row2;
+    if (check_col_3_grid_match_mask(sudo, col, i, &row1, &row2, mask)) {
+      find_col_3_grid_has_3_posibility(sudo, col, i, row1, row2, mask);
+    }
+  }
+  int pRow, pCol, i, j;
+  INDEX_GRID_TO_PANEL(row, col, pRow, pCol);
+  INDEX_GRID_TO_IN_PANEL(row, col, i, j);
+  int index = i * 3 + j;
+  for (int k = index + 1; k < 9; k++) {
+    int x = k / 3;
+    int y = k % 3;
+    int gridRow, gridCol;
+    INDEX_P_INP_TO_GRID(pRow, pCol, x, y, gridRow, gridCol);
+    if (sudo->sudoData[gridRow][gridCol][0] != 0) {
+      continue;
+    }
+    int row1, col1, row2, col2;
+    if (check_block_3_grid_match_mask(sudo, gridRow, gridCol, &row1, &col1, &row2, &col2, mask)) {
+      find_block_3_grid_has_3_posibility(sudo, gridRow, gridCol, row1, col1, row2, col2, mask);
+      break;
     }
   }
 }

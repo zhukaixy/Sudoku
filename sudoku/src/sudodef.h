@@ -15,7 +15,7 @@ struct Sudoku {
   SudokuAnswerCallback ansCallback;
   void* data; // for ansCallback
   int ansCount; // answer count
-  bool hasFindAnswer;
+  int improveCount;
 };
 
 #endif
