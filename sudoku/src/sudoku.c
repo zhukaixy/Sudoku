@@ -109,3 +109,41 @@ SUDOKU_API int CalculateSudokuAll(Sudoku* sudo, bool dancing, SudokuAnswerCallba
   }
   return sudo->ansCount;
 }
+
+const char* solve_type_name[] = {"None",
+                                 "GridOnlyOnePosibility",
+                                 "RowNumberOnlyOneGrid",
+                                 "ColNumberOnlyOneGrid",
+                                 "BlockNumberOnlyOneGrid"};
+static const char* improve_type_name[] = {"DoNotImprove",
+
+                                          "Row2GridWith2Posibility",
+                                          "Col2GridWith2Posibility",
+                                          "Block2GridWith2Posibility",
+
+                                          "Row3GridWith3Posibility",
+                                          "Col3GridWith3Posibility",
+                                          "Block3GridWith3Posibility",
+
+                                          "Row2NumberIn2Grid",
+                                          "Col2NumberIn2Grid",
+                                          "Block2NumberIn2Grid",
+
+                                          "Row3NumberIn3Grid",
+                                          "Col3NumberIn3Grid",
+                                          "Block3NumberIn3Grid",
+
+                                          "InBlockNumberInOneRow",
+                                          "InBlockNumberInOneCol",
+
+                                          "InRowNumberInBlock",
+                                          "InColNumberInBlock",
+
+                                          "TwoRowOneNumberInTwoCol",
+                                          "TwoColOneNumberInTwoRow"};
+SUDOKU_API const char* SolveTypeName(SolveType type) {
+  return solve_type_name[(int)type];
+}
+SUDOKU_API const char* ImproveTypeName(ImproveType type) {
+  return improve_type_name[(int)type];
+}

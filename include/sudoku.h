@@ -92,5 +92,7 @@ SUDOKU_API int GetKnownCount(Sudoku* sudo);
 // buffer must has size of RESULT_BUFFER_SIZE
 SUDOKU_API void MakeResultString(Sudoku* sudo, char* buffer, int size);
 SUDOKU_API int CalculateSudokuAll(Sudoku* sudo, bool dancing, SudokuAnswerCallback cb, void* data);
+SUDOKU_API const char* SolveTypeName(SolveType type);
+SUDOKU_API const char* ImproveTypeName(ImproveType type);
 
 #endif
