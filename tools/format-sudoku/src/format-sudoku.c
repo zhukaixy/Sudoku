@@ -3,9 +3,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#define BOARD_SIZE (9 * 9)
+
 void usage(const char* exec) {
   fprintf(stderr, "Usage: %s <file>\n", exec);
-  fprintf(stderr, "\t<file1>: The sudoku file path\n");
+  fprintf(stderr, "\t<file>: The sudoku file path\n");
   fprintf(stderr, "\tor using %s with stdin\n", exec);
 }
 
@@ -18,10 +20,10 @@ FILE* open_file_for_read(const char* path) {
 }
 
 bool get_sudoku_from_file(int* sudo, int size, FILE* file) {
-  assert(sudo != NULL && size >= 81 && file != NULL);
+  assert(sudo != NULL && size >= BOARD_SIZE && file != NULL);
   memset(sudo, 0, size);
   int count = 0;
-  for (; count < 81;) {
+  for (; count < BOARD_SIZE;) {
     int c = fgetc(file);
     if (c == EOF) {
       return false;
@@ -64,8 +66,8 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  int sudo[81];
-  if (get_sudoku_from_file(sudo, 81, file) == false) {
+  int sudo[BOARD_SIZE];
+  if (get_sudoku_from_file(sudo, BOARD_SIZE, file) == false) {
     fprintf(stderr, "Read sudoku from %s failed\n", argv[1]);
     usage(argv[0]);
     fclose(file);

@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define BOARD_SIZE (9 * 9)
+
 typedef enum CharColor { None = 0, Red, Green } CharColor;
 
 void usage(const char* exec) {
@@ -20,10 +22,10 @@ FILE* open_file_for_read(const char* path) {
 }
 
 bool get_sudoku_from_file(int* sudo, int size, FILE* file) {
-  assert(sudo != NULL && size >= 81 && file != NULL);
+  assert(sudo != NULL && size >= BOARD_SIZE && file != NULL);
   memset(sudo, 0, size);
   int count = 0;
-  for (; count < 81;) {
+  for (; count < BOARD_SIZE;) {
     int c = fgetc(file);
     if (c == EOF) {
       return false;
@@ -106,16 +108,16 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  int sudo1[81];
-  int sudo2[81];
-  if (get_sudoku_from_file(sudo1, 81, file1) == false) {
+  int sudo1[BOARD_SIZE];
+  int sudo2[BOARD_SIZE];
+  if (get_sudoku_from_file(sudo1, BOARD_SIZE, file1) == false) {
     fprintf(stderr, "Read sudoku from %s failed\n", argv[1]);
     usage(argv[0]);
     fclose(file1);
     fclose(file2);
     return -1;
   }
-  if (get_sudoku_from_file(sudo2, 81, file2) == false) {
+  if (get_sudoku_from_file(sudo2, BOARD_SIZE, file2) == false) {
     fprintf(stderr, "Read sudoku from %s failed\n", argv[2]);
     usage(argv[0]);
     fclose(file1);
@@ -125,9 +127,9 @@ int main(int argc, char* argv[]) {
   fclose(file1);
   fclose(file2);
 
-  bool mask[81];
+  bool mask[BOARD_SIZE];
   bool allZero1 = true, allZero2 = true, allNotZero1 = true, allNotZero2 = true;
-  for (int i = 0; i < 81; i++) {
+  for (int i = 0; i < BOARD_SIZE; i++) {
     if (sudo1[i] != sudo2[i]) {
       allZero1 = allZero1 && sudo1[i] == 0;
       allZero2 = allZero2 && sudo2[i] == 0;
