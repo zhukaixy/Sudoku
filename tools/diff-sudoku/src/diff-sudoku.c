@@ -37,14 +37,19 @@ bool get_sudoku_from_file(int* sudo, int size, FILE* file) {
 }
 
 void display_check(bool allZero, bool allNotZero) {
+  if (allZero && allNotZero) {
+    printf("\033[36;1mThe same, no diff!\033[0m\n");
+    return;
+  }
+  if (!allZero && !allNotZero) {
+    printf("\n");
+    return;
+  }
   if (allZero) {
     printf("\033[36;1mAll diff are zero!\033[0m\n");
   }
   if (allNotZero) {
     printf("\033[36;1mAll diff are non zero!\033[0m\n");
-  }
-  if (!allZero && !allNotZero) {
-    printf("\033[36;1mThe same, no diff!\033[0m\n");
   }
 }
 
@@ -121,11 +126,9 @@ int main(int argc, char* argv[]) {
   fclose(file2);
 
   bool mask[81];
-  bool hasDiff = false;
   bool allZero1 = true, allZero2 = true, allNotZero1 = true, allNotZero2 = true;
   for (int i = 0; i < 81; i++) {
     if (sudo1[i] != sudo2[i]) {
-      hasDiff = true;
       allZero1 = allZero1 && sudo1[i] == 0;
       allZero2 = allZero2 && sudo2[i] == 0;
       allNotZero1 = allNotZero1 && sudo1[i] != 0;
@@ -134,12 +137,6 @@ int main(int argc, char* argv[]) {
     } else {
       mask[i] = false;
     }
-  }
-  if (!hasDiff) {
-    allZero1 = false;
-    allNotZero1 = false;
-    allZero2 = false;
-    allNotZero2 = false;
   }
 
   printf("First Sudoku: ");
