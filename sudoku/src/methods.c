@@ -1304,7 +1304,7 @@ void check_row_if_all_posibility_in_block(Sudoku* sudo, int row, int value) {
   bool inBlock1 = false;
   bool inBlock2 = false;
   bool inBlock3 = false;
-  int gridCol;
+  int gridCol = -1;
   for (int col = 0; col < 3; col++) {
     if (sudo->sudoData[row][col][value] != 0) {
       inBlock1 = true;
@@ -1328,6 +1328,7 @@ void check_row_if_all_posibility_in_block(Sudoku* sudo, int row, int value) {
   }
   if ((inBlock1 && !inBlock2 && !inBlock3) || (!inBlock1 && inBlock2 && !inBlock3) ||
       (!inBlock1 && !inBlock2 && inBlock3)) {
+    assert(gridCol != -1);
     find_row_all_posibility_in_block(sudo, row, gridCol, value);
   }
 }
@@ -1337,7 +1338,7 @@ void check_col_if_all_posibility_in_block(Sudoku* sudo, int col, int value) {
   bool inBlock1 = false;
   bool inBlock2 = false;
   bool inBlock3 = false;
-  int gridRow;
+  int gridRow = -1;
   for (int row = 0; row < 3; row++) {
     if (sudo->sudoData[row][col][value] != 0) {
       inBlock1 = true;
@@ -1361,6 +1362,7 @@ void check_col_if_all_posibility_in_block(Sudoku* sudo, int col, int value) {
   }
   if ((inBlock1 && !inBlock2 && !inBlock3) || (!inBlock1 && inBlock2 && !inBlock3) ||
       (!inBlock1 && !inBlock2 && inBlock3)) {
+    assert(gridRow != -1);
     find_col_all_posibility_in_block(sudo, gridRow, col, value);
   }
 }
@@ -1431,7 +1433,7 @@ void check_block_if_all_posibility_in_row(Sudoku* sudo, int row, int col, int va
   bool inBlock3 = false;
   int pRow, pCol;
   INDEX_GRID_TO_PANEL(row, col, pRow, pCol);
-  int inRow;
+  int inRow = -1;
   int i = 0;
   for (int j = 0; j < 3; j++) {
     int gridRow = 0;
@@ -1467,6 +1469,7 @@ void check_block_if_all_posibility_in_row(Sudoku* sudo, int row, int col, int va
   }
   if ((inBlock1 && !inBlock2 && !inBlock3) || (!inBlock1 && inBlock2 && !inBlock3) ||
       (!inBlock1 && !inBlock2 && inBlock3)) {
+    assert(inRow != -1);
     find_block_all_posibility_in_row(sudo, inRow, col, value);
   }
 }
@@ -1479,7 +1482,7 @@ void check_block_if_all_posibility_in_col(Sudoku* sudo, int row, int col, int va
   bool inBlock3 = false;
   int pRow, pCol;
   INDEX_GRID_TO_PANEL(row, col, pRow, pCol);
-  int inCol;
+  int inCol = -1;
   int j = 0;
   for (int i = 0; i < 3; i++) {
     int gridRow = 0;
@@ -1515,6 +1518,7 @@ void check_block_if_all_posibility_in_col(Sudoku* sudo, int row, int col, int va
   }
   if ((inBlock1 && !inBlock2 && !inBlock3) || (!inBlock1 && inBlock2 && !inBlock3) ||
       (!inBlock1 && !inBlock2 && inBlock3)) {
+    assert(inCol != -1);
     find_block_all_posibility_in_col(sudo, row, inCol, value);
   }
 }
