@@ -140,7 +140,10 @@ static const char* improve_type_name[] = {"DoNotImprove",
                                           "InColNumberInBlock",
 
                                           "TwoRowOneNumberInTwoCol",
-                                          "TwoColOneNumberInTwoRow"};
+                                          "TwoColOneNumberInTwoRow",
+
+                                          "ThreeRowOneNumberInThreeCol",
+                                          "ThreeColOneNumberInThreeRow"};
 SUDOKU_API const char* SolveTypeName(SolveType type) {
   return solve_type_name[(int)type];
 }
