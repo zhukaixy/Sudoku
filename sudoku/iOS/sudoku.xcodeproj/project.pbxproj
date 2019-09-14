@@ -14,6 +14,10 @@
 		323DC86D2321200E000BBA2F /* sudomat.c in Sources */ = {isa = PBXBuildFile; fileRef = 323DC8682321200E000BBA2F /* sudomat.c */; };
 		323DC86F23212134000BBA2F /* sudodef.h in Headers */ = {isa = PBXBuildFile; fileRef = 323DC8652321200E000BBA2F /* sudodef.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		323DC87023212134000BBA2F /* sudoku.h in Headers */ = {isa = PBXBuildFile; fileRef = 323DC86023212002000BBA2F /* sudoku.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32C34CE7232D2DDF0054336B /* bool-matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C34CE6232D2DDF0054336B /* bool-matrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32C34CEB232D2E740054336B /* methods.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C34CE8232D2E740054336B /* methods.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		32C34CEC232D2E740054336B /* sudomat.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C34CE9232D2E740054336B /* sudomat.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		32C34CED232D2E740054336B /* sudostep.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C34CEA232D2E740054336B /* sudostep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +42,10 @@
 		323DC8672321200E000BBA2F /* sudoku.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sudoku.c; sourceTree = "<group>"; };
 		323DC8682321200E000BBA2F /* sudomat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sudomat.c; sourceTree = "<group>"; };
 		326D99CE23211ED10017411D /* libsudoku.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsudoku.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		32C34CE6232D2DDF0054336B /* bool-matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bool-matrix.h"; sourceTree = "<group>"; };
+		32C34CE8232D2E740054336B /* methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = methods.h; sourceTree = "<group>"; };
+		32C34CE9232D2E740054336B /* sudomat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudomat.h; sourceTree = "<group>"; };
+		32C34CEA232D2E740054336B /* sudostep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudostep.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,7 @@
 		323DC85F23212002000BBA2F /* include */ = {
 			isa = PBXGroup;
 			children = (
+				32C34CE6232D2DDF0054336B /* bool-matrix.h */,
 				323DC86023212002000BBA2F /* sudoku.h */,
 			);
 			name = include;
@@ -72,13 +81,16 @@
 		323DC8612321200E000BBA2F /* src */ = {
 			isa = PBXGroup;
 			children = (
-				323DC8622321200E000BBA2F /* methods-doc.md */,
-				323DC8632321200E000BBA2F /* methods.c */,
+				32C34CE8232D2E740054336B /* methods.h */,
+				32C34CE9232D2E740054336B /* sudomat.h */,
+				32C34CEA232D2E740054336B /* sudostep.h */,
 				323DC8642321200E000BBA2F /* bool-matrix.c */,
-				323DC8652321200E000BBA2F /* sudodef.h */,
-				323DC8662321200E000BBA2F /* sudostep.c */,
+				323DC8632321200E000BBA2F /* methods.c */,
 				323DC8672321200E000BBA2F /* sudoku.c */,
 				323DC8682321200E000BBA2F /* sudomat.c */,
+				323DC8662321200E000BBA2F /* sudostep.c */,
+				323DC8652321200E000BBA2F /* sudodef.h */,
+				323DC8622321200E000BBA2F /* methods-doc.md */,
 			);
 			name = src;
 			path = ../../src;
@@ -107,8 +119,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32C34CE7232D2DDF0054336B /* bool-matrix.h in Headers */,
 				323DC87023212134000BBA2F /* sudoku.h in Headers */,
+				32C34CEC232D2E740054336B /* sudomat.h in Headers */,
+				32C34CED232D2E740054336B /* sudostep.h in Headers */,
 				323DC86F23212134000BBA2F /* sudodef.h in Headers */,
+				32C34CEB232D2E740054336B /* methods.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
