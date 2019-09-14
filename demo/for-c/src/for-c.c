@@ -4,6 +4,33 @@
 #include <assert.h>
 
 #include <sudoku.h>
+#include <bool-matrix.h>
+
+void bool_matrix_cb(void* data, const int* answer, int size) {
+  (void)data;
+  printf("BoolMatrixAnswer: ");
+  for (int i = 0; i < size; i++) {
+    printf("%d ", answer[i] + 1);
+  }
+  printf("\n");
+}
+void bool_matrix_usage() {
+  int row1[] = {0, 3, 6};
+  int row2[] = {0, 3};
+  int row3[] = {3, 4, 6};
+  int row4[] = {2, 4, 5};
+  int row5[] = {1, 2, 5, 6};
+  int row6[] = {1, 6};
+  BoolMatrix* matrix = CreateBoolMatrix(6, 7, 17);
+  SetMatrixRowData(matrix, row1, 3);
+  SetMatrixRowData(matrix, row2, 2);
+  SetMatrixRowData(matrix, row3, 3);
+  SetMatrixRowData(matrix, row4, 3);
+  SetMatrixRowData(matrix, row5, 4);
+  SetMatrixRowData(matrix, row6, 2);
+  int count = DancingLinks(matrix, false, bool_matrix_cb, NULL);
+  printf("BoolMatrix Answer Count: %d\n", count);
+}
 
 FILE* open_file_for_read(const char* path) {
   assert(path != NULL);
@@ -187,6 +214,7 @@ void usage(const char* exec) {
 }
 
 int main(int argc, char* argv[]) {
+  bool_matrix_usage();
   if (argc != 1 && argc != 2) {
     usage(argv[0]);
     return -1;
