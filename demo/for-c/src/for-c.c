@@ -101,34 +101,81 @@ void solve_process(void* data, SolveProcedure* proc) {
       break;
 
     case Row2NumberIn2Grid:
-      break;
     case Col2NumberIn2Grid:
-      break;
     case Block2NumberIn2Grid:
+      printf("value: %d %d, gridOne: %d %d, gridTwo: %d %d\n",
+             proc->numberOne,
+             proc->numberTwo,
+             proc->gridOneX,
+             proc->gridOneY,
+             proc->gridTwoX,
+             proc->gridTwoY);
       break;
 
     case Row3NumberIn3Grid:
-      break;
     case Col3NumberIn3Grid:
-      break;
     case Block3NumberIn3Grid:
+      printf("value: %d %d %d, gridOne: %d %d, gridTwo: %d %d, gridThree: %d %d\n",
+             proc->numberOne,
+             proc->numberThree,
+             proc->numberTwo,
+             proc->gridOneX,
+             proc->gridOneY,
+             proc->gridTwoX,
+             proc->gridTwoY,
+             proc->gridThreeX,
+             proc->gridThreeY);
       break;
 
     case InBlockNumberInOneRow:
-      break;
     case InBlockNumberInOneCol:
+      printf("block: %d %d, value: %d, line: %d\n", proc->panelRow, proc->panelCol, proc->number, proc->line);
       break;
 
     case InRowNumberInBlock:
-      break;
     case InColNumberInBlock:
+      printf("line: %d, value: %d, block: %d %d\n", proc->line, proc->number, proc->panelRow, proc->panelCol);
       break;
 
     case TwoRowOneNumberInTwoCol:
+      printf("row: %d %d, value: %d, column: %d %d\n",
+             proc->rowOne,
+             proc->rowTwo,
+             proc->number,
+             proc->colOne,
+             proc->colTwo);
       break;
     case TwoColOneNumberInTwoRow:
+      printf("column: %d %d, value: %d, row: %d %d\n",
+             proc->colOne,
+             proc->colTwo,
+             proc->number,
+             proc->rowOne,
+             proc->rowTwo);
+      break;
+
+    case ThreeRowOneNumberInThreeCol:
+      printf("row: %d %d %d, value: %d, column: %d %d %d\n",
+             proc->rowOne,
+             proc->rowTwo,
+             proc->rowThree,
+             proc->number,
+             proc->colOne,
+             proc->colTwo,
+             proc->colThree);
+      break;
+    case ThreeColOneNumberInThreeRow:
+      printf("column: %d %d %d, value: %d, row: %d %d %d\n",
+             proc->colOne,
+             proc->colTwo,
+             proc->colThree,
+             proc->number,
+             proc->rowOne,
+             proc->rowTwo,
+             proc->rowThree);
       break;
     default:
+      printf("Do Not To Here: Default\n");
       break;
   }
 }
@@ -178,18 +225,18 @@ int main(int argc, char* argv[]) {
     printf("Verify: %s\n", status ? "True" : "False");
     DestroySudoku(sudo);
   }
-  //  printf("\n");
-  //  {
-  //    Sudoku* sudo = CreateSudoku(read_board, write_board_dancing, NULL, (void*)board_dancing);
-  //    printf("Calculate using dancing\n");
-  //    int num = CalculateSudokuAll(sudo, true, NULL, NULL);
-  //    printf("Answer Count: %d\n", num);
-  //    printf("One of it:\n");
-  //    display_sudoku(board_dancing);
-  //    int status = VerifySudokuBoard(board_dancing);
-  //    printf("Verify: %s\n", status ? "True" : "False");
-  //    DestroySudoku(sudo);
-  //  }
+  printf("\n");
+  {
+    Sudoku* sudo = CreateSudoku(read_board, write_board_dancing, NULL, (void*)board_dancing);
+    printf("Calculate using dancing\n");
+    int num = CalculateSudokuAll(sudo, true, NULL, NULL);
+    printf("Answer Count: %d\n", num);
+    printf("One of it:\n");
+    display_sudoku(board_dancing);
+    int status = VerifySudokuBoard(board_dancing);
+    printf("Verify: %s\n", status ? "True" : "False");
+    DestroySudoku(sudo);
+  }
 
   return 0;
 }
