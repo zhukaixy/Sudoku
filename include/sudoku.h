@@ -52,11 +52,14 @@ typedef enum ImproveType {
   InColNumberInBlock,
 
   TwoRowOneNumberInTwoCol,
-  TwoColOneNumberInTwoRow
+  TwoColOneNumberInTwoRow,
+
+  ThreeRowOneNumberInThreeCol,
+  ThreeColOneNumberInThreeRow
 } ImproveType;
 typedef struct SolveProcedure {
   ImproveType type;
-  int gridOneX; // [0, 8]
+  int gridOneX; // [1, 9]
   int gridOneY;
   int gridTwoX;
   int gridTwoY;
@@ -65,14 +68,16 @@ typedef struct SolveProcedure {
   int numberOne; // [1, 9]
   int numberTwo;
   int numberThree;
-  int panelRow; // [0, 2]
+  int panelRow; // [1, 3]
   int panelCol;
   int number; // [1, 9]
-  int line; // [0, 8]
-  int rowOne;
+  int line; // [1, 9]
+  int rowOne; // [1, 9]
   int rowTwo;
+  int rowThree;
   int colOne;
   int colTwo;
+  int colThree;
 } SolveProcedure;
 
 // row and col are in the range of 1-9
