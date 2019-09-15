@@ -248,8 +248,15 @@ int main(int argc, char* argv[]) {
   CuSuiteRun(suite);
   CuString* output = CuStringNew();
   CuSuiteSummary(suite, output);
+  int ret = 0;
+  for (int i = 0; i < output->length; i++) {
+    if (output->buffer[i] == 'F') {
+      ret = -1;
+      break;
+    }
+  }
   CuSuiteDetails(suite, output);
   printf("%s\n", output->buffer);
 
-  return 0;
+  return ret;
 }
