@@ -26,11 +26,61 @@ func main() {
 		}
 	}
 	board := getSudokuFromFile(file)
-	board_dancing := new([sudoku.BOARD_SIZE]int)
+	board_dancing := new([sudoku.BOARD_SIZE]int32)
 	for index := 0; index < sudoku.BOARD_SIZE; index++ {
 		board_dancing[index] = board[index]
 	}
-	displaySudoku(board)
+
+	{
+		sudo := new(sudoku.Sudoku)
+		sudo.CreateSudoku(func(row int32, col int32) int32 {
+			index := (row-1)*9 + (col - 1)
+			return board[index]
+		}, func(row int32, col int32, value int32, improveType int32) {
+			index := (row-1)*9 + (col - 1)
+			board[index] = value
+		}, nil)
+		count := sudo.GetKnownCount()
+		fmt.Printf("Sudoku Known Count: %d\n", count)
+		fmt.Printf("Calculate step by step\n")
+		num := sudo.CalculateSudokuAll(false, nil)
+		fmt.Printf("Answer Count: %d\n", num)
+		displaySudoku(board)
+		status := sudoku.VerifySudokuBoard(board)
+		statusStr := ""
+		if status {
+			statusStr = "True"
+		} else {
+			statusStr = "False"
+		}
+		fmt.Printf("Verify: %s\n", statusStr)
+		sudo.DestroySudoku()
+	}
+	fmt.Println("")
+	{
+		sudo := new(sudoku.Sudoku)
+		sudo.CreateSudoku(func(row int32, col int32) int32 {
+			index := (row-1)*9 + (col - 1)
+			return board_dancing[index]
+		}, func(row int32, col int32, value int32, improveType int32) {
+			index := (row-1)*9 + (col - 1)
+			board_dancing[index] = value
+		}, nil)
+		fmt.Printf("Calculate using dancing\n")
+		num := sudo.CalculateSudokuAll(true, nil)
+		fmt.Printf("Answer Count: %d\n", num)
+		fmt.Printf("One of it:\n")
+		displaySudoku(board)
+		status := sudoku.VerifySudokuBoard(board)
+		statusStr := ""
+		if status {
+			statusStr = "True"
+		} else {
+			statusStr = "False"
+		}
+		fmt.Printf("Verify: %s\n", statusStr)
+		sudo.DestroySudoku()
+	}
 }
 
 func boolMatrixUsage() {
@@ -65,8 +115,8 @@ func usage(exec string) {
 	fmt.Printf("\tor using %s with stdin\n", exec)
 }
 
-func getSudokuFromFile(file *os.File) []int {
-	board := make([]int, sudoku.BOARD_SIZE)
+func getSudokuFromFile(file *os.File) []int32 {
+	board := make([]int32, sudoku.BOARD_SIZE)
 	buffer := make([]byte, 1)
 
 	count := 0
@@ -76,14 +126,14 @@ func getSudokuFromFile(file *os.File) []int {
 			return nil
 		}
 		if buffer[0] >= '0' && buffer[0] <= '9' {
-			board[count] = int(buffer[0] - '0')
+			board[count] = int32(buffer[0] - '0')
 			count++
 		}
 	}
 	return board
 }
 
-func displaySudoku(board []int) {
+func displaySudoku(board []int32) {
 	if len(board) < sudoku.BOARD_SIZE {
 		return
 	}
