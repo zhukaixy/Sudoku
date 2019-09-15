@@ -66,6 +66,7 @@ namespace ForCS
 				bool status = Sudoku.VerifySudokuBoard(board_dancing);
 				Console.WriteLine("Verify: {0}", status ? "True" : "False");
 			}
+			GC.Collect();
 		}
 		static void BoolMatrixUsage()
 		{
