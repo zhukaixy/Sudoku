@@ -42,10 +42,10 @@ FILE* open_file_for_read(const char* path) {
 }
 
 bool get_sudoku_from_file(int* sudo, int size, FILE* file) {
-  assert(sudo != NULL && size >= 81 && file != NULL);
+  assert(sudo != NULL && size >= BOARD_SIZE && file != NULL);
   memset(sudo, 0, size);
   int count = 0;
-  for (; count < 81;) {
+  for (; count < BOARD_SIZE;) {
     int c = fgetc(file);
     if (c == EOF) {
       return false;
@@ -64,8 +64,9 @@ void display_sudoku(int* sudo) {
     for (int j = 0; j < 9; j++) {
       int index = i * 9 + j;
       printf("%d ", sudo[index]);
-      if (j == 2 || j == 5)
+      if (j == 2 || j == 5) {
         printf(" ");
+      }
     }
     printf("\n");
     if (i == 2 || i == 5) {

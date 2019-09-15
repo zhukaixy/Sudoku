@@ -49,8 +49,8 @@ static char const puzzleOneAnswerStr[RESULT_BUFFER_SIZE] =
 
 typedef struct TestSudoku {
   // CuTest* tc;
-  int board[81];
-  SolveType types[81];
+  int board[BOARD_SIZE];
+  SolveType types[BOARD_SIZE];
 } TestSudoku;
 
 static int read_data_func(void* data, int row, int col) { // row 1-9, col 1-9
@@ -68,7 +68,7 @@ static void write_data_func(void* data, int row, int col, int value, SolveType t
 static void TestCreateSudoku(CuTest* tc) {
   TestSudoku testSudo;
   memset(&testSudo, 0, sizeof(TestSudoku));
-  for (int i = 0; i < 81; i++) {
+  for (int i = 0; i < BOARD_SIZE; i++) {
     testSudo.board[i] = puzzleOne[i];
   }
   Sudoku* sudo = NULL;
@@ -102,7 +102,7 @@ static void TestCreateSudoku(CuTest* tc) {
 void TestVerifySudoku(CuTest* tc) {
   TestSudoku testSudo;
   memset(&testSudo, 0, sizeof(TestSudoku));
-  for (int i = 0; i < 81; i++) {
+  for (int i = 0; i < BOARD_SIZE; i++) {
     testSudo.board[i] = puzzleOne[i];
   }
 
@@ -113,14 +113,14 @@ void TestVerifySudoku(CuTest* tc) {
   CuAssertIntEquals(tc, 32, count);
   DestroySudoku(sudo);
 
-  for (int i = 0; i < 81; i++) {
+  for (int i = 0; i < BOARD_SIZE; i++) {
     testSudo.board[i] = puzzleOneAnswer[i];
   }
   sudo = CreateSudoku(read_data_func, write_data_func, NULL, &testSudo);
   result = VerifySudoku(sudo);
   CuAssertTrue(tc, result);
   count = GetKnownCount(sudo);
-  CuAssertIntEquals(tc, 81, count);
+  CuAssertIntEquals(tc, BOARD_SIZE, count);
   DestroySudoku(sudo);
 
   CuAssertTrue(tc, !VerifySudokuBoard(puzzleOne));
@@ -136,7 +136,7 @@ void sudoku_answer_cb(void* data, const char* str) {
 void TestCalculateSudokuAll(CuTest* tc) {
   TestSudoku testSudo;
   memset(&testSudo, 0, sizeof(TestSudoku));
-  for (int i = 0; i < 81; i++) {
+  for (int i = 0; i < BOARD_SIZE; i++) {
     testSudo.board[i] = puzzleOne[i];
   }
   char ansSudo[RESULT_BUFFER_SIZE];
@@ -149,7 +149,7 @@ void TestCalculateSudokuAll(CuTest* tc) {
   CuAssertIntEquals(tc, 1, num);
   CuAssertStrEquals(tc, puzzleOneAnswerStr, ansSudo);
   DestroySudoku(sudo);
-  for (int i = 0; i < 81; i++) {
+  for (int i = 0; i < BOARD_SIZE; i++) {
     CuAssertTrue(tc, testSudo.types[i] == None);
   }
   CuAssertTrue(tc, VerifySudokuBoard(testSudo.board));
@@ -157,11 +157,11 @@ void TestCalculateSudokuAll(CuTest* tc) {
   bool result = VerifySudoku(sudo);
   CuAssertTrue(tc, result);
   int count = GetKnownCount(sudo);
-  CuAssertIntEquals(tc, 81, count);
+  CuAssertIntEquals(tc, BOARD_SIZE, count);
   DestroySudoku(sudo);
 
   memset(&testSudo, 0, sizeof(TestSudoku));
-  for (int i = 0; i < 81; i++) {
+  for (int i = 0; i < BOARD_SIZE; i++) {
     testSudo.board[i] = puzzleOne[i];
   }
   memset(ansSudo, 0, sizeof(char) * RESULT_BUFFER_SIZE);
@@ -180,7 +180,7 @@ void TestCalculateSudokuAll(CuTest* tc) {
   result = VerifySudoku(sudo);
   CuAssertTrue(tc, result);
   count = GetKnownCount(sudo);
-  CuAssertIntEquals(tc, 81, count);
+  CuAssertIntEquals(tc, BOARD_SIZE, count);
   DestroySudoku(sudo);
 }
 
