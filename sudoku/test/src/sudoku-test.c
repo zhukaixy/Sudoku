@@ -171,7 +171,8 @@ void TestCalculateSudokuAll(CuTest* tc) {
   num = CalculateSudokuAll(sudo, false, sudoku_answer_cb, (void*)ansSudo);
   char buffer[RESULT_BUFFER_SIZE];
   MakeResultString(sudo, buffer, RESULT_BUFFER_SIZE);
-  printf("Test Step by Step Result:\n%s", buffer);
+  //  printf("Test Step by Step Result:\n%s", buffer);
+  CuAssertStrEquals(tc, puzzleOneAnswerStr, buffer);
   CuAssertTrue(tc, VerifySudoku(sudo));
   CuAssertIntEquals(tc, 1, num);
   CuAssertStrEquals(tc, puzzleOneAnswerStr, ansSudo);
