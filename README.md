@@ -94,14 +94,14 @@ ndk-build -B # rebuild project
    - iOS：iOS 静态库的 xcode 工程
    - Android：用于编译 Android 动态库
 3. demo：用于测试的 Demo，包含多种编程语言
-   - for-c：C 语言用例
-   - for-cs：C#语言用例
-   - for-go：Go 语言用例
-   - for-java：Java 语言用例
-   - for-lua：Lua 语言用例
-   - for-nodejs：NodeJS 语言用例
-   - for-php：PHP 语言用例
-   - for-python：Python 语言用例
+   - for-c：C 语言用例（已完成）
+   - for-cs：C#语言用例（已完成）
+   - for-go：Go 语言用例（进行中...）
+   - for-java：Java 语言用例（进行中...）
+   - for-lua：Lua 语言用例（待处理）
+   - for-nodejs：NodeJS 语言用例（待处理）
+   - for-php：PHP 语言用例（待处理）
+   - for-python：Python 语言用例（待处理）
 4. data：存放用于测试的数独案例
 5. tools：工具脚本
    - SudokuTable.xlsx：辅助填充表，来自[林健随笔](https://linjian.org/blog/tech/programming/others/sudoku-table)
