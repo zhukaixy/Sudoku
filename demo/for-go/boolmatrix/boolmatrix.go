@@ -5,6 +5,7 @@ package boolmatrix
 #cgo LDFLAGS: -L../../../buildXcode/sudoku/Debug -lsudoku
 
 #include "bool-matrix.h"
+
 void CgoAnswerCB(void* data, int* answer, int size);
 */
 import "C"
@@ -25,9 +26,11 @@ func CgoAnswerCB(data unsafe.Pointer, answer *C.int, size C.int) {
 	boolMatrix.AnswerCB(ans)
 }
 
+type AnswerCallback func(answer []int32)
+
 type BoolMatrix struct {
 	matrix   *C.BoolMatrix
-	AnswerCB func(answer []int32)
+	AnswerCB AnswerCallback
 }
 
 // rows is the number of matrix row
@@ -38,18 +41,28 @@ func (boolMatrix *BoolMatrix) CreateBoolMatrix(rows, cols, maxNodes int) {
 }
 
 func (boolMatrix *BoolMatrix) DestroyBoolMatrix() {
+	if boolMatrix.matrix == nil {
+		return
+	}
 	C.DestroyBoolMatrix(boolMatrix.matrix)
 	boolMatrix.matrix = nil
 }
 
 // data is an array with one position in that row, position are in the range of [0, cols-1]
 func (boolMatrix *BoolMatrix) SetMatrixRowData(data []int32) {
+	if boolMatrix.matrix == nil {
+		return
+	}
 	C.SetMatrixRowData(boolMatrix.matrix, (*C.int)(unsafe.Pointer(&data[0])), C.int(len(data)))
 }
 
 // return the number of this call has calculated(the result)
-func (boolMatrix *BoolMatrix) DancingLinks(justOne bool, cb func(answer []int32)) int {
+func (boolMatrix *BoolMatrix) DancingLinks(justOne bool, cb AnswerCallback) int {
+	if boolMatrix.matrix == nil {
+		return 0
+	}
 	boolMatrix.AnswerCB = cb
 	ansCB := (C.AnswerCallback)(C.CgoAnswerCB)
+	// here can be unsafe.Pointer(boolMatrix), no need unsafe.Pointer(&boolMatrix.matrix), I don't know why
 	return int(C.DancingLinks(boolMatrix.matrix, C.bool(justOne), ansCB, unsafe.Pointer(boolMatrix)))
 }
