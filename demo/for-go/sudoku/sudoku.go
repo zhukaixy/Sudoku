@@ -61,26 +61,26 @@ const (
 	ThreeColOneNumberInThreeRow
 ) // ImproveType
 type SolveProcedure struct {
-	improveType int32
-	gridOneX    int32 // [1, 9]
-	gridOneY    int32
-	gridTwoX    int32
-	gridTwoY    int32
-	gridThreeX  int32
-	gridThreeY  int32
-	numberOne   int32 // [1, 9]
-	numberTwo   int32
-	numberThree int32
-	panelRow    int32 // [1, 3]
-	panelCol    int32
-	number      int32 // [1, 9]
-	line        int32 // [1, 9]
-	rowOne      int32 // [1, 9]
-	rowTwo      int32
-	rowThree    int32
-	colOne      int32
-	colTwo      int32
-	colThree    int32
+	ImproveType int32
+	GridOneX    int32 // [1, 9]
+	GridOneY    int32
+	GridTwoX    int32
+	GridTwoY    int32
+	GridThreeX  int32
+	GridThreeY  int32
+	NumberOne   int32 // [1, 9]
+	NumberTwo   int32
+	NumberThree int32
+	PanelRow    int32 // [1, 3]
+	PanelCol    int32
+	Number      int32 // [1, 9]
+	Line        int32 // [1, 9]
+	RowOne      int32 // [1, 9]
+	RowTwo      int32
+	RowThree    int32
+	ColOne      int32
+	ColTwo      int32
+	ColThree    int32
 }
 
 // row and col are in the range of 1-9
@@ -143,6 +143,7 @@ func (sudoku *Sudoku) CreateSudoku(readFunc SudokuReadData, writeFunc SudokuWrit
 	tmpWrite := (C.SudokuWriteData)(C.writeSudokuData)
 	tmpProc := (C.SolveProcessCallback)(C.processCallback)
 	// here should be unsafe.Pointer(&sudoku.sudo), not unsafe.Pointer(sudoku), I don't know why
+	// for avoid panic: runtime error: cgo argument has Go pointer to Go pointer
 	sudoku.sudo = C.CreateSudoku(tmpRead, tmpWrite, tmpProc, unsafe.Pointer(&sudoku.sudo))
 }
 
@@ -175,6 +176,7 @@ func (sudoku *Sudoku) CalculateSudokuAll(dancing bool, cb SudokuAnswerCallback) 
 	sudoku.AnswerCB = cb
 	ansCB := (C.SudokuAnswerCallback)(C.answerSudokuCallback)
 	// here should be unsafe.Pointer(&sudoku.sudo), not unsafe.Pointer(sudoku), I don't know why
+	// for avoid panic: runtime error: cgo argument has Go pointer to Go pointer
 	return int32(C.CalculateSudokuAll(sudoku.sudo, C.bool(dancing), ansCB, unsafe.Pointer(&sudoku.sudo)))
 }
 func SolveTypeName(solveType int32) string {

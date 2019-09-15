@@ -33,13 +33,14 @@ func main() {
 
 	{
 		sudo := new(sudoku.Sudoku)
-		sudo.CreateSudoku(func(row int32, col int32) int32 {
+		sudo.CreateSudoku(sudoku.SudokuReadData(func(row int32, col int32) int32 {
 			index := (row-1)*9 + (col - 1)
 			return board[index]
-		}, func(row int32, col int32, value int32, improveType int32) {
+		}), sudoku.SudokuWriteData(func(row int32, col int32, value int32, improveType int32) {
 			index := (row-1)*9 + (col - 1)
 			board[index] = value
-		}, nil)
+			fmt.Printf("Solve: %s row:%d column:%d value:%d\n", sudoku.SolveTypeName(improveType), row, col, value)
+		}), sudoku.SolveProcessCallback(solveProcess))
 		count := sudo.GetKnownCount()
 		fmt.Printf("Sudoku Known Count: %d\n", count)
 		fmt.Printf("Calculate step by step\n")
@@ -99,12 +100,12 @@ func boolMatrixUsage() {
 	matrix.SetMatrixRowData(row4)
 	matrix.SetMatrixRowData(row5)
 	matrix.SetMatrixRowData(row6)
-	count := matrix.DancingLinks(false, func(answer []int32) {
+	count := matrix.DancingLinks(false, boolmatrix.AnswerCallback(func(answer []int32) {
 		for index := 0; index < len(answer); index++ {
 			answer[index]++
 		}
 		fmt.Println("BoolMatrixAnswer:", answer)
-	})
+	}))
 	fmt.Println("BoolMatrix Answer Count:", count)
 	matrix.DestroyBoolMatrix()
 }
@@ -149,5 +150,119 @@ func displaySudoku(board []int32) {
 		if i == 2 || i == 5 {
 			fmt.Printf("\n")
 		}
+	}
+}
+
+func solveProcess(proc *sudoku.SolveProcedure) {
+	fmt.Printf("Improve: %s ", sudoku.ImproveTypeName(proc.ImproveType))
+	switch proc.ImproveType {
+	case sudoku.DoNotImprove:
+		fmt.Printf("Do Not Improve\n")
+		break
+
+	case sudoku.Row2GridWith2Posibility:
+	case sudoku.Col2GridWith2Posibility:
+	case sudoku.Block2GridWith2Posibility:
+		fmt.Printf("GridOne: %d %d, GridTwo: %d %d, Value: %d %d\n",
+			proc.GridOneX,
+			proc.GridOneY,
+			proc.GridTwoX,
+			proc.GridTwoY,
+			proc.NumberOne,
+			proc.NumberTwo)
+		break
+
+	case sudoku.Row3GridWith3Posibility:
+	case sudoku.Col3GridWith3Posibility:
+	case sudoku.Block3GridWith3Posibility:
+		fmt.Printf("GridOne: %d %d, GridTwo: %d %d, GridThree: %d %d, Value: %d %d %d\n",
+			proc.GridOneX,
+			proc.GridOneY,
+			proc.GridTwoX,
+			proc.GridTwoY,
+			proc.GridThreeX,
+			proc.GridThreeY,
+			proc.NumberOne,
+			proc.NumberTwo,
+			proc.NumberThree)
+		break
+
+	case sudoku.Row2NumberIn2Grid:
+	case sudoku.Col2NumberIn2Grid:
+	case sudoku.Block2NumberIn2Grid:
+		fmt.Printf("value: %d %d, GridOne: %d %d, GridTwo: %d %d\n",
+			proc.NumberOne,
+			proc.NumberTwo,
+			proc.GridOneX,
+			proc.GridOneY,
+			proc.GridTwoX,
+			proc.GridTwoY)
+		break
+
+	case sudoku.Row3NumberIn3Grid:
+	case sudoku.Col3NumberIn3Grid:
+	case sudoku.Block3NumberIn3Grid:
+		fmt.Printf("value: %d %d %d, GridOne: %d %d, GridTwo: %d %d, GridThree: %d %d\n",
+			proc.NumberOne,
+			proc.NumberThree,
+			proc.NumberTwo,
+			proc.GridOneX,
+			proc.GridOneY,
+			proc.GridTwoX,
+			proc.GridTwoY,
+			proc.GridThreeX,
+			proc.GridThreeY)
+		break
+
+	case sudoku.InBlockNumberInOneRow:
+	case sudoku.InBlockNumberInOneCol:
+		fmt.Printf("Block: %d %d, Value: %d, Line: %d\n", proc.PanelRow, proc.PanelCol, proc.Number, proc.Line)
+		break
+
+	case sudoku.InRowNumberInBlock:
+	case sudoku.InColNumberInBlock:
+		fmt.Printf("Line: %d, Value: %d, Block: %d %d\n", proc.Line, proc.Number, proc.PanelRow, proc.PanelCol)
+		break
+
+	case sudoku.TwoRowOneNumberInTwoCol:
+		fmt.Printf("Row: %d %d, Value: %d, Column: %d %d\n",
+			proc.RowOne,
+			proc.RowTwo,
+			proc.Number,
+			proc.ColOne,
+			proc.ColTwo)
+		break
+	case sudoku.TwoColOneNumberInTwoRow:
+		fmt.Printf("Column: %d %d, Value: %d, Row: %d %d\n",
+			proc.ColOne,
+			proc.ColTwo,
+			proc.Number,
+			proc.RowOne,
+			proc.RowTwo)
+		break
+
+	case sudoku.ThreeRowOneNumberInThreeCol:
+		fmt.Printf("Row: %d %d %d, Value: %d, Column: %d %d %d\n",
+			proc.RowOne,
+			proc.RowTwo,
+			proc.RowThree,
+			proc.Number,
+			proc.ColOne,
+			proc.ColTwo,
+			proc.ColThree)
+		break
+	case sudoku.ThreeColOneNumberInThreeRow:
+		fmt.Printf("Column: %d %d %d, Value: %d, Row: %d %d %d\n",
+			proc.ColOne,
+			proc.ColTwo,
+			proc.ColThree,
+			proc.Number,
+			proc.RowOne,
+			proc.RowTwo,
+			proc.RowThree)
+		break
+	default:
+		fmt.Printf("Do Not To Here: Default\n")
+		break
 	}
 }
