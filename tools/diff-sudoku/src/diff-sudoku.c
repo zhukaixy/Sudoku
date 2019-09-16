@@ -23,7 +23,7 @@ FILE* open_file_for_read(const char* path) {
 
 bool get_sudoku_from_file(int* sudo, int size, FILE* file) {
   assert(sudo != NULL && size >= BOARD_SIZE && file != NULL);
-  memset(sudo, 0, size);
+  memset(sudo, 0, sizeof(int) * size);
   int count = 0;
   for (; count < BOARD_SIZE;) {
     int c = fgetc(file);
@@ -57,7 +57,7 @@ void display_check(bool allZero, bool allNotZero) {
 
 void get_display_int_string(char* buffer, int size, int value, CharColor col) {
   assert(buffer != NULL && size >= 14 && value >= 0 && value <= 9);
-  memset(buffer, 0, size);
+  memset(buffer, 0, sizeof(char) * size);
   switch (col) {
     case None:
       snprintf(buffer, size, "%d ", value);

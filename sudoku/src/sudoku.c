@@ -57,8 +57,8 @@ SUDOKU_API bool VerifySudokuBoard(const int* board) {
 }
 
 SUDOKU_API bool VerifySudoku(Sudoku* sudo) {
-  int board[81];
-  memset(board, 0, 81);
+  int board[BOARD_SIZE];
+  memset(board, 0, sizeof(int) * BOARD_SIZE);
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
       int index = i * 9 + j;
@@ -69,11 +69,11 @@ SUDOKU_API bool VerifySudoku(Sudoku* sudo) {
 }
 
 SUDOKU_API int GetKnownCount(Sudoku* sudo) {
-  return 81 - sudo->unknownCount;
+  return BOARD_SIZE - sudo->unknownCount;
 }
 
 SUDOKU_API void MakeResultString(Sudoku* sudo, char* buffer, int size) {
-  memset(buffer, 0, size);
+  memset(buffer, 0, sizeof(char) * size);
   if (size < RESULT_BUFFER_SIZE) {
     return;
   }

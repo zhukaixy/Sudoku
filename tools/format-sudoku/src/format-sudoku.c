@@ -21,7 +21,7 @@ FILE* open_file_for_read(const char* path) {
 
 bool get_sudoku_from_file(int* sudo, int size, FILE* file) {
   assert(sudo != NULL && size >= BOARD_SIZE && file != NULL);
-  memset(sudo, 0, size);
+  memset(sudo, 0, sizeof(int) * size);
   int count = 0;
   for (; count < BOARD_SIZE;) {
     int c = fgetc(file);

@@ -1238,6 +1238,7 @@ void find_row_all_posibility_in_block(Sudoku* sudo, int row, int col, int value)
   INDEX_GRID_TO_PANEL(row, col, pRow, pCol);
   int x, y;
   INDEX_GRID_TO_IN_PANEL(row, col, x, y);
+  (void)y;
   for (int i = 0; i < 3; i++) {
     if (i == x) {
       continue;
@@ -1271,6 +1272,7 @@ void find_col_all_posibility_in_block(Sudoku* sudo, int row, int col, int value)
   INDEX_GRID_TO_PANEL(row, col, pRow, pCol);
   int x, y;
   INDEX_GRID_TO_IN_PANEL(row, col, x, y);
+  (void)x;
   for (int j = 0; j < 3; j++) {
     if (j == y) {
       continue;
