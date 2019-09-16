@@ -34,10 +34,82 @@ JNIEXPORT void JNICALL Java_SudokuLib_SetMatrixRowData
 /*
  * Class:     SudokuLib
  * Method:    DancingLinks
- * Signature: (JILMatrixCallback;)I
+ * Signature: (JILIMatrixCallback;)I
  */
 JNIEXPORT jint JNICALL Java_SudokuLib_DancingLinks
   (JNIEnv *, jclass, jlong, jint, jobject);
+
+/*
+ * Class:     SudokuLib
+ * Method:    CreateSudoku
+ * Signature: (LISudokuCallback;)J
+ */
+JNIEXPORT jlong JNICALL Java_SudokuLib_CreateSudoku
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     SudokuLib
+ * Method:    DestroySudoku
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_SudokuLib_DestroySudoku
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     SudokuLib
+ * Method:    VerifySudokuBoard
+ * Signature: ([I)I
+ */
+JNIEXPORT jint JNICALL Java_SudokuLib_VerifySudokuBoard
+  (JNIEnv *, jclass, jintArray);
+
+/*
+ * Class:     SudokuLib
+ * Method:    VerifySudoku
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_SudokuLib_VerifySudoku
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     SudokuLib
+ * Method:    GetKnownCount
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_SudokuLib_GetKnownCount
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     SudokuLib
+ * Method:    MakeResultString
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_SudokuLib_MakeResultString
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     SudokuLib
+ * Method:    CalculateSudokuAll
+ * Signature: (JILISudokuAnswerCallback;)I
+ */
+JNIEXPORT jint JNICALL Java_SudokuLib_CalculateSudokuAll
+  (JNIEnv *, jclass, jlong, jint, jobject);
+
+/*
+ * Class:     SudokuLib
+ * Method:    SolveTypeName
+ * Signature: (I)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_SudokuLib_SolveTypeName
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     SudokuLib
+ * Method:    ImproveTypeName
+ * Signature: (I)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_SudokuLib_ImproveTypeName
+  (JNIEnv *, jclass, jint);
 
 #ifdef __cplusplus
 }
