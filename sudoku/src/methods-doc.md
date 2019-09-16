@@ -21,34 +21,35 @@
 ## 技巧与实现对应关系
 
 1. 唯一解法、唯余解法、唯一候选数法:
-SolveType.GridOnlyOnePosibility
+   SolveType.GridOnlyOnePosibility
 2. 基础摒弃法、隐性唯一候选数法:
-SolveType.RowNumberOnlyOneGrid
-SolveType.ColNumberOnlyOneGrid
-SolveType.BlockNumberOnlyOneGrid
+   SolveType.RowNumberOnlyOneGrid
+   SolveType.ColNumberOnlyOneGrid
+   SolveType.BlockNumberOnlyOneGrid
 3. 区块摒弃法、候选数区块删减法:
-ImproveType.InBlockNumberInOneRow
-ImproveType.InBlockNumberInOneCol
-ImproveType.InRowNumberInBlock
-ImproveType.InColNumberInBlock
+   ImproveType.InBlockNumberInOneRow
+   ImproveType.InBlockNumberInOneCol
+   ImproveType.InRowNumberInBlock
+   ImproveType.InColNumberInBlock
 4. 矩形摒除法、候选数矩形删减法:
-ImproveType.TwoRowOneNumberInTwoCol
-ImproveType.TwoColOneNumberInTwoRow
+   ImproveType.TwoRowOneNumberInTwoCol
+   ImproveType.TwoColOneNumberInTwoRow
 5. 候选数对删减法:
-ImproveType.2GridWith2Posibility(Row, Column, Block)
+   ImproveType.2GridWith2Posibility(Row, Column, Block)
 6. 隐性候选数对删减法:
-ImproveType.2NumberIn2Grid(Row, Column, Block)
+   ImproveType.2NumberIn2Grid(Row, Column, Block)
 7. 三数集删减法:
-ImproveType.3GridWith3Posibility(Row, Column, Block)
+   ImproveType.3GridWith3Posibility(Row, Column, Block)
 8. 隐性三数集删减法:
-ImproveType.3NumberIn3Grid(Row, Column, Block)
+   ImproveType.3NumberIn3Grid(Row, Column, Block)
 9. 三链数删减法:
-ImproveType.ThreeRowOneNumberInThreeCol,
-ImproveType.ThreeColOneNumberInThreeRow
+   ImproveType.ThreeRowOneNumberInThreeCol,
+   ImproveType.ThreeColOneNumberInThreeRow
 
 ## 其他未实现操作
 
-1. 组合摒除法
-2. XY形态匹配删减法
-3. XYZ形态匹配删减法
-4. WXYZ形态匹配删减法
+1. 3GridWith3Posibility 和 3NumberIn3Grid 的实现方式待改进，例如：12 23 13 的形式也属于这种情况
+2. 组合摒除法
+3. XY 形态匹配删减法
+4. XYZ 形态匹配删减法
+5. WXYZ 形态匹配删减法
