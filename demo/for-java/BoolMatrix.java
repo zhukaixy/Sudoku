@@ -3,8 +3,7 @@ public class BoolMatrix {
 	public BoolMatrix(int rows, int cols, int maxNodes) {
 		matrixHandler = SudokuLib.CreateBoolMatrix(rows, cols, maxNodes);
 	}
-	public void finalize()
-	{
+	public void finalize() {
 		SudokuLib.DestroyBoolMatrix(matrixHandler);
 	}
 	public void SetMatrixRowData(int[] data) {
