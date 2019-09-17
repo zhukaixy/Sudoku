@@ -19,7 +19,7 @@ header:
 	javah -d jni SudokuLib
 
 run:
-	java Main
+	java Main ../../data/1.sudoku
 
 clean:
 	rm -rf *.class *.jnilib

@@ -67,8 +67,6 @@ interface ISudokuCallback {
 	// row col and value are in the range of 1-9
 	void SudokuWriteData(int row, int col, int value, int type);
 	void SolveProcessCallback(SolveProcedure proc);
-}
-interface ISudokuAnswerCallback {
 	// ans is a null terminate char array
 	void SudokuAnswerCallback(int[] ans);
 }
@@ -92,7 +90,12 @@ public class SudokuLib {
 	public static native int VerifySudoku(long sudo);
 	public static native int GetKnownCount(long sudo);
 	public static native String MakeResultString(long sudo);
-	public static native int CalculateSudokuAll(long sudo, int dancing, ISudokuAnswerCallback cb);
+	public static native int CalculateSudokuAll(long sudo, int dancing, ISudokuCallback cb);
 	public static native String SolveTypeName(int type);
 	public static native String ImproveTypeName(int type);
+
+	// 9*9*2:num+' ', 9*2:every line has ' '*2, 9:every line has '\n', 2*'\n'+'\0'
+	public static int RESULT_BUFFER_SIZE  = (9 * 9 * 2 + 9 * 2 + 9 + 2 + 1);
+	public static int BOARD_SIZE = (9 * 9);
+
 }

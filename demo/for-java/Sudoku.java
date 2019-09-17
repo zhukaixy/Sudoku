@@ -18,7 +18,7 @@ public class Sudoku {
 	public String MakeResultString() {
 		return SudokuLib.MakeResultString(sudoHandler);
 	}
-	public int CalculateSudokuAll(boolean dancing, ISudokuAnswerCallback cb) {
+	public int CalculateSudokuAll(boolean dancing, ISudokuCallback cb) {
 		return SudokuLib.CalculateSudokuAll(sudoHandler, dancing?1:0, cb);
 	}
 	public static String SolveTypeName(SolveType type) {
