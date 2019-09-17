@@ -209,9 +209,9 @@ void solve_process(void* data, SolveProcedure* proc) {
 }
 
 void usage(const char* exec) {
-  fprintf(stderr, "Usage: %s <file>\n", exec);
-  fprintf(stderr, "\t<file>: The sudoku file path\n");
-  fprintf(stderr, "\tor using %s with stdin\n", exec);
+  printf("Usage: %s <file>\n", exec);
+  printf("\t<file>: The sudoku file path\n");
+  printf("\tor using %s with stdin\n", exec);
 }
 
 int main(int argc, char* argv[]) {
