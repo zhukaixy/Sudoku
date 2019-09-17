@@ -1,3 +1,4 @@
+// #include <stdio.h>
 #include <stdlib.h>
 
 #include <bool-matrix.h>
@@ -95,9 +96,47 @@ static void Default_SolveProcessCallback(void* data, SolveProcedure* proc) {
   jobject now = (*env)->NewObject(env, classSolve, constructor);
   jfieldID field = (*env)->GetFieldID(env, classSolve, "type", "I");
   (*env)->SetIntField(env, now, field, (int)proc->type);
+  field = (*env)->GetFieldID(env, classSolve, "gridOneX", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->gridOneX);
+  field = (*env)->GetFieldID(env, classSolve, "gridOneY", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->gridOneY);
+  field = (*env)->GetFieldID(env, classSolve, "gridTwoX", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->gridTwoX);
+  field = (*env)->GetFieldID(env, classSolve, "gridTwoY", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->gridTwoY);
+  field = (*env)->GetFieldID(env, classSolve, "gridThreeX", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->gridThreeX);
+  field = (*env)->GetFieldID(env, classSolve, "gridThreeY", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->gridThreeY);
+  field = (*env)->GetFieldID(env, classSolve, "numberOne", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->numberOne);
+  field = (*env)->GetFieldID(env, classSolve, "numberTwo", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->numberTwo);
+  field = (*env)->GetFieldID(env, classSolve, "numberThree", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->numberThree);
+  field = (*env)->GetFieldID(env, classSolve, "panelRow", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->panelRow);
+  field = (*env)->GetFieldID(env, classSolve, "panelCol", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->panelCol);
+  field = (*env)->GetFieldID(env, classSolve, "number", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->number);
+  field = (*env)->GetFieldID(env, classSolve, "line", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->line);
+  field = (*env)->GetFieldID(env, classSolve, "rowOne", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->rowOne);
+  field = (*env)->GetFieldID(env, classSolve, "rowTwo", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->rowTwo);
+  field = (*env)->GetFieldID(env, classSolve, "rowThree", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->rowThree);
+  field = (*env)->GetFieldID(env, classSolve, "colOne", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->colOne);
+  field = (*env)->GetFieldID(env, classSolve, "colTwo", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->colTwo);
+  field = (*env)->GetFieldID(env, classSolve, "colThree", "I");
+  (*env)->SetIntField(env, now, field, (int)proc->colThree);
 
   jclass cls = (*env)->GetObjectClass(env, obj);
-  jmethodID callback = (*env)->GetMethodID(env, cls, "SolveProcessCallback", "(LSolveProcedure)V");
+  jmethodID callback = (*env)->GetMethodID(env, cls, "SolveProcessCallback", "(LSolveProcedure;)V");
   (*env)->CallIntMethod(env, obj, callback, now);
 }
 
@@ -180,11 +219,15 @@ static void Default_SudokuAnswerCallback(void* data, const char* ans) {
 /*
  * Class:     SudokuLib
  * Method:    CalculateSudokuAll
- * Signature: (JILISudokuAnswerCallback;)I
+ * Signature: (JILISudokuCallback;)I
  */
 JNIEXPORT jint JNICALL
 Java_SudokuLib_CalculateSudokuAll(JNIEnv* env, jclass cls, jlong jData, jint justOne, jobject obj) {
   JavaData* pData = (JavaData*)jData;
+  // printf("%x %x\n", pData->env, pData->obj);
+  // printf("%x %x\n", env, obj);
+  pData->env = env;
+  pData->obj = obj; // In java, obj only available in current call, so here must to update it
   Sudoku* sudo = (Sudoku*)pData->data;
   JavaData tmpData;
   tmpData.env = env;

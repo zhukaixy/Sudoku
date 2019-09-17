@@ -90,7 +90,7 @@ JNIEXPORT jstring JNICALL Java_SudokuLib_MakeResultString
 /*
  * Class:     SudokuLib
  * Method:    CalculateSudokuAll
- * Signature: (JILISudokuAnswerCallback;)I
+ * Signature: (JILISudokuCallback;)I
  */
 JNIEXPORT jint JNICALL Java_SudokuLib_CalculateSudokuAll
   (JNIEnv *, jclass, jlong, jint, jobject);
