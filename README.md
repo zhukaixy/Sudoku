@@ -94,10 +94,10 @@ ndk-build -B # rebuild project
    - iOS：iOS 静态库的 xcode 工程
    - Android：用于编译 Android 动态库
 3. demo：用于测试的 Demo，包含多种编程语言
-   - for-c：C 语言用例（已完成）
-   - for-cs：C#语言用例（已完成）
-   - for-go：Go 语言用例（进行中...）
-   - for-java：Java 语言用例（进行中...）
+   - for-c：C 语言用例
+   - for-cs：C#语言用例
+   - for-go：Go 语言用例
+   - for-java：Java 语言用例
    - for-lua：Lua 语言用例（待处理）
    - for-nodejs：NodeJS 语言用例（待处理）
    - for-php：PHP 语言用例（待处理）
