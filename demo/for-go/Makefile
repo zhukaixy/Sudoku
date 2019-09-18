@@ -1,9 +1,10 @@
 .PHONY: for-go run clean
 
 ARCH=$(shell uname -s)
+MAKEFILE_DIR=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 ifeq ($(ARCH), Darwin)
-MAKE_LIBRARY_PATH=../../buildXcode/sudoku/Debug/
+MAKE_LIBRARY_PATH=$(MAKEFILE_DIR)../../buildXcode/sudoku/Debug
 endif
 ifeq ($(ARCH), Linux)
 MAKE_LIBRARY_PATH=../../build/sudoku/

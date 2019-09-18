@@ -2,7 +2,7 @@ package boolmatrix
 
 /*
 #cgo CFLAGS: -I../../../include
-#cgo LDFLAGS: -L../../../buildXcode/sudoku/Debug -lsudoku
+#cgo LDFLAGS: -lsudoku
 
 #include "bool-matrix.h"
 
