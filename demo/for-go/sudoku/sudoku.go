@@ -2,7 +2,7 @@ package sudoku
 
 /*
 #cgo CFLAGS: -I../../../include
-#cgo LDFLAGS: -L../../../buildXcode/sudoku/Debug -lsudoku
+#cgo LDFLAGS: -lsudoku
 
 #include <string.h>
 #include "sudoku.h"
