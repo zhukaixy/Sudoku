@@ -3,10 +3,10 @@
 ARCH=$(shell uname -s)
 
 ifeq ($(ARCH), Darwin)
-MAKE_LIBRARY_PATH=../../buildXcode/sudoku/Debug
+MAKE_LIBRARY_PATH=../../buildXcode/sudoku/Debug/
 endif
 ifeq ($(ARCH), Linux)
-MAKE_LIBRARY_PATH=../../build/sudoku
+MAKE_LIBRARY_PATH=../../build/sudoku/
 endif
 
 for-go:
