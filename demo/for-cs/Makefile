@@ -1,14 +1,22 @@
 .PHONY: for-cs run linuxrun clean
 
+ARCH=$(shell uname -s)
+MAKEFILE_DIR=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+PROJECT_DIR=$(patsubst %/demo/for-cs/,%,$(MAKEFILE_DIR))
+
+ifeq ($(ARCH), Darwin)
+MAKE_LIBRARY_PATH=$(PROJECT_DIR)/buildXcode/sudoku/Debug
+endif
+ifeq ($(ARCH), Linux)
+MAKE_LIBRARY_PATH=$(PROJECT_DIR)/build/sudoku/
+endif
+
 for-cs:
 	xbuild for-cs.sln
 # msbuild for-cs.sln
 
 run:
-	LD_LIBRARY_PATH=../../buildXcode/sudoku/Debug/ mono ./lib/Debug/for-cs.exe ../../data/1.sudoku
-
-linuxrun:
-	LD_LIBRARY_PATH=../../build/sudoku/ mono ./lib/Debug/for-cs.exe ../../data/1.sudoku
+	LD_LIBRARY_PATH=${MAKE_LIBRARY_PATH} mono ./lib/Debug/for-cs.exe ${PROJECT_DIR}/data/1.sudoku
 
 clean:
 	rm -rf obj lib
