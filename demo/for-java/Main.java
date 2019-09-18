@@ -239,12 +239,13 @@ public class Main {
 			System.out.printf("Verify: %s\n", status ? "True" : "False");
 
 			useSudo.dancing = true;
+			sudo = new Sudoku(useSudo);
 			System.out.printf("Calculate using dancing\n");
-			num = sudo.CalculateSudokuAll(false, useSudo);
+			num = sudo.CalculateSudokuAll(true, useSudo);
 			System.out.printf("Answer Count: %d\n", num);
 			System.out.printf("One of it:\n");
 			useSudo.DisplaySudoku(useSudo.board_dancing);
-			status = sudo.VerifySudokuBoard(useSudo.board);
+			status = sudo.VerifySudokuBoard(useSudo.board_dancing);
 			System.out.printf("Verify: %s\n", status ? "True" : "False");
 		}catch(Exception e) {
 			e.printStackTrace();
