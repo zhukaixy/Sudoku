@@ -7,7 +7,7 @@ ifeq ($(ARCH), Darwin)
 MAKE_LIBRARY_PATH=$(MAKEFILE_DIR)../../buildXcode/sudoku/Debug
 endif
 ifeq ($(ARCH), Linux)
-MAKE_LIBRARY_PATH=../../build/sudoku/
+MAKE_LIBRARY_PATH=$(MAKEFILE_DIR)../../build/sudoku/
 endif
 
 for-go:
