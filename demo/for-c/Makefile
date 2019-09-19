@@ -11,8 +11,8 @@ ifeq (${ARCH}, Linux)
 MAKE_C_DEMO=${PROJECT_DIR}/build/demo/for-c/for-c
 endif
 ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)
-MAKE_C_DEMO=${PROJECT_DIR}/buildVS/install/bin/for-c
+MAKE_C_DEMO=${PROJECT_DIR}/buildVS/install/bin/for-c.exe
 endif
 
 run:
-	${MAKE_C_DEMO} ${PROJECT_DIR}/data/1.sudoku
+	${MAKE_C_DEMO} 0<${PROJECT_DIR}/data/1.sudoku
