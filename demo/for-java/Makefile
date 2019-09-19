@@ -22,7 +22,7 @@ SudokuHeader=-I$(PROJECT_DIR)/include
 for-java: libsudokujni.jnilib SudokuLib.class BoolMatrix.class Sudoku.class Main.class
 
 libsudokujni.jnilib: jni/SudokuLib.c jni/SudokuLib.h
-	gcc  -o $@ -dynamiclib ${JavaHeader} ${SudokuHeader} ${SudokuLib} ${LibRuntimePath} jni/SudokuLib.c -lsudoku
+	gcc  -o $@ -dynamiclib -shared -fPIC ${JavaHeader} ${SudokuHeader} ${SudokuLib} ${LibRuntimePath} jni/SudokuLib.c -lsudoku
 
 %.class: %.java
 	javac $^
