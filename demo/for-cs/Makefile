@@ -1,14 +1,17 @@
-.PHONY: for-cs run linuxrun clean
+.PHONY: for-cs run clean
 
 ARCH=$(shell uname -s)
-MAKEFILE_DIR=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-PROJECT_DIR=$(patsubst %/demo/for-cs/,%,$(MAKEFILE_DIR))
+MAKEFILE_DIR=$(dir $(abspath $(lastword ${MAKEFILE_LIST})))
+PROJECT_DIR=$(patsubst %/demo/for-cs/,%,${MAKEFILE_DIR})
 
-ifeq ($(ARCH), Darwin)
-MAKE_LIBRARY_PATH=$(PROJECT_DIR)/buildXcode/sudoku/Debug
+ifeq (${ARCH}, Darwin)
+MAKE_LIBRARY_PATH=${PROJECT_DIR}/buildXcode/sudoku/Debug
 endif
-ifeq ($(ARCH), Linux)
-MAKE_LIBRARY_PATH=$(PROJECT_DIR)/build/sudoku/
+ifeq (${ARCH}, Linux)
+MAKE_LIBRARY_PATH=${PROJECT_DIR}/build/sudoku
+endif
+ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)
+MAKE_LIBRARY_PATH=${PROJECT_DIR}/buildVS/install/bin
 endif
 
 for-cs:
