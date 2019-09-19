@@ -2,7 +2,7 @@
 
 ARCH=$(shell uname -s)
 MAKEFILE_DIR=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-PROJECT_DIR=$(patsubst %/demo/for-go/,%,$(MAKEFILE_DIR))
+PROJECT_DIR=$(patsubst %/demo/for-c/,%,$(MAKEFILE_DIR))
 
 ifeq (${ARCH}, Darwin)
 MAKE_C_DEMO=${PROJECT_DIR}/buildXcode/demo/for-c/Debug/for-c
