@@ -2,7 +2,7 @@
 
 ## Demo 运行前提
 
-1. 按照主 README 文件的说明，根据平台编译出 sudoku 动态库（支持 Mac/Linux/Windows+Cygwin）
+1. 按照[主 README 文件](../README.md)的说明，根据平台编译出 sudoku 动态库（支持 Mac/Linux/Windows+Cygwin）
 2. 注意，三个平台对应的编译目录为 buildXcode、build、buildVS，Windows 平台安装目录为 install（假如自定义目录，则对应 Makefile 配置也需要修改）
 3. 由于 Mac 和 Linux 下支持链接-rpath 编译参数，因此编译结束无需 install 就可以运行，windows 下则必须 install 之后，从 install 目录执行对应 exe（Windows 下 install 方式：VisualStudio 中打开 CMake 生成的 sln 文件之后，编译 ALL_BUILD 目标，之后生成 install 目标即可安装）
 
