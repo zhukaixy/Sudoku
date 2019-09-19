@@ -1,11 +1,8 @@
 package sudoku
 
 /*
-#cgo CFLAGS: -I../../../include
-#cgo LDFLAGS: -lsudoku
-
 #include <string.h>
-#include "sudoku.h"
+#include <sudoku.h>
 
 int readSudokuData(void* data, int row, int col);
 void writeSudokuData(void* data, int row, int col, int value, int type);

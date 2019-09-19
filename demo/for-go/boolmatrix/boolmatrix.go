@@ -1,10 +1,7 @@
 package boolmatrix
 
 /*
-#cgo CFLAGS: -I../../../include
-#cgo LDFLAGS: -lsudoku
-
-#include "bool-matrix.h"
+#include <bool-matrix.h>
 
 void CgoAnswerCB(void* data, int* answer, int size);
 */
