@@ -22,4 +22,4 @@ run:
 	LD_LIBRARY_PATH=${MAKE_LIBRARY_PATH} mono ./lib/Debug/for-cs.exe 0<${PROJECT_DIR}/data/1.sudoku
 
 clean:
-	rm -rf obj lib
+	rm -rf obj/* lib/*

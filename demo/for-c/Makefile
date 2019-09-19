@@ -14,5 +14,11 @@ ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)
 MAKE_C_DEMO=${PROJECT_DIR}/buildVS/install/bin/for-c.exe
 endif
 
+for-c:
+
+
 run:
 	${MAKE_C_DEMO} 0<${PROJECT_DIR}/data/1.sudoku
+
+clean:
+
