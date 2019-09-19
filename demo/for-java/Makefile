@@ -12,7 +12,7 @@ LibRuntimePath=-Wl,-rpath $(PROJECT_DIR)/buildXcode/sudoku/Debug
 endif
 
 ifeq ($(ARCH), Linux)
-JavaHeader=-I$(JAVA_HOME)/include
+JavaHeader=-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
 SudokuLib=-L$(PROJECT_DIR)/build/sudoku
 LibRuntimePath=-Wl,-rpath $(PROJECT_DIR)/build/sudoku
 endif
@@ -34,7 +34,7 @@ jni/SudokuLib.h: SudokuLib.java
 	javah -d jni SudokuLib
 
 run:
-	java Main $(PROJECT_DIR)/data/1.sudoku
+	java Main 0<$(PROJECT_DIR)/data/1.sudoku
 
 clean:
 	rm -rf *.class *.jnilib
