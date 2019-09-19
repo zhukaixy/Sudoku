@@ -20,8 +20,8 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
 	set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 elseif(WIN32)
-	set(CMAKE_C_FLAGS         "-std=c11 -Wall")
-	set(CMAKE_C_FLAGS_DEBUG   "-g")
+	set(CMAKE_C_FLAGS         "-Wall")
+	# set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 endif()
 
@@ -36,7 +36,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 	INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
 target_link_libraries(${PROJECT_NAME} sudoku)
 
-# install(TARGETS ${PROJECT_NAME}
-# 	RUNTIME DESTINATION bin
-# 	LIBRARY DESTINATION lib
-# 	ARCHIVE DESTINATION lib)
+if(WIN32)
+install(TARGETS ${PROJECT_NAME}
+	RUNTIME DESTINATION bin
+	LIBRARY DESTINATION lib
+	ARCHIVE DESTINATION lib)
+endif(WIN32)
