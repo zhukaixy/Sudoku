@@ -68,7 +68,7 @@ namespace ForCS
 	};
 	public class SudokuLib
 	{
-		const string SUDOKU_LIB = "libsudoku";
+		const string SUDOKU_LIB = "sudoku";
 		// 9*9*2:num+' ', 9*2:every line has ' '*2, 9:every line has '\n', 2*'\n'+'\0'
 		public const int RESULT_BUFFER_SIZE = (9 * 9 * 2 + 9 * 2 + 9 + 2 + 1);
 		public const int BOARD_SIZE = (9 * 9);
