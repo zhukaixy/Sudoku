@@ -19,7 +19,7 @@ for-cs:
 # msbuild for-cs.sln
 
 run:
-	LD_LIBRARY_PATH=${MAKE_LIBRARY_PATH} mono ./lib/Debug/for-cs.exe ${PROJECT_DIR}/data/1.sudoku
+	LD_LIBRARY_PATH=${MAKE_LIBRARY_PATH} mono ./lib/Debug/for-cs.exe 0<${PROJECT_DIR}/data/1.sudoku
 
 clean:
 	rm -rf obj lib
