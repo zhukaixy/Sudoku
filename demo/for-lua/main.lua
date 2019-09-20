@@ -13,7 +13,7 @@ matrix:SetMatrixRowData(row4)
 matrix:SetMatrixRowData(row5)
 matrix:SetMatrixRowData(row6)
 local count = matrix:DancingLinks(false, function(answer)
-	for k, v in ipairs(answer) do answer[k] = tostring(v) .. " " end
+	for k, v in ipairs(answer) do answer[k] = tostring(v+1) .. " " end
 	print("BoolMatrixAnswer: " .. table.concat(answer))
 end)
 print("BoolMatrix Answer Count: " .. count)
