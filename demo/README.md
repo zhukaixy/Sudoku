@@ -28,7 +28,7 @@ make run # 执行Demo
 
 ## 问题记录
 
-1. Windows 下的 fopen 函数只能打开 windows 格式的路径名，即使是在 cygwin 环境下运行，因此在 Makefile 中，必须用重定向标准输入的方式输入数据
+1. Windows 下的 fopen 函数只能打开 windows 格式的路径名，即使是在 cygwin 环境下运行，因此在 Makefile 中，需要使用重定向标准输入的方式输入数据，或者针对 cygwin 环境下调用 cygpath 命令进行转换
 2. C#的 for-cs.csproj 工程文件中不可以指定 TargetFrameworkVersion，否则有些不存在该指定版本的环境下就会编译失败，反正 Demo 只用到很少的功能，采用环境默认的 Runtime 版本就好
 3. Go 语言工具用起来是比较舒服的，只是在 Windows 下用 cgo 编译会报错，错误为\_beginthread 函数未声明，目前尚未解决
 4. cgo 中有些往 C 传递结构体指针需要先引用第一个字段再取地址，不明白为什么这样做就可以，如 CreateSudoku 函数
