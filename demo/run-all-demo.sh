@@ -21,6 +21,7 @@ ScriptRootDir=$(cd -P $(dirname ${ScriptExe}) && pwd)
 AllCommonDemos=(
 	"for-c"
 	"for-cs"
+	"for-lua"
 )
 
 MacDemos=(
