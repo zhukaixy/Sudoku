@@ -3,7 +3,7 @@
 #define LUA_LIB // for export function
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <alloca.h>
 #include <stdbool.h>
 #include <assert.h>
 
