@@ -1,40 +1,45 @@
 .PHONY: for-java jnilib header run clean
 
 ARCH=$(shell uname -s)
-MAKEFILE_DIR=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-PROJECT_DIR=$(patsubst %/demo/for-java/,%,$(MAKEFILE_DIR))
+MAKEFILE_DIR_TMP=$(dir $(abspath $(lastword ${MAKEFILE_LIST})))
+MAKEFILE_DIR=$(patsubst %/,%,${MAKEFILE_DIR_TMP})
+PROJECT_DIR=$(patsubst %/demo/for-java/,%,${MAKEFILE_DIR_TMP})
+
+SUDOKU_INCLUDE_PATH=${PROJECT_DIR}/include
 
 ifeq ($(ARCH), Darwin)
-JavaHeader=-I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/JavaVM.framework/Headers
-# JavaHeader=-I/System/Library/Frameworks/JavaVM.framework/Headers
-SudokuLib=-L$(PROJECT_DIR)/buildXcode/sudoku/Debug
-LibRuntimePath=-Wl,-rpath $(PROJECT_DIR)/buildXcode/sudoku/Debug
-LibraryName=build/libsudokujni.jnilib
-JNILibraryPath=${MAKEFILE_DIR}build
+SUDOKU_LIBRARY_PATH=${PROJECT_DIR}/buildXcode/sudoku/Debug
+
+JAVA_INCLUDE_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/JavaVM.framework/Headers
+# JAVA_INCLUDE_PATH=/System/Library/Frameworks/JavaVM.framework/Headers
+JAVA_INCLUDE_ARCH_PATH=.
+JNI_LIBRARY_NAME=build/libsudokujni.jnilib
+JNI_LIBRARY_PATH=${MAKEFILE_DIR}/build
 endif
 
 ifeq ($(ARCH), Linux)
-JavaHeader=-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
-SudokuLib=-L$(PROJECT_DIR)/build/sudoku
-LibRuntimePath=-Wl,-rpath $(PROJECT_DIR)/build/sudoku
-LibraryName=build/libsudokujni.so
-JNILibraryPath=${MAKEFILE_DIR}build
+SUDOKU_LIBRARY_PATH=${PROJECT_DIR}/build/sudoku
+
+JAVA_INCLUDE_PATH=$(JAVA_HOME)/include
+JAVA_INCLUDE_ARCH_PATH=$(JAVA_HOME)/include/linux
+JNI_LIBRARY_NAME=build/libsudokujni.so
+JNI_LIBRARY_PATH=${MAKEFILE_DIR}/build
 endif
 
 ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)
-JavaHeader="-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/win32"
-SudokuLib=-L$(PROJECT_DIR)/buildVS/install/bin
-LibraryName=${PROJECT_DIR}buildVS/install/bin/sudokujni.dll
-JNILibraryPath=${PROJECT_DIR}buildVS/install/bin
-endif
+SUDOKU_LIBRARY_PATH=${PROJECT_DIR}/buildVS/install/bin
 
-SudokuHeader=-I$(PROJECT_DIR)/include
+JAVA_INCLUDE_PATH=$(JAVA_HOME)/include
+JAVA_INCLUDE_ARCH_PATH=$(JAVA_HOME)/include/win32
+JNI_LIBRARY_NAME=${PROJECT_DIR}buildVS/install/bin/sudokujni.dll
+JNI_LIBRARY_PATH=${PROJECT_DIR}buildVS/install/bin
+endif
 
 for-java: libsudokujni SudokuLib.class BoolMatrix.class Sudoku.class Main.class
 
 libsudokujni: jni/SudokuLib.c jni/SudokuLib.h
 	test -d build || mkdir build
-	gcc  -o ${LibraryName} -dynamiclib -shared -fPIC ${JavaHeader} ${SudokuHeader} ${SudokuLib} ${LibRuntimePath} jni/SudokuLib.c -lsudoku
+	gcc  -I${SUDOKU_INCLUDE_PATH} -I${JAVA_INCLUDE_PATH} -I${JAVA_INCLUDE_ARCH_PATH} -L${SUDOKU_LIBRARY_PATH} -L${JNI_LIBRARY_PATH} -o ${JNI_LIBRARY_NAME} -shared -fPIC -Wl,-rpath ${SUDOKU_LIBRARY_PATH} jni/SudokuLib.c -lsudoku
 
 %.class: %.java
 	javac -d build -classpath build $^
@@ -46,7 +51,7 @@ jni/SudokuLib.h: SudokuLib.java
 	javah -d jni SudokuLib
 
 run:
-	java -Djava.library.path=${JNILibraryPath} -classpath ${MAKEFILE_DIR}build Main 0<$(PROJECT_DIR)/data/1.sudoku
+	java -Djava.library.path=${JNI_LIBRARY_PATH} -classpath ./build Main 0<${PROJECT_DIR}/data/1.sudoku
 
 clean:
-	rm -rf build/*
+	rm -rf ./build/*
