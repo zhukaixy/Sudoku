@@ -29,7 +29,7 @@ LUA_RUNTIME_PATH=${MAKEFILE_DIR}/runtime/linux
 LUA_SUDOKU_LIB_NAME=build/libluasudoku.so
 LUA_SEARCH_CPATH=${MAKEFILE_DIR}/build/?.so
 
-COMPILE_FLAG=-shared
+COMPILE_FLAG=-shared -std=c11
 
 LUA_EXE=${LUA_RUNTIME_PATH}/lua
 endif
