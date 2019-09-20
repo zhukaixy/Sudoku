@@ -48,6 +48,7 @@ LUA_EXE=${LUA_RUNTIME_PATH}/lua.exe
 endif
 
 for-lua:
+	test -d build || mkdir build
 	gcc -I${SUDOKU_INCLUDE_PATH} -I${LUA_INCLUDE_PATH}  -L${SUDOKU_LIBRARY_PATH}  -L${LUA_RUNTIME_PATH} -o ${LUA_SUDOKU_LIB_NAME} -fPIC ${COMPILE_FLAG} cmod/luasudoku.c -l${SUDOKU_LIBRARY_NAME} -lsudoku
 
 run:

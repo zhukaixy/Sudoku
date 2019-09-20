@@ -12,6 +12,7 @@
 2. C#采用跨平台的 Mono，因此需要[安装 Mono](https://www.mono-project.com)
 3. Go 语言环境，需要[安装 Go](https://golang.org)
 4. Java 环境需要 JDK，并配置 JDK 环境变量（主要是 JAVA_HOME 环境变量，需要靠它找到 jni.h）
+5. Lua 的命令行工具和动态库已经放在工程中，直接 make 执行即可，无需安装
 
 ## 编译和执行命令
 
