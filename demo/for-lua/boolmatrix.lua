@@ -1,22 +1,22 @@
-local sudoku = require("libluasudoku")
+local cmod = require("libluasudoku")
 
 return {
 	New = function(rows, cols, maxNodes)
 		local matrix = {
-			handler = sudoku.CreateBoolMatrix(rows, cols, maxNodes)
+			handler = cmod.CreateBoolMatrix(rows, cols, maxNodes)
 		}
 		setmetatable(matrix, {
 			__index = {
 				SetMatrixRowData = function(matrix, row)
 					-- here can be optimized
-					sudoku.SetMatrixRowData(matrix.handler, row)
+					cmod.SetMatrixRowData(matrix.handler, row)
 				end,
 				DancingLinks = function(matrix, justOne, callback)
-					return sudoku.DancingLinks(matrix.handler, justOne, callback)
+					return cmod.DancingLinks(matrix.handler, justOne, callback)
 				end
 			},
 			__gc = function(matrix)
-				sudoku.DestroyBoolMatrix(matrix.handler)
+				cmod.DestroyBoolMatrix(matrix.handler)
 			end
 		})
 		return matrix
