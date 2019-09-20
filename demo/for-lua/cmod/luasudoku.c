@@ -15,9 +15,9 @@
 static int callback_index_in_registry = 0;
 
 static int lua_create_bool_matrix(lua_State* L) {
-  int rows = luaL_checkinteger(L, 1);
-  int cols = luaL_checkinteger(L, 2);
-  int maxNodes = luaL_checkinteger(L, 3);
+  int rows = (int)luaL_checkinteger(L, 1);
+  int cols = (int)luaL_checkinteger(L, 2);
+  int maxNodes = (int)luaL_checkinteger(L, 3);
   BoolMatrix* matrix = CreateBoolMatrix(rows, cols, maxNodes);
 
   int top = lua_gettop(L);
@@ -42,12 +42,12 @@ static int lua_set_matrix_row_data(lua_State* L) {
   luaL_checkany(L, 2);
   luaL_checktype(L, 2, LUA_TTABLE);
   lua_len(L, 2);
-  int size = lua_tointeger(L, 3);
-  int* data = alloca(sizeof(int) * size);
+  int size = (int)lua_tointeger(L, 3);
+  int* data = (int*)alloca(sizeof(int) * size);
   for (int i = 0; i < size; i++) {
     int type = lua_geti(L, 2, i + 1);
     assert(type == LUA_TNUMBER);
-    data[i] = lua_tointeger(L, -1);
+    data[i] = (int)lua_tointeger(L, -1);
     lua_pop(L, 1);
   }
   SetMatrixRowData(matrix, data, size);
