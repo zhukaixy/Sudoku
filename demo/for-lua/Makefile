@@ -1,55 +1,54 @@
 .PHONY: for-lua run clean
 
-ARCH=$(shell uname -s)
-MAKEFILE_DIR_TMP=$(dir $(abspath $(lastword ${MAKEFILE_LIST})))
-MAKEFILE_DIR=$(patsubst %/,%,${MAKEFILE_DIR_TMP})
-PROJECT_DIR=$(patsubst %/demo/for-lua/,%,${MAKEFILE_DIR_TMP})
+ARCH := $(shell uname -s)
+MAKEFILE_DIR_TMP := $(dir $(abspath $(lastword ${MAKEFILE_LIST})))
+MAKEFILE_DIR := $(patsubst %/,%,${MAKEFILE_DIR_TMP})
+PROJECT_DIR := $(patsubst %/demo/for-lua/,%,${MAKEFILE_DIR_TMP})
 
-SUDOKU_PUZZLE_FILE_PATH=${PROJECT_DIR}/data/1.sudoku
+SUDOKU_PUZZLE_FILE_PATH := ${PROJECT_DIR}/data/1.sudoku
 
-SUDOKU_INCLUDE_PATH=${PROJECT_DIR}/include
-LUA_INCLUDE_PATH=${MAKEFILE_DIR}/runtime/include
+SUDOKU_INCLUDE_PATH := ${PROJECT_DIR}/include
+LUA_INCLUDE_PATH := ${MAKEFILE_DIR}/runtime/include
 
 ifeq (${ARCH}, Darwin)
-SUDOKU_LIBRARY_PATH=${PROJECT_DIR}/buildXcode/sudoku/Debug
-SUDOKU_LIBRARY_NAME=lualib.5.3
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildXcode/sudoku/Debug
+SUDOKU_LIBRARY_NAME := lualib.5.3
 
-LUA_RUNTIME_PATH=${MAKEFILE_DIR}/runtime/macosx
-LUA_SUDOKU_LIB_NAME=build/libluasudoku.so
-LUA_SEARCH_CPATH=${MAKEFILE_DIR}/build/?.so
+LUA_RUNTIME_PATH := ${MAKEFILE_DIR}/runtime/macosx
+LUA_SUDOKU_LIB_NAME := build/libluasudoku.so
+LUA_SEARCH_CPATH := ${MAKEFILE_DIR}/build/?.so
 
-COMPILE_FLAG=-bundle
+COMPILE_FLAG := -bundle
 
-LUA_EXE=${LUA_RUNTIME_PATH}/lua
+LUA_EXE := ${LUA_RUNTIME_PATH}/lua
 endif
 
 ifeq (${ARCH}, Linux)
-SUDOKU_LIBRARY_PATH=${PROJECT_DIR}/build/sudoku
-SUDOKU_LIBRARY_NAME=lualib
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/build/sudoku
+SUDOKU_LIBRARY_NAME := lualib
 
-LUA_RUNTIME_PATH=${MAKEFILE_DIR}/runtime/linux
-LUA_SUDOKU_LIB_NAME=build/libluasudoku.so
-LUA_SEARCH_CPATH=${MAKEFILE_DIR}/build/?.so
+LUA_RUNTIME_PATH := ${MAKEFILE_DIR}/runtime/linux
+LUA_SUDOKU_LIB_NAME := build/libluasudoku.so
+LUA_SEARCH_CPATH := ${MAKEFILE_DIR}/build/?.so
 
-COMPILE_FLAG=-shared -std=c11
+COMPILE_FLAG := -shared -std=c11
 
-LUA_EXE=${LUA_RUNTIME_PATH}/lua
+LUA_EXE := ${LUA_RUNTIME_PATH}/lua
 endif
 
 ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)
-SUDOKU_LIBRARY_PATH=${PROJECT_DIR}/buildVS/install/bin
-SUDOKU_LIBRARY_NAME=lualib
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildVS/install/bin
+SUDOKU_LIBRARY_NAME := lualib
 
-LUA_RUNTIME_PATH=${MAKEFILE_DIR}/runtime/windows
-LUA_SUDOKU_LIB_NAME=build/libluasudoku.dll
-LUA_SEARCH_CPATH_TMP=${MAKEFILE_DIR}/build/?.dll
-LUA_SEARCH_CPATH=$(shell cygpath -w -a -p ${LUA_SEARCH_CPATH_TMP})
-SUDOKU_PUZZLE_FILE_PATH_TMP=${SUDOKU_PUZZLE_FILE_PATH}
-SUDOKU_PUZZLE_FILE_PATH=$(shell cygpath -w -a -p ${SUDOKU_PUZZLE_FILE_PATH_TMP})
+LUA_RUNTIME_PATH := ${MAKEFILE_DIR}/runtime/windows
+LUA_SUDOKU_LIB_NAME := build/libluasudoku.dll
+LUA_SEARCH_CPATH_TMP := ${MAKEFILE_DIR}/build/?.dll
+LUA_SEARCH_CPATH := $(subst \,\\,$(shell cygpath -w -a -p ${LUA_SEARCH_CPATH_TMP}))
+SUDOKU_PUZZLE_FILE_PATH := $(subst \,\\,$(shell cygpath -w -a -p ${SUDOKU_PUZZLE_FILE_PATH}))
 
-COMPILE_FLAG=-shared
+COMPILE_FLAG := -shared
 
-LUA_EXE=${LUA_RUNTIME_PATH}/lua.exe
+LUA_EXE := ${LUA_RUNTIME_PATH}/lua.exe
 endif
 
 for-lua:

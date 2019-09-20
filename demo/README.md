@@ -34,3 +34,4 @@ make run # 执行Demo
 4. cgo 中有些往 C 传递结构体指针需要先引用第一个字段再取地址，不明白为什么这样做就可以，如 CreateSudoku 函数
 5. 在 Linux/Windows 中，除了要引用\${JAVA_HOME}环境变量下的 include 目录，还要引用 include 下面的 linux/win32 目录，不然会有一些头文件找不到
 6. Java 的 Demo 在 Windows 下编译失败，错误：未知的类型名‘\_\_int64’，目前尚未解决
+7. Makefile 中采用 Shell 类型的=号赋值会存在循环引用的问题，改成:=赋值则可避免该问题ß
