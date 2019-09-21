@@ -3,10 +3,10 @@
 ## JNI 操作流程
 
 1. 设计好 Java 代码与 JNI 的接口类，如 SudokuLib.java
-2. 执行 javac xxx.java 编译该 java 文件，生成对应.class 文件
-3. 执行 javah xxx 生成对应的.h 头文件，如 SudokuLib.h，-d 参数可以指定头文件生成路径
+2. 执行 `javac xxx.java` 编译该 java 文件，生成对应.class 文件
+3. 执行 `javah xxx` 生成对应的.h 头文件，如 SudokuLib.h，-d 参数可以指定头文件生成路径
 4. 根据.h 头文件编写相应的.c 源文件，在源文件中调用原生库方法，并通过 JNI 相关 API 给 Java 层传递参数，如 SudokuLib.c
-5. 通过 gcc 命令 gcc -dynamiclib -o libxxx.jnilib xxx.c -lxxxx 生成对应动态库（或者通过其他方式生成，linux 要带上-shared -fPIC 参数）
+5. 通过 gcc 命令 `gcc -dynamiclib -o libxxx.jnilib xxx.c -lxxxx` 生成对应动态库（或者通过其他方式生成，linux 要带上-shared -fPIC 参数）
 6. 撰写 Java 层调用 JNI 接口类的相关函数，并通过 javac 编译和 java 命令运行
 
 ## 命令归纳如下：
