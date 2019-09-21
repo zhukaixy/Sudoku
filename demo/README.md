@@ -36,6 +36,6 @@ make run # 执行Demo
 6. Java 的 Demo 在 Windows 下编译失败，错误：未知的类型名‘\_\_int64’，目前尚未解决
 7. Makefile 中采用 Shell 类型的=号赋值会存在循环引用的问题，改成:=赋值则可避免该问题
 8. 回车 carriage return, 缩写 CR，对应 ASCII 码为 0x0D，字符表示为'\r'；换行 line feed（或 new line），缩写 LF（或 NL），对应 ASCII 码为 0x0A，字符表示为'\n'；Windows 下默认行结束符为回车换行，也就是 CRLF（或 CRNL）、'\r\n'、0x0D0A，因此 Cygwin 执行 shell 脚本就会报错找不到'\r'命令，三种解决方式：
-   （1）手动将 shell 脚本行结束符改成 Unix 版，如 dos2unix 工具
-   （2）在脚本开头处加上命令：`(set -o igncr) 2>/dev/null && set -o igncr; #` 注意，命令最后一个'#'注释符号是必要的，否则会报一次找不到'\r'命令，我猜是因为逐行读取命令导致，因此加上最后一个注释符来避免这一行的'\r'被执行，后续其他行的'\r'则由该命令指定来忽略
-   （3）使用如下命令执行脚本：`bash -x -o igncr script.sh`
+   - 手动将 shell 脚本行结束符改成 Unix 版，如 dos2unix 工具
+   - 在脚本开头处加上命令：`(set -o igncr) 2>/dev/null && set -o igncr; #` 注意，命令最后一个'#'注释符号是必要的，否则会报一次找不到'\r'命令，我猜是因为逐行读取命令导致，因此加上最后一个注释符来避免这一行的'\r'被执行，后续其他行的'\r'则由该命令指定来忽略
+   - 使用如下命令执行脚本：`bash -x -o igncr script.sh`
