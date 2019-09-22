@@ -52,7 +52,7 @@ return {
 		local sudoku = {
 			handler = cmod.CreateSudoku(readFunc, writeFunc, procCallback)
 		}
-		setmetatable(matrix, {
+		setmetatable(sudoku, {
 			__index = {
 				VerifySudoku = function(sudoku)
 					return cmod.VerifySudoku(sudoku.handler)
@@ -64,14 +64,14 @@ return {
 					return cmod.MakeResultString(sudoku.handler)
 				end,
 				CalculateSudokuAll = function(sudoku, dancing, callback)
-					return cmod.DancingLinks(sudoku.handler, dancing, callback)
+					return cmod.CalculateSudokuAll(sudoku.handler, dancing, callback)
 				end
 			},
 			__gc = function(sudoku)
 				cmod.DestroySudoku(sudoku.handler)
 			end
 		})
-		return matrix
+		return sudoku
 	end,
 	VerifySudokuBoard = function(board)
 		return cmod.VerifySudokuBoard(board)
