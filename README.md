@@ -98,7 +98,7 @@ ndk-build -B # rebuild project
    - for-cs：C#语言用例（已在 Mac/Linux/Windows 跑通）
    - for-go：Go 语言用例（已在 Mac/Linux 跑通）
    - for-java：Java 语言用例（已在 Mac/Linux 跑通）
-   - for-lua：Lua 语言用例（待处理）
+   - for-lua：Lua 语言用例（已在 Mac/Linux/Windows 跑通）
    - for-nodejs：NodeJS 语言用例（待处理）
    - for-php：PHP 语言用例（待处理）
    - for-python：Python 语言用例（待处理）
