@@ -4,7 +4,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#ifdef _WIN32
+#else
 #include <alloca.h>
+#endif
 #include <stdbool.h>
 #include <assert.h>
 
@@ -45,7 +48,11 @@ static int set_matrix_row_data(lua_State* L) {
   BoolMatrix* matrix = (BoolMatrix*)lua_topointer(L, 1);
   lua_len(L, 2);
   int size = (int)lua_tointeger(L, top + 1);
+#ifdef _WIN32
+  int* data = (int*)malloc(sizeof(int) * size);
+#else
   int* data = (int*)alloca(sizeof(int) * size);
+#endif
   for (int i = 0; i < size; i++) {
     int type = lua_geti(L, 2, i + 1);
     assert(type == LUA_TNUMBER);
@@ -56,6 +63,11 @@ static int set_matrix_row_data(lua_State* L) {
   assert(top == lua_gettop(L));
 
   SetMatrixRowData(matrix, data, size);
+
+#ifdef _WIN32
+  free(data);
+#endif
+
   return 0;
 }
 typedef struct LuaMatrixData {
@@ -357,7 +369,11 @@ static int verify_sudoku_board(lua_State* L) {
   int top = lua_gettop(L);
   lua_len(L, 1);
   int size = (int)lua_tointeger(L, top + 1);
+#ifdef _WIN32
+  int* data = (int*)malloc(sizeof(int) * size);
+#else
   int* data = (int*)alloca(sizeof(int) * size);
+#endif
   for (int i = 0; i < size; i++) {
     int type = lua_geti(L, 1, i + 1);
     assert(type == LUA_TNUMBER);
@@ -368,6 +384,10 @@ static int verify_sudoku_board(lua_State* L) {
   assert(top == lua_gettop(L));
 
   bool status = VerifySudokuBoard(data);
+
+#ifdef _WIN32
+  free(data);
+#endif
 
   lua_pushboolean(L, (int)status);
   return 1;
