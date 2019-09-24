@@ -36,20 +36,21 @@ COMPILE_FLAG := -shared -std=c11
 LUA_EXE := ${LUA_RUNTIME_PATH}/lua
 endif
 
-ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)
-SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildVS/install/bin
-LUA_LIBRARY_NAME := lualib
+# Makefile does not support Windows+Cygwin
+# ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)
+# SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildVS/install/bin
+# LUA_LIBRARY_NAME := lualib
 
-LUA_RUNTIME_PATH := ${MAKEFILE_DIR}/runtime/windows
-LUA_SUDOKU_LIB_NAME := build/libluasudoku.dll
-LUA_SEARCH_CPATH_TMP := ${MAKEFILE_DIR}/build/?.dll
-LUA_SEARCH_CPATH := $(subst \,\\,$(shell cygpath -w -a -p ${LUA_SEARCH_CPATH_TMP}))
-SUDOKU_PUZZLE_FILE_PATH := $(subst \,\\,$(shell cygpath -w -a -p ${SUDOKU_PUZZLE_FILE_PATH}))
+# LUA_RUNTIME_PATH := ${MAKEFILE_DIR}/runtime/windows
+# LUA_SUDOKU_LIB_NAME := build/libluasudoku.dll
+# LUA_SEARCH_CPATH_TMP := ${MAKEFILE_DIR}/build/?.dll
+# LUA_SEARCH_CPATH := $(subst \,\\,$(shell cygpath -w -a -p ${LUA_SEARCH_CPATH_TMP}))
+# SUDOKU_PUZZLE_FILE_PATH := $(subst \,\\,$(shell cygpath -w -a -p ${SUDOKU_PUZZLE_FILE_PATH}))
 
-COMPILE_FLAG := -shared
+# COMPILE_FLAG := -shared
 
-LUA_EXE := ${LUA_RUNTIME_PATH}/lua.exe
-endif
+# LUA_EXE := ${LUA_RUNTIME_PATH}/lua.exe
+# endif
 
 for-lua:
 	test -d build || mkdir build

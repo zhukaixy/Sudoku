@@ -21,10 +21,10 @@
 在 Cygwin 下，执行如下命令
 
 ```bash
-cd for-lua/cmod/windows
+cd for-lua/cmod
 mkdir buildVS && cd buildVS
 cmake -G "Visual Studio 15 2017 Win64" ..
 # 在 Visual Studio + Release 模式下编译该动态库
-cp Release/libluasudoku.dll ../../../build/libluasudoku.dll
-cd ../../../ && make run
+cp Release/libluasudoku.dll ../../build/libluasudoku.dll
+cd ../../ && make run
 ```

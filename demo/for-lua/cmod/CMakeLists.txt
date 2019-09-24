@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(libluasudoku
+project(luasudoku
 	VERSION 1.0
 	# DESCRIPTION "Wrap sudoku dynamic library for lua"
 	# HOMEPAGE_URL "www.zhyingkun.com"
@@ -15,29 +15,42 @@ if(APPLE)
 	set(CMAKE_C_FLAGS         "-std=c11 -Wall -Wextra")
 	set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
+	link_directories(../../../buildXcode/sudoku/Debug)
+	set(SUDOKU_LIB "sudoku")
+	link_directories(../runtime/macosx)
+	set(LUA_LIB "lualib")
+	set(LIB_OUTPUT_NAME "${PROJECT_NAME}")
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
 	set(CMAKE_C_FLAGS         "-std=c11 -Wall -Wextra -Wno-unknown-pragmas")
 	set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
+	link_directories(../../../build/sudoku)
+	set(SUDOKU_LIB "sudoku")
+	link_directories(../runtime/linux)
+	set(LUA_LIB "lualib")
+	set(LIB_OUTPUT_NAME "${PROJECT_NAME}")
 elseif(WIN32)
 	set(CMAKE_C_FLAGS         "-Wall -DSUDOKU_BUILD_AS_DLL -DLUA_BUILD_AS_DLL")
 	# set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
+	set(SUDOKU_LIB "../../../buildVS/install/lib/sudoku")
+	set(LUA_LIB "../runtime/windows/lualib")
+	set(LIB_OUTPUT_NAME "lib${PROJECT_NAME}")
 endif()
 
-include_directories(../../../../include)
-include_directories(../../runtime/include)
+include_directories(../../../include)
+include_directories(../runtime/include)
 
-aux_source_directory(.. LUA_SUDOKU_SRC)
+aux_source_directory(. LUA_SUDOKU_SRC)
 
 source_group(src FILES ${LUA_SUDOKU_SRC})
 
-add_library(${PROJECT_NAME} MODULE 
-    ${LUA_SUDOKU_SRC})
-target_link_libraries(${PROJECT_NAME} ../../../../../buildVS/install/lib/sudoku ../../../runtime/windows/lualib)
+add_library(${PROJECT_NAME} SHARED ${LUA_SUDOKU_SRC})
+
+target_link_libraries(${PROJECT_NAME} ${SUDOKU_LIB} ${LUA_LIB})
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	# FOLDER "sudoku"
-	OUTPUT_NAME ${PROJECT_NAME}
+	OUTPUT_NAME ${LIB_OUTPUT_NAME}
 	VERSION ${PROJECT_VERSION}
 	SOVERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
 	POSITION_INDEPENDENT_CODE ON)
