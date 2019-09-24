@@ -31,7 +31,7 @@ elseif(WIN32)
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 	include_directories($ENV{JAVA_HOME}/include)
 	include_directories($ENV{JAVA_HOME}/include/win32)
-	link_directories(../../../../buildVS/install/lib)
+	link_directories(../../../buildVS/install/lib)
 endif()
 
 include_directories(../../../include)
