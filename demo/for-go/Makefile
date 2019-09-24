@@ -13,9 +13,10 @@ endif
 ifeq (${ARCH}, Linux)
 SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/build/sudoku
 endif
-ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)
-SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildVS/install/bin
-endif
+# Current Do Not Support Windows+Cygwin
+# ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)
+# SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildVS/install/bin
+# endif
 
 for-go:
 	CGO_CFLAGS=-I${SUDOKU_INCLUDE_PATH} CGO_LDFLAGS="-L${SUDOKU_LIBRARY_PATH} -lsudoku" go build -o ./build/for-go
