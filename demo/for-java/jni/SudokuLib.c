@@ -31,9 +31,16 @@ JNIEXPORT void JNICALL Java_SudokuLib_DestroyBoolMatrix(JNIEnv* env, jclass cls,
  */
 JNIEXPORT void JNICALL Java_SudokuLib_SetMatrixRowData(JNIEnv* env, jclass cls, jlong matrix, jintArray array) {
   jsize size = (*env)->GetArrayLength(env, array);
-  jint* row = alloca(sizeof(jint) * size);
+#ifdef _WIN32
+  jint* row = (jint*)malloc(sizeof(jint) * size);
+#else
+  jint* row = (jint*)alloca(sizeof(jint) * size);
+#endif
   (*env)->GetIntArrayRegion(env, array, 0, size, row);
   SetMatrixRowData((BoolMatrix*)matrix, (const int*)row, (int)size);
+#ifdef _WIN32
+  free(row);
+#endif
 }
 
 typedef struct JavaData {
@@ -172,9 +179,17 @@ JNIEXPORT void JNICALL Java_SudokuLib_DestroySudoku(JNIEnv* env, jclass cls, jlo
  */
 JNIEXPORT jint JNICALL Java_SudokuLib_VerifySudokuBoard(JNIEnv* env, jclass cls, jintArray array) {
   jsize size = (*env)->GetArrayLength(env, array);
-  jint* board = alloca(sizeof(jint) * size);
+#ifdef _WIN32
+  jint* board = (jint*)malloc(sizeof(jint) * size);
+#else
+  jint* board = (jint*)alloca(sizeof(jint) * size);
+#endif
   (*env)->GetIntArrayRegion(env, array, 0, size, board);
-  return (jint)VerifySudokuBoard((const int*)board);
+  jint ret = (jint)VerifySudokuBoard((const int*)board);
+#ifdef _WIN32
+  free(board);
+#endif
+  return ret;
 }
 
 /*

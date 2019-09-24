@@ -18,3 +18,21 @@ gcc -dynamiclib -o libsudokujni.jnilib SudokuLib.c SudokuLib.h -lsudoku
 javac Main.java
 java Main
 ```
+
+## 关于 Windows 下运行 Java 的 Demo
+
+1. Windows+Cygwin 的环境下，通过 gcc 无法编译出 sudokujni.dll 动态库
+2. Windows 下需要单独写 CMakeLists.txt，并通过 VisualStudio 编译出 sudokujni.dll 动态库
+
+## Windows 下编译 sudokujni.dll
+
+在 Cygwin 下，执行如下命令
+
+```bash
+cd for-java/jni
+mkdir buildVS && cd buildVS
+cmake -G "Visual Studio 15 2017 Win64" ..
+# 在 Visual Studio + Release 模式下编译该动态库
+cp Release/sudokujni.dll ../../build/sudokujni.dll
+cd ../../ && make allclass && make run
+```
