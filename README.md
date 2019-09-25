@@ -97,7 +97,7 @@ ndk-build -B # rebuild project
    - for-c：C 语言用例（已在 Mac/Linux/Windows 跑通）
    - for-cs：C#语言用例（已在 Mac/Linux/Windows 跑通）
    - for-go：Go 语言用例（已在 Mac/Linux 跑通）
-   - for-java：Java 语言用例（已在 Mac/Linux 跑通）
+   - for-java：Java 语言用例（已在 Mac/Linux/Windows 跑通）
    - for-lua：Lua 语言用例（已在 Mac/Linux/Windows 跑通）
    - for-nodejs：NodeJS 语言用例（待处理）
    - for-php：PHP 语言用例（待处理）
@@ -116,7 +116,7 @@ ndk-build -B # rebuild project
 
 ### Sudoku
 
-1. CreateSudoku：创建数独对象，获取句柄用于后续操作，传入读函数和写函数，读函数用于读取数独题目，写函数用于写出答案
+1. CreateSudoku：创建数独对象，获取句柄用于后续操作，传入读函数、写函数和解题回调函数，读函数用于读取数独题目，写函数用于写出答案，解题回调函数在遇到某个推进解题的操作时会回调通知
 2. DestroySudoku：创建的反操作，销毁该对象
 3. VerifySudokuBoard：验证传入的 81 整数组成的数组是否是数独的有效解
 4. VerifySudoku：验证数独对象内部保存的内容是否为数独的有效解
