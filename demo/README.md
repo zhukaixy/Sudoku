@@ -41,3 +41,4 @@ make run # 执行Demo
    - 在脚本开头处加上命令：`(set -o igncr) 2>/dev/null && set -o igncr; #` 注意，命令最后一个'#'注释符号是必要的，否则会报一次找不到'\r'命令，我猜是因为逐行读取命令导致，因此加上最后一个注释符来避免这一行的'\r'被执行，后续其他行的'\r'则由该命令指定来忽略
    - 使用如下命令执行脚本：`bash -x -o igncr script.sh`
 9. Windows+Cygwin 下 for-nodejs 目录下执行 npm install ref 命令失败，目前尚未解决
+10. NodeJS 示例的 main.js 脚本中，无法多次调用动态库的 SolveTypeName 函数，否则会引发 Segmentation fault: 11 错误，目前尚未解决
