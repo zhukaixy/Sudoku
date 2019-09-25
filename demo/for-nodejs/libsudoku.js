@@ -1,17 +1,24 @@
-var ref = require("ref");
-var refArray = require("ref-array");
-var ffi = require("ffi");
+const ffi = require("ffi");
 
-// typedef
-var voidPtr = ref.refType("void");
-var boolMatrixPtr = ref.refType("void");
-var intArray = refArray("int");
+const refArray = require("ref-array");
+const intArray = refArray("int");
 
-var libsudoku = ffi.Library("libsudoku", {
-  CreateBoolMatrix: [boolMatrixPtr, ["int", "int", "int"]],
-  DestroyBoolMatrix: ["void", [boolMatrixPtr]],
-  SetMatrixRowData: ["void", [boolMatrixPtr, intArray, "int"]],
-  DancingLinks: ["int", [boolMatrixPtr, "bool", voidPtr, voidPtr]]
+const libsudoku = ffi.Library("libsudoku", {
+  CreateBoolMatrix: ["pointer", ["int", "int", "int"]],
+  DestroyBoolMatrix: ["void", ["pointer"]],
+  SetMatrixRowData: ["void", ["pointer", intArray, "int"]],
+  DancingLinks: ["int", ["pointer", "bool", "pointer", "pointer"]],
+
+  CreateSudoku: ["pointer", ["pointer", "pointer", "pointer", "pointer"]],
+  DestroySudoku: ["void", ["pointer"]],
+  VerifySudoku: ["bool", ["pointer"]],
+  GetKnownCount: ["int", ["pointer"]],
+  MakeResultString: ["void", ["pointer", "pointer", "int"]],
+  CalculateSudokuAll: ["int", ["pointer", "bool", "pointer", "pointer"]],
+
+  VerifySudokuBoard: ["bool", [intArray]],
+  SolveTypeName: ["string", ["int"]],
+  ImproveTypeName: ["string", ["int"]]
 });
 
 module.exports = libsudoku;

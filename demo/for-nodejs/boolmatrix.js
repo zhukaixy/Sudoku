@@ -16,6 +16,7 @@ module.exports = {
       },
       DancingLinks: function(onlyOne, callback) {
         const ffi = require("ffi");
+        // typedef void (*AnswerCallback)(void* data, const int* answer, int size);
         const wrapCallback = ffi.Callback(
           "void",
           ["pointer", intArray, "int"],
