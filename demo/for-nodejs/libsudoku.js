@@ -17,8 +17,8 @@ const libsudoku = ffi.Library("libsudoku", {
   CalculateSudokuAll: ["int", ["pointer", "bool", "pointer", "pointer"]],
 
   VerifySudokuBoard: ["bool", [intArray]],
-  SolveTypeName: ["string", ["int"]],
-  ImproveTypeName: ["string", ["int"]]
+  SolveTypeName: ["pointer", ["int"]],
+  ImproveTypeName: ["pointer", ["int"]]
 });
 
 module.exports = libsudoku;

@@ -107,10 +107,12 @@ module.exports = {
     return libSudoku.VerifySudokuBoard(boardArray.buffer);
   },
   SolveTypeName: function(type) {
-    return libSudoku.SolveTypeName(type);
+    const name = libSudoku.SolveTypeName(type);
+    return ref.readCString(name, 0);
   },
   ImproveTypeName: function(type) {
-    return libSudoku.ImproveTypeName(type);
+    const name = libSudoku.ImproveTypeName(type);
+    return ref.readCString(name, 0);
   },
   SolveType: {
     None: 0,
