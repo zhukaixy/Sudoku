@@ -151,15 +151,14 @@ func (sudoku *Sudoku) DestroySudoku() {
 	C.DestroySudoku(sudoku.sudo)
 }
 
-func VerifySudokuBoard(board []int32) bool {
-	return bool(C.VerifySudokuBoard((*C.int)(unsafe.Pointer(&board[0]))))
-}
 func (sudoku *Sudoku) VerifySudoku() bool {
 	return bool(C.VerifySudoku(sudoku.sudo))
 }
+
 func (sudoku *Sudoku) GetKnownCount() int32 {
 	return int32(C.GetKnownCount(sudoku.sudo))
 }
+
 func (sudoku *Sudoku) MakeResultString() string {
 	buffer := make([]byte, RESULT_BUFFER_SIZE)
 	var result string
@@ -169,6 +168,7 @@ func (sudoku *Sudoku) MakeResultString() string {
 	C.MakeResultString(sudoku.sudo, (*C.char)(unsafe.Pointer(&buffer)), C.int(RESULT_BUFFER_SIZE))
 	return result
 }
+
 func (sudoku *Sudoku) CalculateSudokuAll(dancing bool, cb SudokuAnswerCallback) int32 {
 	sudoku.AnswerCB = cb
 	ansCB := (C.SudokuAnswerCallback)(C.answerSudokuCallback)
@@ -176,6 +176,11 @@ func (sudoku *Sudoku) CalculateSudokuAll(dancing bool, cb SudokuAnswerCallback) 
 	// for avoid panic: runtime error: cgo argument has Go pointer to Go pointer
 	return int32(C.CalculateSudokuAll(sudoku.sudo, C.bool(dancing), ansCB, unsafe.Pointer(&sudoku.sudo)))
 }
+
+func VerifySudokuBoard(board []int32) bool {
+	return bool(C.VerifySudokuBoard((*C.int)(unsafe.Pointer(&board[0]))))
+}
+
 func SolveTypeName(solveType int32) string {
 	pName := C.SolveTypeName((C.SolveType)(solveType))
 	var name string
@@ -184,6 +189,7 @@ func SolveTypeName(solveType int32) string {
 	handler.Len = int(C.strlen(pName))
 	return name
 }
+
 func ImproveTypeName(improveType int32) string {
 	pName := C.ImproveTypeName((C.ImproveType)(improveType))
 	var name string
