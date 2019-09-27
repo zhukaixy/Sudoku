@@ -43,18 +43,6 @@ namespace ForCS
 		{
 			SudokuLib.DestroySudoku(sudo);
 		}
-		public static bool VerifySudokuBoard(int[] board)
-		{
-			if (board.Length < SudokuLib.BOARD_SIZE)
-			{
-				return false;
-			}
-			IntPtr pData = Marshal.AllocHGlobal(sizeof(int) * board.Length);
-			Marshal.Copy(board, 0, pData, board.Length);
-			int ret = (int)SudokuLib.VerifySudokuBoard(pData);
-			Marshal.FreeHGlobal(pData);
-			return ret > 0;
-		}
 		public bool VerifySudoku()
 		{
 			return SudokuLib.VerifySudoku(sudo) > 0;
@@ -83,6 +71,19 @@ namespace ForCS
 				cb.Invoke(result);
 			}));
 			return SudokuLib.CalculateSudokuAll(sudo, (byte)(dancing ? 1 : 0), ansPtr, IntPtr.Zero);
+		}
+
+		public static bool VerifySudokuBoard(int[] board)
+		{
+			if (board.Length < SudokuLib.BOARD_SIZE)
+			{
+				return false;
+			}
+			IntPtr pData = Marshal.AllocHGlobal(sizeof(int) * board.Length);
+			Marshal.Copy(board, 0, pData, board.Length);
+			int ret = (int)SudokuLib.VerifySudokuBoard(pData);
+			Marshal.FreeHGlobal(pData);
+			return ret > 0;
 		}
 		public static string SolveTypeName(SolveType type)
 		{
