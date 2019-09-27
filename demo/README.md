@@ -27,18 +27,32 @@ make run # 执行Demo
 
 其中，\${for-lang}代表具体语言的 Demo 目录
 
+## 高级语言访问 C 动态库
+
+1. C# 访问 C 动态库只有一种方式，动过 DllImport 方式将 C#类静态方法与库导出方法对应起来，优雅高效
+2. Go 语言的 cgo 采用了一种类似在 Go 源码文件嵌入 C 代码的方式
+3. Java 通过编写 jni 胶水库，实现数据类型转换和函数调用
+4. Lua 本身就是一门嵌入式语言，将动态库设计成 Lua 的 C 模块本身就是 Lua 的设计之一
+5. NodeJS 有两种不同的方式调用 C 动态库，一种是将动态库设计成 Node 模块，另一种是通过 ffi 做动态调用
+6. PHP 只有一种方式，将动态库设计成 PHP 扩展模块
+7. Python 类似 NodeJS，两种方式分别是将动态库设计成 Python 模块和通过 ctypes 做动态调用
+
 ## 问题记录
 
-1. Windows 下的 fopen 函数只能打开 windows 格式的路径名，即使是在 cygwin 环境下运行，因此在 Makefile 中，需要使用重定向标准输入的方式输入数据，或者针对 cygwin 环境下调用 cygpath 命令进行转换
-2. C#的 for-cs.csproj 工程文件中不可以指定 TargetFrameworkVersion，否则有些不存在该指定版本的环境下就会编译失败，反正 Demo 只用到很少的功能，采用环境默认的 Runtime 版本就好
+1. Windows 下的 `fopen` 函数只能打开 windows 格式的路径名，即使是在 cygwin 环境下运行，因此在 Makefile 中，需要使用重定向标准输入的方式输入数据，或者针对 cygwin 环境下调用 `cygpath` 命令进行转换
+2. C#的 for-cs.csproj 工程文件中不可以指定 `TargetFrameworkVersion`，否则有些不存在该指定版本的环境下就会编译失败，反正 Demo 只用到很少的功能，采用环境默认的 Runtime 版本就好
 3. Go 语言工具用起来是比较舒服的，只是在 Windows 下用 cgo 编译会报错，错误为\_beginthread 函数未声明，目前尚未解决
-4. cgo 中有些往 C 传递结构体指针需要先引用第一个字段再取地址，不明白为什么这样做就可以，如 CreateSudoku 函数
+4. cgo 中有些往 C 传递结构体指针需要先引用第一个字段再取地址，不明白为什么这样做就可以，如 `CreateSudoku` 函数
 5. 在 Linux/Windows 中，除了要引用\${JAVA_HOME}环境变量下的 include 目录，还要引用 include 下面的 linux/win32 目录，不然会有一些头文件找不到
 6. Java 的 Demo 在 Windows+Cygwin 下编译失败，错误：未知的类型名‘\_\_int64’，通过 CMakeLists.txt 配置在 Visual Studio 下编译才能成功，并且这样做之后，在 Windows 下正常跑该 demo
 7. Makefile 中采用 Shell 类型的=号赋值会存在循环引用的问题，改成:=赋值则可避免该问题
 8. 回车 carriage return, 缩写 CR，对应 ASCII 码为 0x0D，字符表示为'\r'；换行 line feed（或 new line），缩写 LF（或 NL），对应 ASCII 码为 0x0A，字符表示为'\n'；Windows 下默认行结束符为回车换行，也就是 CRLF（或 CRNL）、'\r\n'、0x0D0A，因此 Cygwin 执行 shell 脚本就会报错找不到'\r'命令，三种解决方式：
-   - 手动将 shell 脚本行结束符改成 Unix 版，如 dos2unix 工具
+   - 手动将 shell 脚本行结束符改成 Unix 版，如 `dos2unix` 工具
    - 在脚本开头处加上命令：`(set -o igncr) 2>/dev/null && set -o igncr; #` 注意，命令最后一个'#'注释符号是必要的，否则会报一次找不到'\r'命令，我猜是因为逐行读取命令导致，因此加上最后一个注释符来避免这一行的'\r'被执行，后续其他行的'\r'则由该命令指定来忽略
-   - 使用如下命令执行脚本：`bash -x -o igncr script.sh`
-9. Windows+Cygwin 下 for-nodejs 目录下执行 npm install ref 命令失败，目前尚未解决
-10. NodeJS 示例的 main.js 脚本中，无法多次调用动态库的 SolveTypeName 函数，否则会引发 Segmentation fault: 11 错误，目前尚未解决
+   - 使用如下命令执行脚本：`bash -o igncr script.sh`
+9. Windows+Cygwin 下 for-nodejs 目录下执行 `npm install ref` 命令失败，目前尚未解决
+10. NodeJS 示例的 main.js 脚本中，无法多次调用动态库的 `SolveTypeName` 函数，否则会引发 Segmentation fault: 11 错误，目前尚未解决
+11. `bash -n script.sh` 可检查脚本语法但是不执行，`bash -x script.sh` 可以让脚本在执行命令前打印出该命令，包括变量的解引用结果
+12. Windows 下的 Visual Studio 没有 `alloca` 函数，但是 `malloc.h` 头文件中有类似的 `_alloca` 函数，在这 JNI 和 Lua 模块中，为了方便，Windows 中统一用 `malloc` 代替 `alloca`
+13. CMakeLists.txt 配置文件中，可以通过\$ENV{HOME}的方式访问进程环境变量
+14. 64 位系统中 C 语言中的枚举类型 `enum` 变量占用 4 个字节，类似 `int`，`stdbool.h` 中的 `bool` 类型占用 1 个字节，类似 `char`
