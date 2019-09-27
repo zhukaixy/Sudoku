@@ -34,10 +34,10 @@ JNIEXPORT void JNICALL Java_SudokuLib_SetMatrixRowData
 /*
  * Class:     SudokuLib
  * Method:    DancingLinks
- * Signature: (JILIMatrixCallback;)I
+ * Signature: (JZLIMatrixCallback;)I
  */
 JNIEXPORT jint JNICALL Java_SudokuLib_DancingLinks
-  (JNIEnv *, jclass, jlong, jint, jobject);
+  (JNIEnv *, jclass, jlong, jboolean, jobject);
 
 /*
  * Class:     SudokuLib
@@ -57,18 +57,10 @@ JNIEXPORT void JNICALL Java_SudokuLib_DestroySudoku
 
 /*
  * Class:     SudokuLib
- * Method:    VerifySudokuBoard
- * Signature: ([I)I
- */
-JNIEXPORT jint JNICALL Java_SudokuLib_VerifySudokuBoard
-  (JNIEnv *, jclass, jintArray);
-
-/*
- * Class:     SudokuLib
  * Method:    VerifySudoku
- * Signature: (J)I
+ * Signature: (J)Z
  */
-JNIEXPORT jint JNICALL Java_SudokuLib_VerifySudoku
+JNIEXPORT jboolean JNICALL Java_SudokuLib_VerifySudoku
   (JNIEnv *, jclass, jlong);
 
 /*
@@ -90,10 +82,18 @@ JNIEXPORT jstring JNICALL Java_SudokuLib_MakeResultString
 /*
  * Class:     SudokuLib
  * Method:    CalculateSudokuAll
- * Signature: (JILISudokuCallback;)I
+ * Signature: (JZLISudokuCallback;)I
  */
 JNIEXPORT jint JNICALL Java_SudokuLib_CalculateSudokuAll
-  (JNIEnv *, jclass, jlong, jint, jobject);
+  (JNIEnv *, jclass, jlong, jboolean, jobject);
+
+/*
+ * Class:     SudokuLib
+ * Method:    VerifySudokuBoard
+ * Signature: ([I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_SudokuLib_VerifySudokuBoard
+  (JNIEnv *, jclass, jintArray);
 
 /*
  * Class:     SudokuLib

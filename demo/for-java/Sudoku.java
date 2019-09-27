@@ -6,11 +6,8 @@ public class Sudoku {
 	public void finalize() {
 		SudokuLib.DestroySudoku(sudoHandler);
 	}
-	public static boolean VerifySudokuBoard(int[] board) {
-		return SudokuLib.VerifySudokuBoard(board) != 0;
-	}
 	public boolean VerifySudoku() {
-		return SudokuLib.VerifySudoku(sudoHandler) != 0;
+		return SudokuLib.VerifySudoku(sudoHandler);
 	}
 	public int GetKnownCount() {
 		return SudokuLib.GetKnownCount(sudoHandler);
@@ -19,7 +16,11 @@ public class Sudoku {
 		return SudokuLib.MakeResultString(sudoHandler);
 	}
 	public int CalculateSudokuAll(boolean dancing, ISudokuCallback cb) {
-		return SudokuLib.CalculateSudokuAll(sudoHandler, dancing?1:0, cb);
+		return SudokuLib.CalculateSudokuAll(sudoHandler, dancing, cb);
+	}
+
+	public static boolean VerifySudokuBoard(int[] board) {
+		return SudokuLib.VerifySudokuBoard(board);
 	}
 	public static String SolveTypeName(SolveType type) {
 		return SudokuLib.SolveTypeName(type.ordinal());

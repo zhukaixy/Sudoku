@@ -82,15 +82,16 @@ public class SudokuLib {
 	// data is an array with one position in that row, position are in the range of [0, cols-1]
 	public static native void SetMatrixRowData(long matrix, int[] data);
 	// return the number of this call has calculated(the result)
-	public static native int DancingLinks(long matrix, int justOne, IMatrixCallback cb);
+	public static native int DancingLinks(long matrix, boolean justOne, IMatrixCallback cb);
 
 	public static native long CreateSudoku(ISudokuCallback cb);
 	public static native void DestroySudoku(long sudo);
-	public static native int VerifySudokuBoard(int[] board);
-	public static native int VerifySudoku(long sudo);
+	public static native boolean VerifySudoku(long sudo);
 	public static native int GetKnownCount(long sudo);
 	public static native String MakeResultString(long sudo);
-	public static native int CalculateSudokuAll(long sudo, int dancing, ISudokuCallback cb);
+	public static native int CalculateSudokuAll(long sudo, boolean dancing, ISudokuCallback cb);
+
+	public static native boolean VerifySudokuBoard(int[] board);
 	public static native String SolveTypeName(int type);
 	public static native String ImproveTypeName(int type);
 

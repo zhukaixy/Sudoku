@@ -27,7 +27,7 @@ JNIEXPORT void JNICALL Java_SudokuLib_DestroyBoolMatrix(JNIEnv* env, jclass cls,
 /*
  * Class:     SudokuLib
  * Method:    SetMatrixRowData
- * Signature: (JJI)V
+ * Signature: (J[I)V
  */
 JNIEXPORT void JNICALL Java_SudokuLib_SetMatrixRowData(JNIEnv* env, jclass cls, jlong matrix, jintArray array) {
   jsize size = (*env)->GetArrayLength(env, array);
@@ -63,9 +63,9 @@ static void Default_AnswerCallback(void* data, const int* answer, int size) {
 /*
  * Class:     SudokuLib
  * Method:    DancingLinks
- * Signature: (JIJJ)I
+ * Signature: (JZLIMatrixCallback;)I
  */
-JNIEXPORT jint JNICALL Java_SudokuLib_DancingLinks(JNIEnv* env, jclass cls, jlong matrix, jint just, jobject obj) {
+JNIEXPORT jint JNICALL Java_SudokuLib_DancingLinks(JNIEnv* env, jclass cls, jlong matrix, jboolean just, jobject obj) {
   bool justOne = just != 0;
   JavaData data;
   data.env = env;
@@ -174,33 +174,13 @@ JNIEXPORT void JNICALL Java_SudokuLib_DestroySudoku(JNIEnv* env, jclass cls, jlo
 
 /*
  * Class:     SudokuLib
- * Method:    VerifySudokuBoard
- * Signature: ([I)I
- */
-JNIEXPORT jint JNICALL Java_SudokuLib_VerifySudokuBoard(JNIEnv* env, jclass cls, jintArray array) {
-  jsize size = (*env)->GetArrayLength(env, array);
-#ifdef _WIN32
-  jint* board = (jint*)malloc(sizeof(jint) * size);
-#else
-  jint* board = (jint*)alloca(sizeof(jint) * size);
-#endif
-  (*env)->GetIntArrayRegion(env, array, 0, size, board);
-  jint ret = (jint)VerifySudokuBoard((const int*)board);
-#ifdef _WIN32
-  free(board);
-#endif
-  return ret;
-}
-
-/*
- * Class:     SudokuLib
  * Method:    VerifySudoku
- * Signature: (J)I
+ * Signature: (J)Z
  */
-JNIEXPORT jint JNICALL Java_SudokuLib_VerifySudoku(JNIEnv* env, jclass cls, jlong jData) {
+JNIEXPORT jboolean JNICALL Java_SudokuLib_VerifySudoku(JNIEnv* env, jclass cls, jlong jData) {
   JavaData* pData = (JavaData*)jData;
   Sudoku* sudo = (Sudoku*)pData->data;
-  return (jint)VerifySudoku(sudo);
+  return (jboolean)VerifySudoku(sudo);
 }
 
 /*
@@ -234,10 +214,10 @@ static void Default_SudokuAnswerCallback(void* data, const char* ans) {
 /*
  * Class:     SudokuLib
  * Method:    CalculateSudokuAll
- * Signature: (JILISudokuCallback;)I
+ * Signature: (JZLISudokuCallback;)I
  */
 JNIEXPORT jint JNICALL
-Java_SudokuLib_CalculateSudokuAll(JNIEnv* env, jclass cls, jlong jData, jint justOne, jobject obj) {
+Java_SudokuLib_CalculateSudokuAll(JNIEnv* env, jclass cls, jlong jData, jboolean justOne, jobject obj) {
   JavaData* pData = (JavaData*)jData;
   // printf("%x %x\n", pData->env, pData->obj);
   // printf("%x %x\n", env, obj);
@@ -249,6 +229,26 @@ Java_SudokuLib_CalculateSudokuAll(JNIEnv* env, jclass cls, jlong jData, jint jus
   tmpData.data = (void*)sudo;
   tmpData.obj = obj;
   return (jint)CalculateSudokuAll(sudo, justOne != 0, Default_SudokuAnswerCallback, &tmpData);
+}
+
+/*
+ * Class:     SudokuLib
+ * Method:    VerifySudokuBoard
+ * Signature: ([I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_SudokuLib_VerifySudokuBoard(JNIEnv* env, jclass cls, jintArray array) {
+  jsize size = (*env)->GetArrayLength(env, array);
+#ifdef _WIN32
+  jint* board = (jint*)malloc(sizeof(jint) * size);
+#else
+  jint* board = (jint*)alloca(sizeof(jint) * size);
+#endif
+  (*env)->GetIntArrayRegion(env, array, 0, size, board);
+  jboolean ret = (jboolean)VerifySudokuBoard((const int*)board);
+#ifdef _WIN32
+  free(board);
+#endif
+  return ret;
 }
 
 /*

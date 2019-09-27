@@ -52,6 +52,7 @@ header: jni/SudokuLib.h
 jni/SudokuLib.h: SudokuLib.java
 	javac SudokuLib.java
 	javah -d jni SudokuLib
+	rm -rf *.class
 
 run:
 	java -Djava.library.path=${JNI_LIBRARY_PATH} -classpath ./build Main 0<${PROJECT_DIR}/data/1.sudoku

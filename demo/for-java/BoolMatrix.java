@@ -10,6 +10,6 @@ public class BoolMatrix {
 		SudokuLib.SetMatrixRowData(matrixHandler, data);
 	}
 	public int DancingLinks(boolean justOne, IMatrixCallback cb) {
-		return SudokuLib.DancingLinks(matrixHandler, justOne?1:0, cb);
+		return SudokuLib.DancingLinks(matrixHandler, justOne, cb);
 	}
 }
