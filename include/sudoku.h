@@ -91,12 +91,13 @@ typedef void (*SudokuAnswerCallback)(void* data, const char* ans);
 SUDOKU_API Sudoku*
 CreateSudoku(SudokuReadData readFunc, SudokuWriteData writeFunc, SolveProcessCallback procCallback, void* data);
 SUDOKU_API void DestroySudoku(Sudoku* sudo);
-SUDOKU_API bool VerifySudokuBoard(const int* board);
 SUDOKU_API bool VerifySudoku(Sudoku* sudo);
 SUDOKU_API int GetKnownCount(Sudoku* sudo);
 // buffer must has size of RESULT_BUFFER_SIZE
 SUDOKU_API void MakeResultString(Sudoku* sudo, char* buffer, int size);
 SUDOKU_API int CalculateSudokuAll(Sudoku* sudo, bool dancing, SudokuAnswerCallback cb, void* data);
+
+SUDOKU_API bool VerifySudokuBoard(const int* board);
 SUDOKU_API const char* SolveTypeName(SolveType type);
 SUDOKU_API const char* ImproveTypeName(ImproveType type);
 

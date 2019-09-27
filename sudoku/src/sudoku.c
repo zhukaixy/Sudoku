@@ -40,22 +40,6 @@ SUDOKU_API void DestroySudoku(Sudoku* sudo) {
   free(sudo);
 }
 
-SUDOKU_API bool VerifySudokuBoard(const int* board) {
-  if (grids_has_zero(board)) {
-    return false;
-  }
-  if (row_has_repeat_element(board)) {
-    return false;
-  }
-  if (col_has_repeat_element(board)) {
-    return false;
-  }
-  if (block_has_repeat_element(board)) {
-    return false;
-  }
-  return true;
-}
-
 SUDOKU_API bool VerifySudoku(Sudoku* sudo) {
   int board[BOARD_SIZE];
   memset(board, 0, sizeof(int) * BOARD_SIZE);
@@ -108,6 +92,22 @@ SUDOKU_API int CalculateSudokuAll(Sudoku* sudo, bool dancing, SudokuAnswerCallba
     calculate_step_by_step(sudo);
   }
   return sudo->ansCount;
+}
+
+SUDOKU_API bool VerifySudokuBoard(const int* board) {
+  if (grids_has_zero(board)) {
+    return false;
+  }
+  if (row_has_repeat_element(board)) {
+    return false;
+  }
+  if (col_has_repeat_element(board)) {
+    return false;
+  }
+  if (block_has_repeat_element(board)) {
+    return false;
+  }
+  return true;
 }
 
 const char* solve_type_name[] = {"None",
