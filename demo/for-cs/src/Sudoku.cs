@@ -51,7 +51,7 @@ namespace ForCS
 			}
 			IntPtr pData = Marshal.AllocHGlobal(sizeof(int) * board.Length);
 			Marshal.Copy(board, 0, pData, board.Length);
-			int ret = SudokuLib.VerifySudokuBoard(pData);
+			int ret = (int)SudokuLib.VerifySudokuBoard(pData);
 			Marshal.FreeHGlobal(pData);
 			return ret > 0;
 		}
@@ -82,7 +82,7 @@ namespace ForCS
 				string result = Marshal.PtrToStringAnsi(answer, size);
 				cb.Invoke(result);
 			}));
-			return SudokuLib.CalculateSudokuAll(sudo, dancing ? 1 : 0, ansPtr, IntPtr.Zero);
+			return SudokuLib.CalculateSudokuAll(sudo, (byte)(dancing ? 1 : 0), ansPtr, IntPtr.Zero);
 		}
 		public static string SolveTypeName(SolveType type)
 		{

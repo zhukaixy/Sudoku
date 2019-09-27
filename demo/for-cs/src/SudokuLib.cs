@@ -83,7 +83,7 @@ namespace ForCS
 		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]
 		public static extern void SetMatrixRowData(IntPtr matrix, IntPtr data, int size);
 		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int DancingLinks(IntPtr matrix, int justOne, IntPtr cb, IntPtr data);
+		public static extern int DancingLinks(IntPtr matrix, byte justOne, IntPtr cb, IntPtr data);
 		#endregion
 
 		#region Sudoku API
@@ -100,15 +100,17 @@ namespace ForCS
 		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]
 		public static extern void DestroySudoku(IntPtr sudo);
 		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int VerifySudokuBoard(IntPtr board);
-		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int VerifySudoku(IntPtr sudo);
+		public static extern byte VerifySudoku(IntPtr sudo);
 		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]
 		public static extern int GetKnownCount(IntPtr sudo);
 		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]
 		public static extern void MakeResultString(IntPtr sudo, IntPtr buffer, int size);
 		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int CalculateSudokuAll(IntPtr sudo, int dancing, IntPtr cb, IntPtr data);
+		public static extern int CalculateSudokuAll(IntPtr sudo, byte dancing, IntPtr cb, IntPtr data);
+
+
+		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]
+		public static extern byte VerifySudokuBoard(IntPtr board);
 		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]
 		public static extern IntPtr SolveTypeName(int type);
 		[DllImport(SUDOKU_LIB, CallingConvention = CallingConvention.Cdecl)]

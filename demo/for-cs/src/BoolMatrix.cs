@@ -33,7 +33,7 @@ namespace ForCS
 		{
 			ansCallback = cb;
 			IntPtr callback = Marshal.GetFunctionPointerForDelegate(new SudokuLib.AnswerCallback(DancingCallback));
-			return SudokuLib.DancingLinks(matrix, justOne ? 1 : 0, callback, IntPtr.Zero);
+			return SudokuLib.DancingLinks(matrix, (byte)(justOne ? 1 : 0), callback, IntPtr.Zero);
 		}
 	}
 }
