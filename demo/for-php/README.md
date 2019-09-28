@@ -4,7 +4,7 @@
 2. PHP 本身有一套创建 C 扩展的操作流程，通过脚本 ext_skel 创建基本结构
 3. 修改 config.m4 并编写接口层胶水代码（解注释一些 dnf 定义来创建动态加载库）
 4. 编写胶水代码，并执行编译命令（phpize、./configure、make、make test、sudo make install）
-5. 修改 php.ini 配置（extension="webprofiler.so"）
+5. 修改 php.ini 配置（extension="phpsudoku.so"）
 6. 编写调用 C 扩展的 PHP 代码
 
 ## 创建 C 扩展的命令行操作
