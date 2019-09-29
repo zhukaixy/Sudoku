@@ -141,12 +141,29 @@ PHP_MINFO_FUNCTION(phpsudoku)
 }
 /* }}} */
 
+PHP_FUNCTION(PHPCreateBoolMatrix);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPCreateBoolMatrix, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPDestroyBoolMatrix);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPDestroyBoolMatrix, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPSetMatrixRowData);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPSetMatrixRowData, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPDancingLinks);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPDancingLinks, 0)
+ZEND_END_ARG_INFO()
+
 /* {{{ phpsudoku_functions[]
  *
  * Every user visible function must have an entry in phpsudoku_functions[].
  */
 const zend_function_entry phpsudoku_functions[] = {
 	PHP_FE(confirm_phpsudoku_compiled,	NULL)		/* For testing, remove later. */
+	PHP_FE(PHPCreateBoolMatrix, ArgInfoPHPCreateBoolMatrix)
+	PHP_FE(PHPDestroyBoolMatrix, ArgInfoPHPDestroyBoolMatrix)
+	PHP_FE(PHPSetMatrixRowData, ArgInfoPHPSetMatrixRowData)
+	PHP_FE(PHPDancingLinks, ArgInfoPHPDancingLinks)
 	PHP_FE_END	/* Must be the last line in phpsudoku_functions[] */
 };
 /* }}} */

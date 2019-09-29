@@ -14,7 +14,7 @@ dnl [  --with-phpsudoku             Include phpsudoku support])
 dnl Otherwise use enable:
 
 PHP_ARG_ENABLE(phpsudoku, whether to enable phpsudoku support,
-dnl Make sure that the comment is aligned:
+Make sure that the comment is aligned:
 [  --enable-phpsudoku           Enable phpsudoku support])
 
 if test "$PHP_PHPSUDOKU" != "no"; then
@@ -41,7 +41,23 @@ if test "$PHP_PHPSUDOKU" != "no"; then
   dnl fi
 
   dnl # --with-phpsudoku -> add include path
-  dnl PHP_ADD_INCLUDE($PHPSUDOKU_DIR/include)
+  PHP_ADD_INCLUDE(/usr/local/zyk/include)
+  # --with-phpsudoku -> check for lib and symbol presence
+  LIBNAME=sudoku # you may want to change this
+  LIBSYMBOL=CreateBoolMatrix # you most likely want to change this
+  LIBPATH=/usr/local/zyk/lib
+
+  PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOL,
+  [
+    PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $LIBPATH, PHPSUDOKU_SHARED_LIBADD)
+    AC_DEFINE(HAVE_PHPSUDOKULIB,1,[ ])
+  ],[
+    AC_MSG_ERROR([wrong sudoku lib version or lib not found])
+  ],[
+    -L$LIBPATH -l$LIBNAME
+  ])
+  
+  PHP_SUBST(PHPSUDOKU_SHARED_LIBADD)
 
   dnl # --with-phpsudoku -> check for lib and symbol presence
   dnl LIBNAME=phpsudoku # you may want to change this
@@ -59,5 +75,5 @@ if test "$PHP_PHPSUDOKU" != "no"; then
   dnl
   dnl PHP_SUBST(PHPSUDOKU_SHARED_LIBADD)
 
-  PHP_NEW_EXTENSION(phpsudoku, phpsudoku.c, $ext_shared,, -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1)
+  PHP_NEW_EXTENSION(phpsudoku, phpsudoku.c libsudoku.c, $ext_shared,, -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1)
 fi
