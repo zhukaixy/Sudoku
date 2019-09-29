@@ -14,6 +14,8 @@
 4. Java 环境需要 JDK，并配置 JDK 环境变量（主要是 JAVA_HOME 环境变量，需要靠它找到 jni.h）
 5. Lua 的命令行工具和动态库已经放在工程中，直接 make 执行即可，无需安装
 6. NodeJS 工具链可从[官网](https://nodejs.org/en/)获得，JS 调用 C 库有两种方式，第一种是将 C 库做成 Node 模块，第二种是通过第三方库 ffi 进行动态加载，这里采用第二种（简单方便，虽然运行效率低一些）
+7. PHP 由于需要 PHP 源码参与编译，并且除 Web 外很少使用，因此仅提供 Linux 版，具体请看[此 README](./for-php/README.md)
+8. Python 采用的是 python3，可从[官网](https://www.python.org)下载安装
 
 ## 编译和执行命令
 
@@ -34,7 +36,7 @@ make run # 执行Demo
 3. Java 通过编写 jni 胶水库，实现数据类型转换和函数调用
 4. Lua 本身就是一门嵌入式语言，将动态库设计成 Lua 的 C 模块本身就是 Lua 的设计之一
 5. NodeJS 有两种不同的方式调用 C 动态库，一种是将动态库设计成 Node 模块，另一种是通过 ffi 做动态调用
-6. PHP 只有一种方式，将动态库设计成 PHP 扩展模块
+6. PHP 有两种方式，一是将动态库设计成 PHP 扩展模块，二是使用 ffi 做动态调用
 7. Python 类似 NodeJS，两种方式分别是将动态库设计成 Python 模块和通过 ctypes 做动态调用
 
 ## 问题记录
@@ -56,3 +58,4 @@ make run # 执行Demo
 12. Windows 下的 Visual Studio 没有 `alloca` 函数，但是 `malloc.h` 头文件中有类似的 `_alloca` 函数，在这 JNI 和 Lua 模块中，为了方便，Windows 中统一用 `malloc` 代替 `alloca`
 13. CMakeLists.txt 配置文件中，可以通过\$ENV{HOME}的方式访问进程环境变量
 14. 64 位系统中 C 语言中的枚举类型 `enum` 变量占用 4 个字节，类似 `int`，`stdbool.h` 中的 `bool` 类型占用 1 个字节，类似 `char`
+15. Ubuntu 环境下，安装 curl4-dev 会要求删除 ssl1.0-dev，然而 npm 等 node 工具需要 ssl1.0-dev 这个依赖，另外 phpize 工具也与 npm 有冲突，目前尚未解决！
