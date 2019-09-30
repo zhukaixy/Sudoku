@@ -40,6 +40,7 @@ if test "$PHP_PHPSUDOKU" != "no"; then
   dnl   AC_MSG_ERROR([Please reinstall the phpsudoku distribution])
   dnl fi
 
+  dnl AC_DEFINE(name,value,description)
   dnl # --with-phpsudoku -> add include path
   PHP_ADD_INCLUDE(/usr/local/zyk/include)
   # --with-phpsudoku -> check for lib and symbol presence
