@@ -99,9 +99,9 @@ ndk-build -B # rebuild project
    - for-go：Go 语言用例（已在 Mac/Linux 跑通）
    - for-java：Java 语言用例（已在 Mac/Linux/Windows 跑通）
    - for-lua：Lua 语言用例（已在 Mac/Linux/Windows 跑通）
-   - for-nodejs：NodeJS 语言用例（已在 Mac/Linux 跑通）
-   - for-php：PHP 语言用例（待处理）
-   - for-python：Python 语言用例（待处理）
+   - for-nodejs：NodeJS 语言用例（通过 FFI 调用布尔矩阵已在 Mac/Linux 跑通）
+   - for-php：PHP 语言用例（已在 Linux 跑通）
+   - for-python：Python 语言用例（通过 ctypes 调用布尔矩阵已在 Mac/Linux/Windows 跑通）
 4. data：存放用于测试的数独案例
 5. tools：工具脚本
    - SudokuTable.xlsx：辅助填充表，来自[林健随笔](https://linjian.org/blog/tech/programming/others/sudoku-table)
