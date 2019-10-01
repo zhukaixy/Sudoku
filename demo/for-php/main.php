@@ -87,7 +87,7 @@ if ($argc == 2) {
 }
 $board = [];
 if (($board = GetSudokuFromFile($file)) == false) {
-	fprintf(STDERR, "Read sudoku failed" . PHP_EOL);
+	fprintf(STDERR, "Read sudoku failed\n");
 	Usage($argv[0]);
 	fclose($file);
 	exit(-1);
@@ -118,7 +118,8 @@ require("./sudoku.php"); {
 	DisplaySudoku($board);
 	$status = Sudoku::VerifySudokuBoard($board);
 	printf("Verify: %s\n", $status ? "True" : "False");
-} {
+}
+printf("\n"); {
 	$sudo = new Sudoku(function ($row, $col) {
 		global $board_dancing;
 		$index = ($row - 1) * 9 + $col - 1;
