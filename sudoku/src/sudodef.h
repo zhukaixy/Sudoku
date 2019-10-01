@@ -18,4 +18,6 @@ struct Sudoku {
   int improveCount;
 };
 
+void find_one_grid_answer(Sudoku* sudo, int row, int col, int value, SolveType type);
+
 #endif

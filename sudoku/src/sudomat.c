@@ -27,7 +27,7 @@ static void sudoku_cb(void* data, const int* ans, int size) {
     int value = rowLine % 9 + 1;
     sudo->sudoData[row][col][0] = value;
     if (!sudo->hasWriteData) {
-      sudo->writeData(sudo->dataIO, row + 1, col + 1, value, None);
+      find_one_grid_answer(sudo, row, col, value, None);
     }
   }
   sudo->hasWriteData = true;

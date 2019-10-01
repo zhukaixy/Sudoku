@@ -9,6 +9,10 @@
 #include <sudomat.h>
 #include <sudostep.h>
 
+void find_one_grid_answer(Sudoku* sudo, int row, int col, int value, SolveType type) {
+  sudo->writeData(sudo->dataIO, row + 1, col + 1, value, type);
+}
+
 SUDOKU_API Sudoku*
 CreateSudoku(SudokuReadData readData, SudokuWriteData writeData, SolveProcessCallback procCallback, void* data) {
   if (readData == NULL || writeData == NULL) {

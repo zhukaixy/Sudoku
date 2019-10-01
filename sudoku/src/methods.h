@@ -31,7 +31,7 @@
   { \
     sudo->improveCount++; \
     sudo->sudoData[row][col][0] = value; \
-    sudo->writeData(sudo->dataIO, row + 1, col + 1, value, type); \
+    find_one_grid_answer(sudo, row, col, value, type); \
     remove_grid_posibility(sudo, row, col); \
   }
 // ============================================================================
