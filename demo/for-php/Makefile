@@ -5,7 +5,7 @@ for-php:
 	ldd phpsudoku/modules/phpsudoku.so
 
 run:
-	php main.php
+	php main.php ../../data/1.sudoku
 
 clean:
 	cd phpsudoku && make clean
