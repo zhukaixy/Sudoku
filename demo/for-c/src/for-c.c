@@ -118,7 +118,7 @@ int main(int argc, char* argv[]) {
   }
   int board[BOARD_SIZE];
   if (get_sudoku_from_file(board, BOARD_SIZE, file) == false) {
-    fprintf(stderr, "Read sudoku from %s failed\n", argv[1]);
+    fprintf(stderr, "Read sudoku failed\n");
     usage(argv[0]);
     fclose(file);
     return -1;

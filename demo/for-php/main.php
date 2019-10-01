@@ -87,7 +87,7 @@ if ($argc == 2) {
 }
 $board = [];
 if (($board = GetSudokuFromFile($file)) == false) {
-	fprintf(STDERR, "Read sudoku from " . $argv[1] . " failed" . PHP_EOL);
+	fprintf(STDERR, "Read sudoku failed" . PHP_EOL);
 	Usage($argv[0]);
 	fclose($file);
 	exit(-1);

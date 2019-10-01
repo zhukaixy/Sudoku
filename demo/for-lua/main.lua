@@ -22,10 +22,10 @@ collectgarbage()
 collectgarbage()
 
 
-local Usage = function(exec)
-	print(string.format("Usage: %s <file>", exec));
-	print("\t<file>: The sudoku file path");
-	print(string.format("\tor using %s with stdin", exec));
+local OpenFileForRead = function(path)
+	local file, msg = io.open(path)
+	if file == nil then io.stderr:write(msg .. "\n") end
+	return file
 end
 
 local GetSudokuFromFile = function(file, board)
@@ -61,6 +61,12 @@ local DisplaySudoku = function(board)
 	print(table.concat(buffer))
 end
 
+local Usage = function(exec)
+	print(string.format("Usage: %s <file>", exec));
+	print("\t<file>: The sudoku file path");
+	print(string.format("\tor using %s with stdin", exec));
+end
+
 -- Main Function Start
 
 local argv = {...}
@@ -71,9 +77,19 @@ if argc ~= 0 and argc ~= 1 then
 end
 
 local file = io.stdin
-if argc == 1 then file = io.open(argv[1]) end
+if argc == 1 then
+	file = OpenFileForRead(argv[1])
+	if file == nil then
+		Usage("lua main.lua")
+		os.exit(-1)
+	end
+end
 local board = {}
-GetSudokuFromFile(file, board)
+if GetSudokuFromFile(file, board) == false then
+	io.stderr:write("Read sudoku failed\n")
+	Usage("lua main.lua")
+	os.exit(-1)
+end
 file:close()
 file = nil
 local board_dancing = {}

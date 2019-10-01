@@ -20,12 +20,17 @@ func main() {
 		var err error // here must declare first, if use := , file will be redefine
 		file, err = os.OpenFile(argv[1], os.O_RDONLY, 0)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Fprintf(os.Stderr, "%v", err)
 			usage(argv[0])
 			os.Exit(-1)
 		}
 	}
 	board := getSudokuFromFile(file)
+	if board == nil {
+		fmt.Fprintf(os.Stderr, "Read sudoku failed\n")
+		usage(argv[0])
+		os.Exit(-1)
+	}
 	board_dancing := new([sudoku.BOARD_SIZE]int32)
 	for index := 0; index < sudoku.BOARD_SIZE; index++ {
 		board_dancing[index] = board[index]
