@@ -21,17 +21,22 @@ ScriptRootDir=$(cd -P $(dirname ${ScriptExe}) && pwd)
 AllCommonDemos=(
 	"for-c"
 	"for-cs"
-	"for-lua"
+	"for-python"
 )
 
 MacDemos=(
 	"for-go"
 	"for-java"
+	"for-lua"
+	"for-nodejs"
 )
 
 LinuxDemos=(
 	"for-go"
 	"for-java"
+	"for-lua"
+	"for-nodejs"
+	"for-php"
 )
 
 ARCH=$(uname -s)
