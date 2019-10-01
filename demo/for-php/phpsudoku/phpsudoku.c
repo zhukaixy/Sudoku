@@ -154,6 +154,34 @@ PHP_FUNCTION(PHPDancingLinks);
 ZEND_BEGIN_ARG_INFO(ArgInfoPHPDancingLinks, 0)
 ZEND_END_ARG_INFO()
 
+PHP_FUNCTION(PHPCreateSudoku);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPCreateSudoku, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPDestroySudoku);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPDestroySudoku, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPVerifySudoku);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPVerifySudoku, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPGetKnownCount);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPGetKnownCount, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPMakeResultString);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPMakeResultString, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPCalculateSudokuAll);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPCalculateSudokuAll, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPVerifySudokuBoard);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPVerifySudokuBoard, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPSolveTypeName);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPSolveTypeName, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(PHPImproveTypeName);
+ZEND_BEGIN_ARG_INFO(ArgInfoPHPImproveTypeName, 0)
+ZEND_END_ARG_INFO()
+
 /* {{{ phpsudoku_functions[]
  *
  * Every user visible function must have an entry in phpsudoku_functions[].
@@ -164,6 +192,17 @@ const zend_function_entry phpsudoku_functions[] = {
 	PHP_FE(PHPDestroyBoolMatrix, ArgInfoPHPDestroyBoolMatrix)
 	PHP_FE(PHPSetMatrixRowData, ArgInfoPHPSetMatrixRowData)
 	PHP_FE(PHPDancingLinks, ArgInfoPHPDancingLinks)
+
+	PHP_FE(PHPCreateSudoku, ArgInfoPHPCreateSudoku)
+	PHP_FE(PHPDestroySudoku, ArgInfoPHPDestroySudoku)
+	PHP_FE(PHPVerifySudoku, ArgInfoPHPVerifySudoku)
+	PHP_FE(PHPGetKnownCount, ArgInfoPHPGetKnownCount)
+	PHP_FE(PHPMakeResultString, ArgInfoPHPMakeResultString)
+	PHP_FE(PHPCalculateSudokuAll, ArgInfoPHPCalculateSudokuAll)
+	PHP_FE(PHPVerifySudokuBoard, ArgInfoPHPVerifySudokuBoard)
+	PHP_FE(PHPSolveTypeName, ArgInfoPHPSolveTypeName)
+	PHP_FE(PHPImproveTypeName, ArgInfoPHPImproveTypeName)
+
 	PHP_FE_END	/* Must be the last line in phpsudoku_functions[] */
 };
 /* }}} */
