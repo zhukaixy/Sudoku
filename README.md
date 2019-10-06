@@ -94,14 +94,14 @@ ndk-build -B # rebuild project
    - iOS：iOS 静态库的 xcode 工程
    - Android：用于编译 Android 动态库
 3. demo：用于测试的 Demo，包含多种编程语言
-   - for-c：C 语言用例（已在 Mac/Linux/Windows 跑通）
-   - for-cs：C#语言用例（已在 Mac/Linux/Windows 跑通）
-   - for-go：Go 语言用例（已在 Mac/Linux 跑通）
-   - for-java：Java 语言用例（已在 Mac/Linux/Windows 跑通）
-   - for-lua：Lua 语言用例（已在 Mac/Linux/Windows 跑通）
-   - for-nodejs：NodeJS 语言用例（通过 FFI 调用布尔矩阵已在 Mac/Linux 跑通）
-   - for-php：PHP 语言用例（已在 Linux 跑通）
-   - for-python：Python 语言用例（通过 ctypes 调用布尔矩阵已在 Mac/Linux/Windows 跑通）
+   - [x] for-c：C 语言用例（Mac/Linux/Windows）
+   - [x] for-cs：C#语言用例（Mac/Linux/Windows）
+   - [x] for-go：Go 语言用例（Mac/Linux）
+   - [x] for-java：Java 语言用例（Mac/Linux/Windows）
+   - [x] for-lua：Lua 语言用例（Mac/Linux/Windows）
+   - [x] for-nodejs：NodeJS 语言用例（通过 FFI 调用布尔矩阵，Mac/Linux）
+   - [x] for-php：PHP 语言用例（仅 Linux）
+   - [x] for-python：Python 语言用例（通过 ctypes 调用布尔矩阵，Mac/Linux/Windows）
 4. data：存放用于测试的数独案例
 5. tools：工具脚本
    - SudokuTable.xlsx：辅助填充表，来自[林健随笔](https://linjian.org/blog/tech/programming/others/sudoku-table)
