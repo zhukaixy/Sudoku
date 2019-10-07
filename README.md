@@ -18,7 +18,7 @@
 
 1. 本库提供求数独解的两种方法，以及求解精确覆盖问题的通用布尔矩阵
 2. 第一种解法是按照人们解题思路技巧，换用计算机实现，具体思路技巧参考[琳琅在线](http://www.llang.net/sudoku/skill/1.html)
-3. 第二种解法为回溯遍历，根据数独规则将数独问题转化为布尔矩阵的精确覆盖问题，并使用 DancingLinks 算法高效求解，这种方式可以算出所有可能的解，
+3. 第二种解法为回溯遍历，根据数独规则将数独问题转化为布尔矩阵的精确覆盖问题，并使用 DancingLinks 算法高效求解，这种方式可以算出所有可能的解
 4. DancingLinks 算法的实现参考[陈硕的 Github](https://github.com/chenshuo/muduo/blob/master/examples/sudoku/sudoku.cc)，此算法的作者是算法大师高德纳(Donald E. Knuth，《计算机程序设计艺术》丛书的作者)，这是该算法[原文链接](www-cs-faculty.stanford.edu/~uno/papers/dancing-color.ps.gz)，我给导出了[pdf 版](./dancing-color.pdf)，原算法将数独问题的转换和求解耦合在一起，为了更加明确解法思路，我将其拆分为两部分，分别是数独问题转换成布尔矩阵和求解布尔矩阵
 5. 陈硕的[CSDN 博客](https://blog.csdn.net/Solstice/article/details/2096209)对数独有一个概括性的说明，如何将数独问题转化成布尔矩阵的精确覆盖问题可以参考[这篇博客](https://www.cnblogs.com/grenet/p/3163550.html)，DancingLinks 求解精确覆盖算法原理可以参考[这篇博客](https://www.cnblogs.com/grenet/p/3145800.html)
 
