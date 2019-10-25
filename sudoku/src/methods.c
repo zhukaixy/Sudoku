@@ -509,13 +509,7 @@ bool check_col_3_grid_match_mask(Sudoku* sudo, int col, int row, int* row1, int*
   return false;
 }
 // int mask[10]
-bool check_block_3_grid_match_mask(Sudoku* sudo,
-                                   int row,
-                                   int col,
-                                   int* row1,
-                                   int* col1,
-                                   int* row2,
-                                   int* col2,
+bool check_block_3_grid_match_mask(Sudoku* sudo, int row, int col, int* row1, int* col1, int* row2, int* col2,
                                    const int* mask) {
   ASSERT_RANGE(row, 0, 8);
   ASSERT_RANGE(col, 0, 8);
@@ -643,13 +637,7 @@ void find_col_3_grid_has_3_posibility(Sudoku* sudo, int col, int row1, int row2,
     sudo->procCallback(sudo->dataIO, &proc);
   }
 }
-void find_block_3_grid_has_3_posibility(Sudoku* sudo,
-                                        int row1,
-                                        int col1,
-                                        int row2,
-                                        int col2,
-                                        int row3,
-                                        int col3,
+void find_block_3_grid_has_3_posibility(Sudoku* sudo, int row1, int col1, int row2, int col2, int row3, int col3,
                                         const int* mask) {
   ASSERT_RANGE(row1, 0, 8);
   ASSERT_RANGE(col1, 0, 8);

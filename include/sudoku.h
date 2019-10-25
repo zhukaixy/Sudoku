@@ -88,8 +88,8 @@ typedef void (*SolveProcessCallback)(void* data, SolveProcedure* proc);
 // ans is a null terminate char array
 typedef void (*SudokuAnswerCallback)(void* data, const char* ans);
 
-SUDOKU_API Sudoku*
-CreateSudoku(SudokuReadData readFunc, SudokuWriteData writeFunc, SolveProcessCallback procCallback, void* data);
+SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readFunc, SudokuWriteData writeFunc, SolveProcessCallback procCallback,
+                                void* data);
 SUDOKU_API void DestroySudoku(Sudoku* sudo);
 SUDOKU_API bool VerifySudoku(Sudoku* sudo);
 SUDOKU_API int GetKnownCount(Sudoku* sudo);

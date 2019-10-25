@@ -13,8 +13,8 @@ void find_one_grid_answer(Sudoku* sudo, int row, int col, int value, SolveType t
   sudo->writeData(sudo->dataIO, row + 1, col + 1, value, type);
 }
 
-SUDOKU_API Sudoku*
-CreateSudoku(SudokuReadData readData, SudokuWriteData writeData, SolveProcessCallback procCallback, void* data) {
+SUDOKU_API Sudoku* CreateSudoku(SudokuReadData readData, SudokuWriteData writeData, SolveProcessCallback procCallback,
+                                void* data) {
   if (readData == NULL || writeData == NULL) {
     return NULL;
   }
@@ -114,40 +114,44 @@ SUDOKU_API bool VerifySudokuBoard(const int* board) {
   return true;
 }
 
-const char* solve_type_name[] = {"None",
-                                 "GridOnlyOnePosibility",
-                                 "RowNumberOnlyOneGrid",
-                                 "ColNumberOnlyOneGrid",
-                                 "BlockNumberOnlyOneGrid"};
-static const char* improve_type_name[] = {"DoNotImprove",
+const char* solve_type_name[] = {
+    "None",
+    "GridOnlyOnePosibility",
+    "RowNumberOnlyOneGrid",
+    "ColNumberOnlyOneGrid",
+    "BlockNumberOnlyOneGrid",
+};
+static const char* improve_type_name[] = {
+    "DoNotImprove",
 
-                                          "Row2GridWith2Posibility",
-                                          "Col2GridWith2Posibility",
-                                          "Block2GridWith2Posibility",
+    "Row2GridWith2Posibility",
+    "Col2GridWith2Posibility",
+    "Block2GridWith2Posibility",
 
-                                          "Row3GridWith3Posibility",
-                                          "Col3GridWith3Posibility",
-                                          "Block3GridWith3Posibility",
+    "Row3GridWith3Posibility",
+    "Col3GridWith3Posibility",
+    "Block3GridWith3Posibility",
 
-                                          "Row2NumberIn2Grid",
-                                          "Col2NumberIn2Grid",
-                                          "Block2NumberIn2Grid",
+    "Row2NumberIn2Grid",
+    "Col2NumberIn2Grid",
+    "Block2NumberIn2Grid",
 
-                                          "Row3NumberIn3Grid",
-                                          "Col3NumberIn3Grid",
-                                          "Block3NumberIn3Grid",
+    "Row3NumberIn3Grid",
+    "Col3NumberIn3Grid",
+    "Block3NumberIn3Grid",
 
-                                          "InBlockNumberInOneRow",
-                                          "InBlockNumberInOneCol",
+    "InBlockNumberInOneRow",
+    "InBlockNumberInOneCol",
 
-                                          "InRowNumberInBlock",
-                                          "InColNumberInBlock",
+    "InRowNumberInBlock",
+    "InColNumberInBlock",
 
-                                          "TwoRowOneNumberInTwoCol",
-                                          "TwoColOneNumberInTwoRow",
+    "TwoRowOneNumberInTwoCol",
+    "TwoColOneNumberInTwoRow",
 
-                                          "ThreeRowOneNumberInThreeCol",
-                                          "ThreeColOneNumberInThreeRow"};
+    "ThreeRowOneNumberInThreeCol",
+    "ThreeColOneNumberInThreeRow",
+};
 SUDOKU_API const char* SolveTypeName(SolveType type) {
   return solve_type_name[(int)type];
 }
