@@ -65,7 +65,7 @@ cmake -DCMAKE_INSTALL_PREFIX=./install -G "Visual Studio 15 2017 Win64" ..
 #### 4. 在 Mac 上编译出用于 iOS 的 sudoku.a 静态库（直接 Xcode 打开 sudoku 工程文件）
 
 ```bash
-cd Sudoku/sudoku/iOS
+cd Sudoku/libsudoku/iOS
 open sudoku.xcodeproj
 ```
 
@@ -74,26 +74,21 @@ open sudoku.xcodeproj
 #### 5. 使用 NDK 编译出用于 Android 的 libsudoku.so 共享库
 
 ```bash
-cd Sudoku/sudoku/Android/
+cd Sudoku/libsudoku/Android/
 ndk-build
 ndk-build clean # clean project
 ndk-build -B # rebuild project
 ```
 
-编译之后便会有 Sudoku/sudoku/Android/libs/\${APP_ABI}/libsudoku.so 共享库
+编译之后便会有 Sudoku/libsudoku/Android/libs/\${APP_ABI}/libsudoku.so 共享库
 使用 ndk-build 命令需要先安装 AndroidStudio+AndroidSDK+NDK，然后将 ndk-bundle 路径加到系统 PATH 环境变量中
 
 ---
 
 ## 文件夹说明
 
-1. include：供外部调用的头文件
-2. sudoku：数独库
-   - test：测试代码
-   - src：源码
-   - iOS：iOS 静态库的 xcode 工程
-   - Android：用于编译 Android 动态库
-3. demo：用于测试的 Demo，包含多种编程语言
+1. data：存放用于测试的数独案例
+2. demo：用于测试的 Demo，包含多种编程语言
    - [x] for-c：C 语言用例（Mac/Linux/Windows）
    - [x] for-cs：C#语言用例（Mac/Linux/Windows）
    - [x] for-go：Go 语言用例（Mac/Linux）
@@ -102,13 +97,17 @@ ndk-build -B # rebuild project
    - [x] for-nodejs：NodeJS 语言用例（通过 FFI 调用布尔矩阵，Mac/Linux）
    - [x] for-php：PHP 语言用例（仅 Linux）
    - [x] for-python：Python 语言用例（通过 ctypes 调用布尔矩阵，Mac/Linux/Windows）
-4. data：存放用于测试的数独案例
+3. libsudoku：数独库
+   - Android：用于编译 Android 动态库
+   - include：供外部调用的头文件
+   - iOS：iOS 静态库的 xcode 工程
+   - src：源码
+   - test：测试代码
+4. oldcode：旧代码，刚学 C++时写的，做个备份记录
 5. tools：工具脚本
-   - SudokuTable.xlsx：辅助填充表，来自[林健随笔](https://linjian.org/blog/tech/programming/others/sudoku-table)
    - diff-sudoku：用于比较两个数独的区别
    - format-sudoku：数独格式化工具
-6. 所有 CMakeLists.txt：用于构建整个工程
-7. oldcode：旧代码，刚学 C++时写的，做个备份记录
+   - SudokuTable.xlsx：辅助填充表，来自[林健随笔](https://linjian.org/blog/tech/programming/others/sudoku-table)
 
 ---
 
