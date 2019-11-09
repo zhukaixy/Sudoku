@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
-project(sudoku
+project(libsudoku
 	VERSION 1.0
 	# DESCRIPTION "Sudoku dynamic library"
 	# HOMEPAGE_URL "www.zhyingkun.com"
-	LANGUAGES C CXX)
+	LANGUAGES C CXX
+)
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
 	set(CMAKE_BUILD_TYPE "Debug")
@@ -25,31 +26,41 @@ elseif(WIN32)
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 endif()
 
-include_directories(../include)
+include_directories(./include)
 include_directories(./src)
 
 aux_source_directory(./src SUDOKU_SRC)
 file(GLOB SUDOKU_PRIVATE_HEADERS "./src/*.h")
-file(GLOB SUDOKU_HEADERS "../include/*.h")
+file(GLOB SUDOKU_HEADERS "./include/*.h")
 
 source_group(src FILES ${SUDOKU_SRC} ${SUDOKU_PRIVATE_HEADERS})
 source_group(include FILES ${SUDOKU_HEADERS})
 
-add_library(${PROJECT_NAME} SHARED 
+set(ALL_SUDOKU_FILES
 	${SUDOKU_SRC}
 	${SUDOKU_HEADERS}
-	${SUDOKU_PRIVATE_HEADERS})
+	${SUDOKU_PRIVATE_HEADERS}
+)
+
+if(WIN32)
+	add_library(${PROJECT_NAME} STATIC ${ALL_SUDOKU_FILES})
+else(WIN32)
+	add_library(${PROJECT_NAME} SHARED ${ALL_SUDOKU_FILES})
+endif(WIN32)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	FOLDER "sudoku"
-	OUTPUT_NAME ${PROJECT_NAME}
+	OUTPUT_NAME "sudoku"
 	VERSION ${PROJECT_VERSION}
 	SOVERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
-	POSITION_INDEPENDENT_CODE ON)
+	POSITION_INDEPENDENT_CODE ON
+)
 
 install(TARGETS ${PROJECT_NAME}
 	RUNTIME DESTINATION bin
 	LIBRARY DESTINATION lib
-	ARCHIVE DESTINATION lib)
+	ARCHIVE DESTINATION lib
+)
 install(FILES ${SUDOKU_HEADERS} DESTINATION include/sudoku)
 
 add_subdirectory(test)

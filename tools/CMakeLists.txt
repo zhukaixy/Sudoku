@@ -3,7 +3,8 @@ project(tools
 	VERSION 1.0.0
 	# DESCRIPTION "Tools for sudoku"
 	# HOMEPAGE_URL "www.zhyingkun.com"
-	LANGUAGES C CXX)
+	LANGUAGES C CXX
+)
 
 message(STATUS "CMakeLists.txt for ${PROJECT_NAME}")
 

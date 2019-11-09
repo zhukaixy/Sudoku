@@ -3,7 +3,8 @@ project(sudoku_Test
 	VERSION 1.0
 	# DESCRIPTION "Sudoku library test"
 	# HOMEPAGE_URL "www.zhyingkun.com"
-	LANGUAGES C CXX)
+	LANGUAGES C CXX
+)
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
 	set(CMAKE_BUILD_TYPE "Debug")
@@ -25,7 +26,7 @@ elseif(WIN32)
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 endif()
 
-include_directories(../../include)
+include_directories(../include)
 include_directories(../src)
 include_directories(./CuTest)
 
@@ -37,6 +38,7 @@ source_group(src FILES ${TEST_SRC})
 source_group(CuTest FILES ${CUTEST_SRC} ${CUTEST_HEADER})
 
 add_executable(${PROJECT_NAME} ${TEST_SRC} ${CUTEST_SRC} ${CUTEST_HEADER})
-target_link_libraries(${PROJECT_NAME} sudoku)
+target_link_libraries(${PROJECT_NAME} libsudoku)
 set_target_properties(${PROJECT_NAME} PROPERTIES
-	FOLDER "sudoku")
+	FOLDER "sudoku"
+)
