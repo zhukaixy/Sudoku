@@ -42,11 +42,7 @@ set(ALL_SUDOKU_FILES
 	${SUDOKU_PRIVATE_HEADERS}
 )
 
-if(WIN32)
-	add_library(${PROJECT_NAME} STATIC ${ALL_SUDOKU_FILES})
-else(WIN32)
-	add_library(${PROJECT_NAME} SHARED ${ALL_SUDOKU_FILES})
-endif(WIN32)
+add_library(${PROJECT_NAME} SHARED ${ALL_SUDOKU_FILES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	FOLDER "sudoku"
