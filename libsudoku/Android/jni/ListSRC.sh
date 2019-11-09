@@ -25,7 +25,7 @@ fi
 ProjectRootDir=$1
 
 SrcDirInProj=(
-    "sudoku/src"
+    "libsudoku/src"
 );
 
 for dir in ${SrcDirInProj[@]}; do
