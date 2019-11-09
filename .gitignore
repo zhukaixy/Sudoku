@@ -10,8 +10,8 @@ xcshareddata
 UserInterfaceState.xcuserstate
 UserInterface.xcuserstate
 
-sudoku/Android/libs/
-sudoku/Android/obj/
+libsudoku/Android/libs/
+libsudoku/Android/obj/
 
 lib
 obj
