@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		323DC8692321200E000BBA2F /* methods.c in Sources */ = {isa = PBXBuildFile; fileRef = 323DC8632321200E000BBA2F /* methods.c */; };
-		323DC86A2321200E000BBA2F /* bool-matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = 323DC8642321200E000BBA2F /* bool-matrix.c */; };
-		323DC86B2321200E000BBA2F /* sudostep.c in Sources */ = {isa = PBXBuildFile; fileRef = 323DC8662321200E000BBA2F /* sudostep.c */; };
-		323DC86C2321200E000BBA2F /* sudoku.c in Sources */ = {isa = PBXBuildFile; fileRef = 323DC8672321200E000BBA2F /* sudoku.c */; };
-		323DC86D2321200E000BBA2F /* sudomat.c in Sources */ = {isa = PBXBuildFile; fileRef = 323DC8682321200E000BBA2F /* sudomat.c */; };
-		323DC86F23212134000BBA2F /* sudodef.h in Headers */ = {isa = PBXBuildFile; fileRef = 323DC8652321200E000BBA2F /* sudodef.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		323DC87023212134000BBA2F /* sudoku.h in Headers */ = {isa = PBXBuildFile; fileRef = 323DC86023212002000BBA2F /* sudoku.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		32C34CE7232D2DDF0054336B /* bool-matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C34CE6232D2DDF0054336B /* bool-matrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		32C34CEB232D2E740054336B /* methods.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C34CE8232D2E740054336B /* methods.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		32C34CEC232D2E740054336B /* sudomat.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C34CE9232D2E740054336B /* sudomat.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		32C34CED232D2E740054336B /* sudostep.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C34CEA232D2E740054336B /* sudostep.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		32D3DCF62376E4AE009E4F07 /* sudoku.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D3DCB02376E4AE009E4F07 /* sudoku.h */; };
+		32D3DCF72376E4AE009E4F07 /* bool-matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D3DCB12376E4AE009E4F07 /* bool-matrix.h */; };
+		32D3DD0C2376E4AE009E4F07 /* sudostep.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D3DCE92376E4AE009E4F07 /* sudostep.h */; };
+		32D3DD0D2376E4AE009E4F07 /* methods.c in Sources */ = {isa = PBXBuildFile; fileRef = 32D3DCEB2376E4AE009E4F07 /* methods.c */; };
+		32D3DD0E2376E4AE009E4F07 /* sudomat.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D3DCEC2376E4AE009E4F07 /* sudomat.h */; };
+		32D3DD0F2376E4AE009E4F07 /* bool-matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = 32D3DCED2376E4AE009E4F07 /* bool-matrix.c */; };
+		32D3DD102376E4AE009E4F07 /* sudodef.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D3DCEE2376E4AE009E4F07 /* sudodef.h */; };
+		32D3DD112376E4AE009E4F07 /* sudostep.c in Sources */ = {isa = PBXBuildFile; fileRef = 32D3DCEF2376E4AE009E4F07 /* sudostep.c */; };
+		32D3DD122376E4AE009E4F07 /* sudoku.c in Sources */ = {isa = PBXBuildFile; fileRef = 32D3DCF02376E4AE009E4F07 /* sudoku.c */; };
+		32D3DD132376E4AE009E4F07 /* sudomat.c in Sources */ = {isa = PBXBuildFile; fileRef = 32D3DCF12376E4AE009E4F07 /* sudomat.c */; };
+		32D3DD142376E4AE009E4F07 /* methods.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D3DCF22376E4AE009E4F07 /* methods.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,19 +33,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		323DC86023212002000BBA2F /* sudoku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudoku.h; sourceTree = "<group>"; };
-		323DC8622321200E000BBA2F /* methods-doc.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "methods-doc.md"; sourceTree = "<group>"; };
-		323DC8632321200E000BBA2F /* methods.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = methods.c; sourceTree = "<group>"; };
-		323DC8642321200E000BBA2F /* bool-matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "bool-matrix.c"; sourceTree = "<group>"; };
-		323DC8652321200E000BBA2F /* sudodef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudodef.h; sourceTree = "<group>"; };
-		323DC8662321200E000BBA2F /* sudostep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sudostep.c; sourceTree = "<group>"; };
-		323DC8672321200E000BBA2F /* sudoku.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sudoku.c; sourceTree = "<group>"; };
-		323DC8682321200E000BBA2F /* sudomat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sudomat.c; sourceTree = "<group>"; };
 		326D99CE23211ED10017411D /* libsudoku.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsudoku.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		32C34CE6232D2DDF0054336B /* bool-matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bool-matrix.h"; sourceTree = "<group>"; };
-		32C34CE8232D2E740054336B /* methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = methods.h; sourceTree = "<group>"; };
-		32C34CE9232D2E740054336B /* sudomat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudomat.h; sourceTree = "<group>"; };
-		32C34CEA232D2E740054336B /* sudostep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudostep.h; sourceTree = "<group>"; };
+		32D3DCB02376E4AE009E4F07 /* sudoku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudoku.h; sourceTree = "<group>"; };
+		32D3DCB12376E4AE009E4F07 /* bool-matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bool-matrix.h"; sourceTree = "<group>"; };
+		32D3DCE92376E4AE009E4F07 /* sudostep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudostep.h; sourceTree = "<group>"; };
+		32D3DCEB2376E4AE009E4F07 /* methods.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = methods.c; sourceTree = "<group>"; };
+		32D3DCEC2376E4AE009E4F07 /* sudomat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudomat.h; sourceTree = "<group>"; };
+		32D3DCED2376E4AE009E4F07 /* bool-matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "bool-matrix.c"; sourceTree = "<group>"; };
+		32D3DCEE2376E4AE009E4F07 /* sudodef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudodef.h; sourceTree = "<group>"; };
+		32D3DCEF2376E4AE009E4F07 /* sudostep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sudostep.c; sourceTree = "<group>"; };
+		32D3DCF02376E4AE009E4F07 /* sudoku.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sudoku.c; sourceTree = "<group>"; };
+		32D3DCF12376E4AE009E4F07 /* sudomat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sudomat.c; sourceTree = "<group>"; };
+		32D3DCF22376E4AE009E4F07 /* methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = methods.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,47 +58,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		323DC85E23211FEF000BBA2F /* sudoku */ = {
-			isa = PBXGroup;
-			children = (
-				323DC8612321200E000BBA2F /* src */,
-				323DC85F23212002000BBA2F /* include */,
-			);
-			path = sudoku;
-			sourceTree = "<group>";
-		};
-		323DC85F23212002000BBA2F /* include */ = {
-			isa = PBXGroup;
-			children = (
-				32C34CE6232D2DDF0054336B /* bool-matrix.h */,
-				323DC86023212002000BBA2F /* sudoku.h */,
-			);
-			name = include;
-			path = ../../../include;
-			sourceTree = "<group>";
-		};
-		323DC8612321200E000BBA2F /* src */ = {
-			isa = PBXGroup;
-			children = (
-				32C34CE8232D2E740054336B /* methods.h */,
-				32C34CE9232D2E740054336B /* sudomat.h */,
-				32C34CEA232D2E740054336B /* sudostep.h */,
-				323DC8642321200E000BBA2F /* bool-matrix.c */,
-				323DC8632321200E000BBA2F /* methods.c */,
-				323DC8672321200E000BBA2F /* sudoku.c */,
-				323DC8682321200E000BBA2F /* sudomat.c */,
-				323DC8662321200E000BBA2F /* sudostep.c */,
-				323DC8652321200E000BBA2F /* sudodef.h */,
-				323DC8622321200E000BBA2F /* methods-doc.md */,
-			);
-			name = src;
-			path = ../../src;
-			sourceTree = "<group>";
-		};
 		326D99C523211ED10017411D = {
 			isa = PBXGroup;
 			children = (
-				323DC85E23211FEF000BBA2F /* sudoku */,
+				32D3DCA62376E4AE009E4F07 /* libsudoku */,
 				326D99CF23211ED10017411D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +74,41 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		32D3DCA62376E4AE009E4F07 /* libsudoku */ = {
+			isa = PBXGroup;
+			children = (
+				32D3DCAF2376E4AE009E4F07 /* include */,
+				32D3DCE82376E4AE009E4F07 /* src */,
+			);
+			name = libsudoku;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		32D3DCAF2376E4AE009E4F07 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				32D3DCB02376E4AE009E4F07 /* sudoku.h */,
+				32D3DCB12376E4AE009E4F07 /* bool-matrix.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		32D3DCE82376E4AE009E4F07 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				32D3DCE92376E4AE009E4F07 /* sudostep.h */,
+				32D3DCEB2376E4AE009E4F07 /* methods.c */,
+				32D3DCEC2376E4AE009E4F07 /* sudomat.h */,
+				32D3DCED2376E4AE009E4F07 /* bool-matrix.c */,
+				32D3DCEE2376E4AE009E4F07 /* sudodef.h */,
+				32D3DCEF2376E4AE009E4F07 /* sudostep.c */,
+				32D3DCF02376E4AE009E4F07 /* sudoku.c */,
+				32D3DCF12376E4AE009E4F07 /* sudomat.c */,
+				32D3DCF22376E4AE009E4F07 /* methods.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -119,12 +116,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32C34CE7232D2DDF0054336B /* bool-matrix.h in Headers */,
-				323DC87023212134000BBA2F /* sudoku.h in Headers */,
-				32C34CEC232D2E740054336B /* sudomat.h in Headers */,
-				32C34CED232D2E740054336B /* sudostep.h in Headers */,
-				323DC86F23212134000BBA2F /* sudodef.h in Headers */,
-				32C34CEB232D2E740054336B /* methods.h in Headers */,
+				32D3DD102376E4AE009E4F07 /* sudodef.h in Headers */,
+				32D3DCF72376E4AE009E4F07 /* bool-matrix.h in Headers */,
+				32D3DD0E2376E4AE009E4F07 /* sudomat.h in Headers */,
+				32D3DD142376E4AE009E4F07 /* methods.h in Headers */,
+				32D3DCF62376E4AE009E4F07 /* sudoku.h in Headers */,
+				32D3DD0C2376E4AE009E4F07 /* sudostep.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,11 +182,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				323DC86C2321200E000BBA2F /* sudoku.c in Sources */,
-				323DC86A2321200E000BBA2F /* bool-matrix.c in Sources */,
-				323DC86D2321200E000BBA2F /* sudomat.c in Sources */,
-				323DC8692321200E000BBA2F /* methods.c in Sources */,
-				323DC86B2321200E000BBA2F /* sudostep.c in Sources */,
+				32D3DD122376E4AE009E4F07 /* sudoku.c in Sources */,
+				32D3DD0F2376E4AE009E4F07 /* bool-matrix.c in Sources */,
+				32D3DD112376E4AE009E4F07 /* sudostep.c in Sources */,
+				32D3DD0D2376E4AE009E4F07 /* methods.c in Sources */,
+				32D3DD132376E4AE009E4F07 /* sudomat.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
