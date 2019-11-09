@@ -3,7 +3,8 @@ project(demo
 	VERSION 1.0.0
 	# DESCRIPTION "Demo for testing"
 	# HOMEPAGE_URL "www.zhyingkun.com"
-	LANGUAGES C CXX)
+	LANGUAGES C CXX
+)
 
 message(STATUS "CMakeLists.txt for ${PROJECT_NAME}")
 

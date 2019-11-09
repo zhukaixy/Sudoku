@@ -5,20 +5,21 @@ MAKEFILE_DIR_TMP := $(dir $(abspath $(lastword ${MAKEFILE_LIST})))
 MAKEFILE_DIR := $(patsubst %/,%,${MAKEFILE_DIR_TMP})
 PROJECT_DIR := $(patsubst %/demo/for-java/,%,${MAKEFILE_DIR_TMP})
 
-SUDOKU_INCLUDE_PATH := ${PROJECT_DIR}/include
+SUDOKU_INCLUDE_PATH := ${PROJECT_DIR}/libsudoku/include
 JNI_LIBRARY_PATH := ${MAKEFILE_DIR}/build
 
 ifeq ($(ARCH), Darwin)
-SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildXcode/sudoku/Debug
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildXcode/libsudoku/Debug
 
-JAVA_INCLUDE_PATH := /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/JavaVM.framework/Headers
-# JAVA_INCLUDE_PATH=/System/Library/Frameworks/JavaVM.framework/Headers
+# JAVA_INCLUDE_PATH := /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/JavaVM.framework/Headers
+# JAVA_INCLUDE_PATH := /System/Library/Frameworks/JavaVM.framework/Headers
+JAVA_INCLUDE_PATH := /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/JavaVM.framework/Headers
 JAVA_INCLUDE_ARCH_PATH := .
 JNI_LIBRARY_NAME := build/libsudokujni.jnilib
 endif
 
 ifeq ($(ARCH), Linux)
-SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/build/sudoku
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/build/libsudoku
 
 JAVA_INCLUDE_PATH := $(JAVA_HOME)/include
 JAVA_INCLUDE_ARCH_PATH := $(JAVA_HOME)/include/linux

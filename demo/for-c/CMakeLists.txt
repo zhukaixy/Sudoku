@@ -3,7 +3,8 @@ project(for-c
 	VERSION 0.1.0
 	# DESCRIPTION "C call sudoku"
 	# HOMEPAGE_URL "www.zhyingkun.com"
-	LANGUAGES C CXX)
+	LANGUAGES C CXX
+)
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
 	set(CMAKE_BUILD_TYPE "Debug")
@@ -25,7 +26,7 @@ elseif(WIN32)
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 endif()
 
-include_directories(../../include)
+include_directories(../../libsudoku/include)
 
 aux_source_directory(./src FOR_C_SRC)
 source_group(src FILES ${FOR_C_SRC})
@@ -33,12 +34,14 @@ source_group(src FILES ${FOR_C_SRC})
 add_executable(${PROJECT_NAME} ${FOR_C_SRC})
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	FOLDER "demo"
-	INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
-target_link_libraries(${PROJECT_NAME} sudoku)
+	INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib
+)
+target_link_libraries(${PROJECT_NAME} libsudoku)
 
 if(WIN32)
-install(TARGETS ${PROJECT_NAME}
-	RUNTIME DESTINATION bin
-	LIBRARY DESTINATION lib
-	ARCHIVE DESTINATION lib)
+	install(TARGETS ${PROJECT_NAME}
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 endif(WIN32)

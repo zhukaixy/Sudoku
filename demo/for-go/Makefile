@@ -5,13 +5,13 @@ MAKEFILE_DIR_TMP := $(dir $(abspath $(lastword ${MAKEFILE_LIST})))
 # MAKEFILE_DIR := $(patsubst %/,%,${MAKEFILE_DIR_TMP})
 PROJECT_DIR := $(patsubst %/demo/for-go/,%,${MAKEFILE_DIR_TMP})
 
-SUDOKU_INCLUDE_PATH := ${PROJECT_DIR}/include
+SUDOKU_INCLUDE_PATH := ${PROJECT_DIR}/libsudoku/include
 
 ifeq (${ARCH}, Darwin)
-SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildXcode/sudoku/Debug
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildXcode/libsudoku/Debug
 endif
 ifeq (${ARCH}, Linux)
-SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/build/sudoku
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/build/libsudoku
 endif
 # Current Do Not Support Windows+Cygwin
 # ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)

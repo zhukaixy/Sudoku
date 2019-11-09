@@ -7,11 +7,11 @@ PROJECT_DIR := $(patsubst %/demo/for-lua/,%,${MAKEFILE_DIR_TMP})
 
 SUDOKU_PUZZLE_FILE_PATH := ${PROJECT_DIR}/data/1.sudoku
 
-SUDOKU_INCLUDE_PATH := ${PROJECT_DIR}/include
+SUDOKU_INCLUDE_PATH := ${PROJECT_DIR}/libsudoku/include
 LUA_INCLUDE_PATH := ${MAKEFILE_DIR}/runtime/include
 
 ifeq (${ARCH}, Darwin)
-SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildXcode/sudoku/Debug
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildXcode/libsudoku/Debug
 LUA_LIBRARY_NAME := lualib.5.3
 
 LUA_RUNTIME_PATH := ${MAKEFILE_DIR}/runtime/macosx
@@ -24,7 +24,7 @@ LUA_EXE := ${LUA_RUNTIME_PATH}/lua
 endif
 
 ifeq (${ARCH}, Linux)
-SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/build/sudoku
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/build/libsudoku
 LUA_LIBRARY_NAME := lualib
 
 LUA_RUNTIME_PATH := ${MAKEFILE_DIR}/runtime/linux

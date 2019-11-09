@@ -3,7 +3,8 @@ project(sudokujni
 	VERSION 1.0
 	# DESCRIPTION "Wrap sudoku dynamic library for java"
 	# HOMEPAGE_URL "www.zhyingkun.com"
-	LANGUAGES C CXX)
+	LANGUAGES C CXX
+)
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
 	set(CMAKE_BUILD_TYPE "Debug")
@@ -17,14 +18,14 @@ if(APPLE)
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 	include_directories(/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/JavaVM.framework/Headers)
 	# /System/Library/Frameworks/JavaVM.framework/Headers
-	link_directories(../../../buildXcode/sudoku/Debug)
+	link_directories(../../../buildXcode/libsudoku/Debug)
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
 	set(CMAKE_C_FLAGS         "-std=c11 -Wall -Wextra -Wno-unknown-pragmas")
 	set(CMAKE_C_FLAGS_DEBUG   "-g")
 	set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 	include_directories($ENV{JAVA_HOME}/include)
 	include_directories($ENV{JAVA_HOME}/include/linux)
-	link_directories(../../../build/sudoku)
+	link_directories(../../../build/libsudoku)
 elseif(WIN32)
 	set(CMAKE_C_FLAGS         "-Wall -DSUDOKU_BUILD_AS_DLL")
 	# set(CMAKE_C_FLAGS_DEBUG   "-g")
@@ -44,4 +45,5 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 	OUTPUT_NAME ${PROJECT_NAME}
 	VERSION ${PROJECT_VERSION}
 	SOVERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
-	POSITION_INDEPENDENT_CODE ON)
+	POSITION_INDEPENDENT_CODE ON
+)

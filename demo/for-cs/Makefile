@@ -6,10 +6,10 @@ MAKEFILE_DIR_TMP := $(dir $(abspath $(lastword ${MAKEFILE_LIST})))
 PROJECT_DIR := $(patsubst %/demo/for-cs/,%,${MAKEFILE_DIR_TMP})
 
 ifeq (${ARCH}, Darwin)
-SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildXcode/sudoku/Debug
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildXcode/libsudoku/Debug
 endif
 ifeq (${ARCH}, Linux)
-SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/build/sudoku
+SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/build/libsudoku
 endif
 ifeq ($(findstring CYGWIN, ${ARCH}), CYGWIN)
 SUDOKU_LIBRARY_PATH := ${PROJECT_DIR}/buildVS/install/bin
