@@ -249,10 +249,10 @@ int main(int argc, char* argv[]) {
   CuSuiteRun(suite);
   CuString* output = CuStringNew();
   CuSuiteSummary(suite, output);
-  int ret = 0;
+  int ret = EXIT_SUCCESS;
   for (int i = 0; i < output->length; i++) {
     if (output->buffer[i] == 'F') {
-      ret = -1;
+      ret = EXIT_FAILURE;
       break;
     }
   }

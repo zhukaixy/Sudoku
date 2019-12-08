@@ -405,27 +405,25 @@ static int improve_type_name(lua_State* L) {
   return 1;
 }
 
-// clang-format off
 static luaL_Reg luaLoadFun[] = {
-	{"printHello", printHello},
-  // for BoolMatrix
-  {"CreateBoolMatrix", create_bool_matrix},
-  {"DestroyBoolMatrix", destroy_bool_matrix},
-  {"SetMatrixRowData", set_matrix_row_data},
-  {"DancingLinks", dancing_links},
-  // for Sudoku
-  {"CreateSudoku", create_sudoku},
-  {"DestroySudoku", destroy_sudoku},
-  {"VerifySudokuBoard", verify_sudoku_board},
-  {"VerifySudoku", verify_sudoku},
-  {"GetKnownCount", get_known_count},
-  {"MakeResultString", make_result_string},
-  {"CalculateSudokuAll", calculate_sudoku_all},
-  {"SolveTypeName", solve_type_name},
-  {"ImproveTypeName", improve_type_name},
-	{NULL, NULL}
+    {"printHello", printHello},
+    // for BoolMatrix
+    {"CreateBoolMatrix", create_bool_matrix},
+    {"DestroyBoolMatrix", destroy_bool_matrix},
+    {"SetMatrixRowData", set_matrix_row_data},
+    {"DancingLinks", dancing_links},
+    // for Sudoku
+    {"CreateSudoku", create_sudoku},
+    {"DestroySudoku", destroy_sudoku},
+    {"VerifySudokuBoard", verify_sudoku_board},
+    {"VerifySudoku", verify_sudoku},
+    {"GetKnownCount", get_known_count},
+    {"MakeResultString", make_result_string},
+    {"CalculateSudokuAll", calculate_sudoku_all},
+    {"SolveTypeName", solve_type_name},
+    {"ImproveTypeName", improve_type_name},
+    {NULL, NULL},
 };
-// clang-format on
 
 LUAMOD_API int luaopen_libluasudoku(lua_State* L) {
   int top = lua_gettop(L);
