@@ -173,6 +173,13 @@ static void sudoku_write_data(void* data, int row, int col, int value, SolveType
   lua_pop(L, 1);
   assert(top == lua_gettop(L));
 }
+
+#define ADD_PROC_FIELD(field) \
+  do { \
+    lua_pushinteger(L, (lua_Integer)proc->field); \
+    lua_setfield(L, -2, #field); \
+  } while (0)
+
 static void solve_process_callback(void* data, SolveProcedure* proc) {
   LuaSudokuData* luaSudoku = (LuaSudokuData*)data;
   if (luaSudoku->procCallback == NULL) {
@@ -185,47 +192,28 @@ static void solve_process_callback(void* data, SolveProcedure* proc) {
   assert(type == LUA_TTABLE);
   type = lua_rawgetp(L, top + 1, luaSudoku->procCallback);
   assert(type == LUA_TFUNCTION);
+
   lua_createtable(L, 0, 20);
-  lua_pushinteger(L, (lua_Integer)proc->type);
-  lua_setfield(L, top + 3, "type");
-  lua_pushinteger(L, (lua_Integer)proc->gridOneX);
-  lua_setfield(L, top + 3, "gridOneX");
-  lua_pushinteger(L, (lua_Integer)proc->gridOneY);
-  lua_setfield(L, top + 3, "gridOneY");
-  lua_pushinteger(L, (lua_Integer)proc->gridTwoX);
-  lua_setfield(L, top + 3, "gridTwoX");
-  lua_pushinteger(L, (lua_Integer)proc->gridTwoY);
-  lua_setfield(L, top + 3, "gridTwoY");
-  lua_pushinteger(L, (lua_Integer)proc->gridThreeX);
-  lua_setfield(L, top + 3, "gridThreeX");
-  lua_pushinteger(L, (lua_Integer)proc->gridThreeY);
-  lua_setfield(L, top + 3, "gridThreeY");
-  lua_pushinteger(L, (lua_Integer)proc->numberOne);
-  lua_setfield(L, top + 3, "numberOne");
-  lua_pushinteger(L, (lua_Integer)proc->numberTwo);
-  lua_setfield(L, top + 3, "numberTwo");
-  lua_pushinteger(L, (lua_Integer)proc->numberThree);
-  lua_setfield(L, top + 3, "numberThree");
-  lua_pushinteger(L, (lua_Integer)proc->panelRow);
-  lua_setfield(L, top + 3, "panelRow");
-  lua_pushinteger(L, (lua_Integer)proc->panelCol);
-  lua_setfield(L, top + 3, "panelCol");
-  lua_pushinteger(L, (lua_Integer)proc->number);
-  lua_setfield(L, top + 3, "number");
-  lua_pushinteger(L, (lua_Integer)proc->line);
-  lua_setfield(L, top + 3, "line");
-  lua_pushinteger(L, (lua_Integer)proc->rowOne);
-  lua_setfield(L, top + 3, "rowOne");
-  lua_pushinteger(L, (lua_Integer)proc->rowTwo);
-  lua_setfield(L, top + 3, "rowTwo");
-  lua_pushinteger(L, (lua_Integer)proc->rowThree);
-  lua_setfield(L, top + 3, "rowThree");
-  lua_pushinteger(L, (lua_Integer)proc->colOne);
-  lua_setfield(L, top + 3, "colOne");
-  lua_pushinteger(L, (lua_Integer)proc->colTwo);
-  lua_setfield(L, top + 3, "colTwo");
-  lua_pushinteger(L, (lua_Integer)proc->colThree);
-  lua_setfield(L, top + 3, "colThree");
+  ADD_PROC_FIELD(type);
+  ADD_PROC_FIELD(gridOneX);
+  ADD_PROC_FIELD(gridOneY);
+  ADD_PROC_FIELD(gridTwoX);
+  ADD_PROC_FIELD(gridTwoY);
+  ADD_PROC_FIELD(gridThreeX);
+  ADD_PROC_FIELD(gridThreeY);
+  ADD_PROC_FIELD(numberOne);
+  ADD_PROC_FIELD(numberTwo);
+  ADD_PROC_FIELD(numberThree);
+  ADD_PROC_FIELD(panelRow);
+  ADD_PROC_FIELD(panelCol);
+  ADD_PROC_FIELD(number);
+  ADD_PROC_FIELD(rowOne);
+  ADD_PROC_FIELD(rowTwo);
+  ADD_PROC_FIELD(rowThree);
+  ADD_PROC_FIELD(colOne);
+  ADD_PROC_FIELD(colTwo);
+  ADD_PROC_FIELD(colThree);
+
   int status = lua_pcall(L, 1, 0, 0);
   if (status != LUA_OK) {
     fprintf(stderr, "pcall error: %s\n", lua_tostring(L, -1));
