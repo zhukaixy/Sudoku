@@ -1,3 +1,5 @@
+local cmod = require("libluasudoku")
+
 local row1 = {0, 3, 6}
 local row2 = {0, 3}
 local row3 = {3, 4, 6}
@@ -5,7 +7,7 @@ local row4 = {2, 4, 5}
 local row5 = {1, 2, 5, 6}
 local row6 = {1, 6}
 
-local matrix = require("boolmatrix").New(6, 7, 17)
+local matrix = cmod.CreateBoolMatrix(6, 7, 17)
 matrix:SetMatrixRowData(row1)
 matrix:SetMatrixRowData(row2)
 matrix:SetMatrixRowData(row3)
@@ -20,7 +22,6 @@ print("BoolMatrix Answer Count: " .. count)
 matrix = nil
 collectgarbage()
 collectgarbage()
-
 
 local OpenFileForRead = function(path)
 	local file, msg = io.open(path)
@@ -95,20 +96,18 @@ file = nil
 local board_dancing = {}
 for i = 1, 81 do board_dancing[i] = board[i] end
 
-local sudoku = require("sudoku")
-
 do
-	local sudo = sudoku.New(function(row, col)
+	local sudo = cmod.CreateSudoku(function(row, col)
 		local index = (row - 1) * 9 + col - 1
 		return board[index+1]
 	end, function(row, col, value, type)
 		local index = (row - 1) * 9 + col - 1
 		board[index+1] = value
-		print(string.format("Solve: %s row:%d column:%d value:%d", sudoku.SolveTypeName(type), row, col, value))
+		print(string.format("Solve: %s row:%d column:%d value:%d", cmod.SolveTypeName(type), row, col, value))
 	end, function(proc)
 		local solveproc = require("solveproc")
 		local buffer = {}
-		table.insert(buffer, string.format("Improve: %s ", sudoku.ImproveTypeName(proc.type)));
+		table.insert(buffer, string.format("Improve: %s ", cmod.ImproveTypeName(proc.type)));
 		table.insert(buffer, solveproc.AllImproveFunctions[proc.type](proc))
 		print(table.concat(buffer))
 	end)
@@ -118,7 +117,7 @@ do
 	local num = sudo:CalculateSudokuAll(false);
 	print(string.format("Answer Count: %d", num));
 	DisplaySudoku(board);
-	local status = sudoku.VerifySudokuBoard(board);
+	local status = cmod.VerifySudokuBoard(board);
 	local statusStr = "False"
 	if status then statusStr = "True" end
 	print(string.format("Verify: %s", statusStr));
@@ -128,7 +127,7 @@ do
 end
 
 do
-	local sudo = sudoku.New(function(row, col)
+	local sudo = cmod.CreateSudoku(function(row, col)
 		local index = (row - 1) * 9 + col - 1
 		return board_dancing[index + 1]
 	end, function(row, col, value, type)
@@ -140,7 +139,7 @@ do
 	print(string.format("Answer Count: %d", num));
 	print("One of it:");
 	DisplaySudoku(board_dancing);
-	local status = sudoku.VerifySudokuBoard(board);
+	local status = cmod.VerifySudokuBoard(board);
 	local statusStr = "False"
 	if status then statusStr = "True" end
 	print(string.format("Verify: %s", statusStr));

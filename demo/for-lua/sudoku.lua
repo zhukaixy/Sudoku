@@ -1,5 +1,3 @@
-local cmod = require("libluasudoku")
-
 local CreatEnumTable = function(tbl, index) 
 	local enumtbl = {} 
 	local enumindex = index or 0 
@@ -48,40 +46,6 @@ local ImproveTypeEnum = {
 }
 
 return {
-	New = function(readFunc, writeFunc, procCallback)
-		local sudoku = {
-			handler = cmod.CreateSudoku(readFunc, writeFunc, procCallback)
-		}
-		setmetatable(sudoku, {
-			__index = {
-				VerifySudoku = function(sudoku)
-					return cmod.VerifySudoku(sudoku.handler)
-				end,
-				GetKnownCount = function(sudoku)
-					return cmod.GetKnownCount(sudoku.handler)
-				end,
-				MakeResultString = function(sudoku)
-					return cmod.MakeResultString(sudoku.handler)
-				end,
-				CalculateSudokuAll = function(sudoku, dancing, callback)
-					return cmod.CalculateSudokuAll(sudoku.handler, dancing, callback)
-				end
-			},
-			__gc = function(sudoku)
-				cmod.DestroySudoku(sudoku.handler)
-			end
-		})
-		return sudoku
-	end,
-	VerifySudokuBoard = function(board)
-		return cmod.VerifySudokuBoard(board)
-	end,
-	SolveTypeName = function(type)
-		return cmod.SolveTypeName(type)
-	end,
-	ImproveTypeName = function(type)
-		return cmod.ImproveTypeName(type)
-	end,
 	SolveType = CreatEnumTable(SolveTypeEnum),
 	ImproveType = CreatEnumTable(ImproveTypeEnum) 
 }
